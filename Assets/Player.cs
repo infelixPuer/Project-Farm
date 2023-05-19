@@ -5,8 +5,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private Camera _cam;
     private Vector3 _lastMousePos;
     private float _multiplier = 200f;
+
+    private void Awake()
+    {
+        _cam = GetComponentInChildren<Camera>();
+    }
 
     private void Start()
     {
@@ -30,11 +36,12 @@ public class Player : MonoBehaviour
         // var mouseX = Input.GetAxis("Mouse X");
         //
         // transform.Rotate(Vector3.up, mouseX * _multiplier * Time.deltaTime, Space.World);
-        
-        Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
+        var mouseX = Input.GetAxis("Mouse X");
+        var mouseY = Input.GetAxis("Mouse Y");
 
         // Rotate the object based on the mouse delta
-        transform.Rotate(Vector3.up, mouseDelta.x * _multiplier * Time.deltaTime, Space.World);
-        transform.Rotate(Vector3.left, mouseDelta.y * _multiplier * Time.deltaTime, Space.World);
+        transform.Rotate(Vector3.up, mouseX * _multiplier * Time.deltaTime, Space.World);
+        _cam.transform.Rotate(new Vector3(-1f, 0, 0), mouseY * _multiplier * Time.deltaTime, Space.Self);
     }
 }
