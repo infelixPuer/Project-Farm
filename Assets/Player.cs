@@ -1,14 +1,16 @@
-using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [Range(0f, 10f)]
     [SerializeField] 
-    private float _interactionDistance = 3f;
+    private float _interactionDistance;
 
     [SerializeField] 
     private Material _selectedMaterial;
+
+    [SerializeField] 
+    private LayerMask _selectionLayer;
 
     private Camera _cam;
     private float _multiplier = 200f;
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _cam = GetComponentInChildren<Camera>();
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -42,7 +45,7 @@ public class Player : MonoBehaviour
         if (!Input.GetMouseButton(0)) return;
 
         var ray = new Ray(_cam.transform.position, _cam.transform.forward);
-        Physics.Raycast(ray, out var hitInfo, _interactionDistance);
+        Physics.Raycast(ray, out var hitInfo, _interactionDistance, _selectionLayer.value);
         Debug.DrawRay(_cam.transform.position, _cam.transform.forward, Color.green);
 
         if (hitInfo.collider == null) return;
