@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _cam = GetComponentInChildren<Camera>();
-        Cursor.visible = false;
     }
 
     private void Update()

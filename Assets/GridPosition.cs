@@ -1,5 +1,8 @@
 public struct GridPosition
 {
+    public int X => _x;
+    public int Z => _z;
+    
     private int _x;
     private int _z;
     
