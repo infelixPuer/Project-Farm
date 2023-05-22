@@ -13,19 +13,38 @@ public class WorldMap : MonoBehaviour
 
     [SerializeField] 
     private GameObject _cellPrefab;
+
+    private Grid _grid;
+    
+    public static WorldMap Instance;
     
     private void Awake()
     {
-        var grid = new Grid(_worldWidth, _worldHeight, _cellSizeInUnityUnit);
-
-        for (int i = 0; i < _worldWidth; i++)
+        if (Instance == null)
         {
-            for (int j = 0; j < _worldHeight; j++)
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+        }
+        else
+        {
+            Destroy(this);
+        }
+        
+        _grid = new Grid(_worldWidth, _worldHeight, _cellSizeInUnityUnit);
+
+        for (int x = 0; x < _worldWidth; x++)
+        {
+            for (int z = 0; z < _worldHeight; z++)
             {
-                var cell = Instantiate(_cellPrefab, new Vector3(i + 0.5f, 0, j + 0.5f) * _cellSizeInUnityUnit, Quaternion.identity, transform);
-                cell.name = $"Cell: {i} {j}";
+                var cell = Instantiate(_cellPrefab, new Vector3(x + 0.5f, 0, z + 0.5f) * _cellSizeInUnityUnit, Quaternion.identity, transform);
+                cell.name = $"Cell: {x} {z}";
                 cell.layer = gameObject.layer;
             }
         }
+    }
+
+    public GridPosition GetGridPosition(Vector3 pos)
+    {
+        return _grid.GetGridPosition(pos);
     }
 }

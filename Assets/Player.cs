@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         if (hitInfo.collider == null) return;
 
         _selectedObject = hitInfo.collider.gameObject;
-        Debug.Log($"Hit: {_selectedObject.name}");
+        Debug.Log(WorldMap.Instance.GetGridPosition(_selectedObject.transform.position));
         _selectedObject.GetComponent<MeshRenderer>().material = _selectedMaterial;
     }
 }
