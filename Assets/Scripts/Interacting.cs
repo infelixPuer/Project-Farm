@@ -29,10 +29,11 @@ public class Interacting : MonoBehaviour
         Physics.Raycast(ray, out var hitInfo, _interactionDistance, _selectionLayer.value);
         Debug.DrawRay(_cam.transform.position, _cam.transform.forward, Color.green);
 
-        if (hitInfo.collider == null) return;
-
+        if (hitInfo.collider == null)
+            return;
+        
         _selectedObject = hitInfo.collider.gameObject;
         Debug.Log(WorldMap.Instance.GetGridPosition(_selectedObject.transform.position));
-        _selectedObject.GetComponent<MeshRenderer>().material = _selectedMaterial;
+        _selectedObject.GetComponent<Cell>().UpdateCellState();
     }
 }
