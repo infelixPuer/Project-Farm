@@ -18,7 +18,7 @@ public class Grid
         {
             for (int z = 0; z < _height; z++)
             {
-                _gridObjectArray[x, z] = new GridObject(this, new GridPosition(x, z));
+                _gridObjectArray[x, z] = new GridObject(this, new GridPosition(x, z), GridObjectState.Empty);
             }
         }
     }
@@ -34,7 +34,8 @@ public class Grid
     {
         foreach (var gridObject in _gridObjectArray)
         {
-            GameObject.Instantiate(prefab, GetWorldPosition(gridObject.GridPosition), Quaternion.identity);
+            var debugTransform = GameObject.Instantiate(prefab, GetWorldPosition(gridObject.GridPosition), Quaternion.identity);
+            debugTransform.GetComponent<GridDebugObject>().GridObject = _gridObjectArray[gridObject.GridPosition.X, gridObject.GridPosition.Z];
         }
     }
 }
