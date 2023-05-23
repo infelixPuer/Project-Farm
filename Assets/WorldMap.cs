@@ -9,6 +9,7 @@ public class WorldMap : MonoBehaviour
     private int _worldHeight;
 
     [SerializeField] 
+    [Range(1, 10)]
     private int _cellSizeInUnityUnit;
 
     [SerializeField] 

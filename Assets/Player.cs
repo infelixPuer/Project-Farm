@@ -1,21 +1,16 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
-    [Range(0f, 10f)]
     [SerializeField] 
-    private float _interactionDistance;
-
-    [SerializeField] 
-    private Material _selectedMaterial;
-
-    [SerializeField] 
-    private LayerMask _selectionLayer;
+    private float _speed;
+    
+    [SerializeField]
+    private float _cameraRotation;
 
     private Camera _cam;
-    private float _multiplier = 200f;
-    private GameObject _selectedObject;
-
+    
     private void Awake()
     {
         _cam = GetComponentInChildren<Camera>();
@@ -24,33 +19,21 @@ public class Player : MonoBehaviour
     private void Update()
     {
         if (Input.GetKey("w"))
-            transform.position += 10f * Time.deltaTime * transform.forward;
+            transform.position += _speed * Time.deltaTime * transform.forward;
 
         if (Input.GetKey("s"))
-            transform.position += 10f * Time.deltaTime * -transform.forward;
+            transform.position += _speed * Time.deltaTime * -transform.forward;
 
         if (Input.GetKey("a"))
-            transform.position += 10f * Time.deltaTime * -transform.right;
+            transform.position += _speed * Time.deltaTime * -transform.right;
 
         if (Input.GetKey("d"))
-            transform.position += 10f * Time.deltaTime * transform.right;
+            transform.position += _speed * Time.deltaTime * transform.right;
 
         var mouseX = Input.GetAxis("Mouse X");
         var mouseY = Input.GetAxis("Mouse Y");
         
-        transform.Rotate(Vector3.up, mouseX * _multiplier * Time.deltaTime, Space.World);
-        _cam.transform.Rotate(new Vector3(-1f, 0, 0), mouseY * _multiplier * Time.deltaTime, Space.Self);
-
-        if (!Input.GetMouseButtonDown(0)) return;
-
-        var ray = new Ray(_cam.transform.position, _cam.transform.forward);
-        Physics.Raycast(ray, out var hitInfo, _interactionDistance, _selectionLayer.value);
-        Debug.DrawRay(_cam.transform.position, _cam.transform.forward, Color.green);
-
-        if (hitInfo.collider == null) return;
-
-        _selectedObject = hitInfo.collider.gameObject;
-        Debug.Log(WorldMap.Instance.GetGridPosition(_selectedObject.transform.position));
-        _selectedObject.GetComponent<MeshRenderer>().material = _selectedMaterial;
+        transform.Rotate(Vector3.up, mouseX * _cameraRotation * Time.deltaTime, Space.World);
+        _cam.transform.Rotate(new Vector3(-1f, 0, 0), mouseY * _cameraRotation * Time.deltaTime, Space.Self);
     }
 }
