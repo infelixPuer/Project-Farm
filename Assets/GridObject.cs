@@ -41,7 +41,7 @@ public class GridObject
 
     public override string ToString()
     {
-        return $"x: {_gridPosition.X}; z: {_gridPosition.Z}" +
+        return _gridPosition +
                $"\nState: {GetObjectStateName()}";
     }
 }

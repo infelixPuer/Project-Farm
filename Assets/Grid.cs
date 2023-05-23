@@ -27,8 +27,8 @@ public class Grid
         new Vector3(gridPosition.X + 0.5f, 0, gridPosition.Z + 0.5f) * _cellSizeInUnityUnits;
 
     public GridPosition GetGridPosition(Vector3 position) => 
-        new(Mathf.RoundToInt(position.x / _cellSizeInUnityUnits), 
-            Mathf.RoundToInt(position.z / _cellSizeInUnityUnits));
+        new((int)(position.x / _cellSizeInUnityUnits),
+            (int)(position.z / _cellSizeInUnityUnits));
 
     public void CreateGridObjects(Transform prefab)
     {
