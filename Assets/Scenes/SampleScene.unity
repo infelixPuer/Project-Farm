@@ -171,6 +171,7 @@ MonoBehaviour:
   _worldHeight: 16
   _cellSizeInUnityUnit: 2
   _cellPrefab: {fileID: 6012238669691139690, guid: d27855259fa50574484b9a032eb91af6, type: 3}
+  _debugObjectPrefab: {fileID: 6233703928605714103, guid: 1ef52700140452347910e11291904a5e, type: 3}
 --- !u!1 &671859362
 GameObject:
   m_ObjectHideFlags: 0

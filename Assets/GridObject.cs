@@ -1,47 +1,28 @@
-public enum GridObjectState
-{
-    Empty,
-    Planted,
-    Watered,
-    ReadyToHarvest
-}
+
 
 public class GridObject
 {
     public GridPosition GridPosition => _gridPosition;
 
-    public GridObjectState ObjectState
+    public Cell Cell
     {
-        get => _objectState;
-        set => _objectState = value;
+        get => _cell;
+        set => _cell = value;
     }
     
     private Grid _grid;
     private GridPosition _gridPosition;
-    private GridObjectState _objectState;
+    private Cell _cell;
 
-    public GridObject(Grid grid, GridPosition gridPosition, GridObjectState objectState)
+    public GridObject(Grid grid, GridPosition gridPosition)
     {
         _grid = grid;
         _gridPosition = gridPosition;
-        _objectState = objectState;
-    }
-
-    private string GetObjectStateName()
-    {
-        return _objectState switch
-        {
-            GridObjectState.Empty => "Empty",
-            GridObjectState.Planted => "Planted",
-            GridObjectState.Watered => "Watered",
-            GridObjectState.ReadyToHarvest => "ReadyToHarvest",
-            _ => "null"
-        };
     }
 
     public override string ToString()
     {
-        return _gridPosition +
-               $"\nState: {GetObjectStateName()}";
+        return $"{_gridPosition}" +
+               $"\nCell state: {Cell.State}";
     }
 }

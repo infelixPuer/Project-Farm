@@ -18,7 +18,7 @@ public class Grid
         {
             for (int z = 0; z < _height; z++)
             {
-                _gridObjectArray[x, z] = new GridObject(this, new GridPosition(x, z), GridObjectState.Empty);
+                _gridObjectArray[x, z] = new GridObject(this, new GridPosition(x, z));
             }
         }
     }
@@ -29,6 +29,8 @@ public class Grid
     public GridPosition GetGridPosition(Vector3 position) => 
         new((int)(position.x / _cellSizeInUnityUnits),
             (int)(position.z / _cellSizeInUnityUnits));
+
+    public GridObject GetGridObject(GridPosition gridPosition) => _gridObjectArray[gridPosition.X, gridPosition.Z];
 
     public void CreateGridObjects(Transform prefab)
     {

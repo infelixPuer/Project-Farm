@@ -18,6 +18,7 @@ public class WorldMap : MonoBehaviour
     private GameObject _debugObjectPrefab;
 
     private Grid _grid;
+    private GameObject[,] _cells;
     
     public static WorldMap Instance;
     
@@ -34,23 +35,29 @@ public class WorldMap : MonoBehaviour
         }
         
         _grid = new Grid(_worldWidth, _worldHeight, _cellSizeInUnityUnit);
+        _cells = new GameObject[_worldWidth, _worldHeight];
 
         for (int x = 0; x < _worldWidth; x++)
         {
             for (int z = 0; z < _worldHeight; z++)
             {
-                var cell = Instantiate(_cellPrefab, new Vector3(x + 0.5f, 0, z + 0.5f) * _cellSizeInUnityUnit, Quaternion.identity, transform);
-                cell.transform.localScale = new Vector3(cell.transform.localScale.x * _cellSizeInUnityUnit, cell.transform.localScale.y, cell.transform.localScale.z * _cellSizeInUnityUnit);
-                cell.name = $"Cell: {x} {z}";
-                cell.layer = gameObject.layer;
+                _cells[x, z] = Instantiate(_cellPrefab, new Vector3(x + 0.5f, 0, z + 0.5f) * _cellSizeInUnityUnit, Quaternion.identity, transform);
+                _cells[x, z].transform.localScale = new Vector3(_cells[x, z].transform.localScale.x * _cellSizeInUnityUnit, _cells[x, z].transform.localScale.y, _cells[x, z].transform.localScale.z * _cellSizeInUnityUnit);
+                _cells[x, z].name = $"Cell: {x} {z}";
+                _cells[x, z].layer = gameObject.layer;
             }
         }
         
         _grid.CreateGridObjects(_debugObjectPrefab.transform);
     }
 
-    public GridPosition GetGridPosition(Vector3 pos)
+    public void SetCellAtGridPosition(GridPosition gridPosition, Cell cell)
     {
-        return _grid.GetGridPosition(pos);
+        var gridObject = _grid.GetGridObject(gridPosition);
+        gridObject.Cell = cell;
     }
+
+    public Cell GetCellAtGridPosition(GridPosition gridPosition) => _grid.GetGridObject(gridPosition).Cell;
+
+    public GridPosition GetGridPosition(Vector3 pos) => _grid.GetGridPosition(pos);
 }

@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         transform.Rotate(Vector3.up, mouseX * _multiplier * Time.deltaTime, Space.World);
         _cam.transform.Rotate(new Vector3(-1f, 0, 0), mouseY * _multiplier * Time.deltaTime, Space.Self);
 
-        if (!Input.GetMouseButton(0)) return;
+        if (!Input.GetMouseButtonDown(0)) return;
 
         var ray = new Ray(_cam.transform.position, _cam.transform.forward);
         Physics.Raycast(ray, out var hitInfo, _interactionDistance, _selectionLayer.value);
