@@ -38,27 +38,33 @@ public class WorldMap : MonoBehaviour
         _grid = new Grid(_worldWidth, _worldHeight, _cellSizeInUnityUnit);
         _cells = new GameObject[_worldWidth, _worldHeight];
 
-        for (int x = 0; x < _worldWidth; x++)
-        {
-            for (int z = 0; z < _worldHeight; z++)
-            {
-                _cells[x, z] = Instantiate(_cellPrefab, new Vector3(x + 0.5f, 0, z + 0.5f) * _cellSizeInUnityUnit, Quaternion.identity, transform);
-                _cells[x, z].transform.localScale = new Vector3(_cells[x, z].transform.localScale.x * _cellSizeInUnityUnit, _cells[x, z].transform.localScale.y, _cells[x, z].transform.localScale.z * _cellSizeInUnityUnit);
-                _cells[x, z].name = $"Cell: {x} {z}";
-                _cells[x, z].layer = gameObject.layer;
-            }
-        }
+        // for (int x = 0; x < _worldWidth; x++)
+        // {
+        //     for (int z = 0; z < _worldHeight; z++)
+        //     {
+        //         _cells[x, z] = Instantiate(_cellPrefab, new Vector3(x + 0.5f, 0, z + 0.5f) * _cellSizeInUnityUnit, Quaternion.identity, transform);
+        //         _cells[x, z].transform.localScale = new Vector3(_cells[x, z].transform.localScale.x * _cellSizeInUnityUnit, _cells[x, z].transform.localScale.y, _cells[x, z].transform.localScale.z * _cellSizeInUnityUnit);
+        //         _cells[x, z].name = $"Cell: {x} {z}";
+        //         _cells[x, z].layer = gameObject.layer;
+        //     }
+        // }
         
         _grid.CreateGridObjects(_debugObjectPrefab.transform);
     }
 
-    public void SetCellAtGridPosition(GridPosition gridPosition, Cell cell)
+    public void SetCellAtGridPosition(GridPosition gridPosition, Seedbed seedbed)
     {
         var gridObject = _grid.GetGridObject(gridPosition);
-        gridObject.Cell = cell;
+        gridObject.seedbed = seedbed;
     }
 
-    public Cell GetCellAtGridPosition(GridPosition gridPosition) => _grid.GetGridObject(gridPosition).Cell;
+    public Seedbed GetCellAtGridPosition(GridPosition gridPosition) => _grid.GetGridObject(gridPosition).seedbed;
 
     public GridPosition GetGridPosition(Vector3 pos) => _grid.GetGridPosition(pos);
+
+    public Vector3 GetWorldPosition(GridPosition gridPosition) => 
+        new Vector3(gridPosition.X * _cellSizeInUnityUnit + 0.5f * _cellSizeInUnityUnit, 0f, gridPosition.Z * _cellSizeInUnityUnit + 0.5f * _cellSizeInUnityUnit);
+
+    public Vector3 GetLocalScale(Transform gameObjectTransform) => 
+        new Vector3(gameObjectTransform.localScale.x * _cellSizeInUnityUnit, gameObjectTransform.localScale.y, gameObjectTransform.localScale.z * _cellSizeInUnityUnit);
 }

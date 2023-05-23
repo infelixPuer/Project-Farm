@@ -12,6 +12,9 @@ public class Interacting : MonoBehaviour
 
     [SerializeField] 
     private LayerMask _selectionLayer;
+
+    [SerializeField] 
+    private GameObject _seedbedPrefab;
     
     private GameObject _selectedObject;
     private Camera _cam;
@@ -28,12 +31,15 @@ public class Interacting : MonoBehaviour
         var ray = new Ray(_cam.transform.position, _cam.transform.forward);
         Physics.Raycast(ray, out var hitInfo, _interactionDistance, _selectionLayer.value);
         Debug.DrawRay(_cam.transform.position, _cam.transform.forward, Color.green);
-
+        
         if (hitInfo.collider == null)
             return;
-        
-        _selectedObject = hitInfo.collider.gameObject;
-        Debug.Log(WorldMap.Instance.GetGridPosition(_selectedObject.transform.position));
-        _selectedObject.GetComponent<Cell>().UpdateCellState();
+
+        var seedbed = Instantiate(_seedbedPrefab, WorldMap.Instance.GetWorldPosition(WorldMap.Instance.GetGridPosition(hitInfo.point)), Quaternion.identity);
+        seedbed.transform.localScale = WorldMap.Instance.GetLocalScale(seedbed.transform);
+
+        // _selectedObject = hitInfo.collider.gameObject;
+        // Debug.Log(WorldMap.Instance.GetGridPosition(_selectedObject.transform.position));
+        // _selectedObject.GetComponent<Seedbed>().UpdateCellState();
     }
 }

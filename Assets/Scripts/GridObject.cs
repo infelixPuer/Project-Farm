@@ -4,15 +4,15 @@ public class GridObject
 {
     public GridPosition GridPosition => _gridPosition;
 
-    public Cell Cell
+    public Seedbed seedbed
     {
-        get => _cell;
-        set => _cell = value;
+        get => _seedbed;
+        set => _seedbed = value;
     }
     
     private Grid _grid;
     private GridPosition _gridPosition;
-    private Cell _cell;
+    private Seedbed _seedbed;
 
     public GridObject(Grid grid, GridPosition gridPosition)
     {
@@ -23,6 +23,6 @@ public class GridObject
     public override string ToString()
     {
         return $"{_gridPosition}" +
-               $"\nCell state: {Cell.State}";
+               $"\nCell state: {seedbed?.State ?? SeedbedState.Empty}";
     }
 }

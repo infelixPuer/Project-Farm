@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-public enum CellState
+public enum SeedbedState
 {
     Empty,
     Planted,
@@ -9,7 +8,7 @@ public enum CellState
     ReadyToHarvest
 }
 
-public class Cell : MonoBehaviour
+public class Seedbed : MonoBehaviour
 {
     [SerializeField] 
     private Material _emptyMaterial;
@@ -25,9 +24,9 @@ public class Cell : MonoBehaviour
 
     private MeshRenderer _renderer;
 
-    public CellState State => _state;
+    public SeedbedState State => _state;
 
-    private CellState _state;
+    private SeedbedState _state;
 
     private void Awake()
     {
@@ -37,14 +36,14 @@ public class Cell : MonoBehaviour
     private void Start()
     {
         WorldMap.Instance.SetCellAtGridPosition(WorldMap.Instance.GetGridPosition(transform.position), this);
-        _state = CellState.Empty;
+        _state = SeedbedState.Empty;
         UpdateCellMaterial();
     }
 
     public void UpdateCellState()
     {
-        if (_state == CellState.ReadyToHarvest)
-            _state = CellState.Empty;
+        if (_state == SeedbedState.ReadyToHarvest)
+            _state = SeedbedState.Empty;
         else 
             _state++;
 
@@ -55,10 +54,10 @@ public class Cell : MonoBehaviour
     {
         _renderer.material = _state switch
         {
-            CellState.Empty => _emptyMaterial,
-            CellState.Planted => _plantedMaterial,
-            CellState.Watered => _wateredMaterial,
-            CellState.ReadyToHarvest => _readyToHarvestMaterial,
+            SeedbedState.Empty => _emptyMaterial,
+            SeedbedState.Planted => _plantedMaterial,
+            SeedbedState.Watered => _wateredMaterial,
+            SeedbedState.ReadyToHarvest => _readyToHarvestMaterial,
             _ => _emptyMaterial
         };
     }
