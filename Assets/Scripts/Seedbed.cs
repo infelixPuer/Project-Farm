@@ -3,9 +3,7 @@ using UnityEngine;
 public enum SeedbedState
 {
     Empty,
-    Planted,
-    Watered,
-    ReadyToHarvest
+    Planted
 }
 
 public class Seedbed : MonoBehaviour
@@ -15,12 +13,6 @@ public class Seedbed : MonoBehaviour
     
     [SerializeField] 
     private Material _plantedMaterial;
-    
-    [SerializeField] 
-    private Material _wateredMaterial;
-    
-    [SerializeField] 
-    private Material _readyToHarvestMaterial;
 
     private MeshRenderer _renderer;
 
@@ -42,23 +34,13 @@ public class Seedbed : MonoBehaviour
 
     public void UpdateCellState()
     {
-        if (_state == SeedbedState.ReadyToHarvest)
-            _state = SeedbedState.Empty;
-        else 
-            _state++;
+        _state = _state == SeedbedState.Empty ? SeedbedState.Planted : SeedbedState.Empty;
 
         UpdateCellMaterial();
     }
 
     private void UpdateCellMaterial()
     {
-        _renderer.material = _state switch
-        {
-            SeedbedState.Empty => _emptyMaterial,
-            SeedbedState.Planted => _plantedMaterial,
-            SeedbedState.Watered => _wateredMaterial,
-            SeedbedState.ReadyToHarvest => _readyToHarvestMaterial,
-            _ => _emptyMaterial
-        };
+        _renderer.material = _state == SeedbedState.Empty ? _emptyMaterial : _plantedMaterial;
     }
 }

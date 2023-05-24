@@ -13,7 +13,7 @@ public class WorldMap : MonoBehaviour
     private int _cellSizeInUnityUnit;
 
     [SerializeField] 
-    private GameObject _cellPrefab;
+    private GameObject _seedbedPrefab;
 
     [SerializeField] 
     private GameObject _debugObjectPrefab;
@@ -56,6 +56,19 @@ public class WorldMap : MonoBehaviour
     {
         var gridObject = _grid.GetGridObject(gridPosition);
         gridObject.seedbed = seedbed;
+    }
+
+    public void InstantiateSeedbed(Vector3 interactionPoint)
+    {
+        if (_grid.GetGridObject(GetGridPosition(interactionPoint)).seedbed != null)
+        {
+            Debug.LogWarning("Spot is already occupied!");
+            return;
+        }
+        
+        var seedbed = Instantiate(_seedbedPrefab, GetWorldPosition(GetGridPosition(interactionPoint)), Quaternion.identity);
+        seedbed.transform.localScale = WorldMap.Instance.GetLocalScale(seedbed.transform);
+        _grid.GetGridObject(GetGridPosition(interactionPoint)).seedbed = seedbed.GetComponent<Seedbed>();
     }
 
     public Seedbed GetCellAtGridPosition(GridPosition gridPosition) => _grid.GetGridObject(gridPosition).seedbed;

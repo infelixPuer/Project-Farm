@@ -35,8 +35,10 @@ public class Interacting : MonoBehaviour
         if (hitInfo.collider == null)
             return;
 
-        var seedbed = Instantiate(_seedbedPrefab, WorldMap.Instance.GetWorldPosition(WorldMap.Instance.GetGridPosition(hitInfo.point)), Quaternion.identity);
-        seedbed.transform.localScale = WorldMap.Instance.GetLocalScale(seedbed.transform);
+        WorldMap.Instance.InstantiateSeedbed(hitInfo.point);
+        
+        // var seedbed = Instantiate(_seedbedPrefab, WorldMap.Instance.GetWorldPosition(WorldMap.Instance.GetGridPosition(hitInfo.point)), Quaternion.identity);
+        // seedbed.transform.localScale = WorldMap.Instance.GetLocalScale(seedbed.transform);
 
         // _selectedObject = hitInfo.collider.gameObject;
         // Debug.Log(WorldMap.Instance.GetGridPosition(_selectedObject.transform.position));
