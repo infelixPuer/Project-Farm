@@ -14,6 +14,9 @@ public class Interacting : MonoBehaviour
     private LayerMask _selectionLayer;
 
     [SerializeField] 
+    private LayerMask _plantLayer;
+
+    [SerializeField] 
     private GameObject _seedbedPrefab;
     
     private GameObject _selectedObject;
@@ -26,28 +29,35 @@ public class Interacting : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("1"))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
             PlayerManager.Instance.UpdatePlayerActionState(PlayerActionState.MakeSeedbed);
         
-        if (Input.GetKeyDown("2"))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
             PlayerManager.Instance.UpdatePlayerActionState(PlayerActionState.Plant);
+        
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            PlayerManager.Instance.UpdatePlayerActionState(PlayerActionState.Water);
         
         if (Input.GetMouseButtonDown(0))
             Interact();
-            
-        
-        
-        // var seedbed = Instantiate(_seedbedPrefab, WorldMap.Instance.GetWorldPosition(WorldMap.Instance.GetGridPosition(hitInfo.point)), Quaternion.identity);
-        // seedbed.transform.localScale = WorldMap.Instance.GetLocalScale(seedbed.transform);
-
-        // _selectedObject = hitInfo.collider.gameObject;
-        // Debug.Log(WorldMap.Instance.GetGridPosition(_selectedObject.transform.position));
-        // _selectedObject.GetComponent<Seedbed>().UpdateCellState();
     }
 
     private void Interact()
     {
         MakeSeedbed(PlayerManager.Instance.PlayerAction);
+        Plant(PlayerManager.Instance.PlayerAction);
+    }
+
+    private void Plant(PlayerActionState state)
+    {
+        if (state != PlayerActionState.Plant) return;
+        
+        var ray = new Ray(_cam.transform.position, _cam.transform.forward);
+        Physics.Raycast(ray, out var hitInfo, _interactionDistance, _plantLayer);
+        Debug.DrawRay(_cam.transform.position, _cam.transform.forward, Color.green);
+
+        if (hitInfo.collider != null)
+            hitInfo.collider.GetComponent<Seedbed>()?.UpdateSeedbedState();
     }
 
     private void MakeSeedbed(PlayerActionState state)

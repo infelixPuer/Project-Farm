@@ -32,7 +32,7 @@ public class Seedbed : MonoBehaviour
         UpdateCellMaterial();
     }
 
-    public void UpdateCellState()
+    public void UpdateSeedbedState()
     {
         _state = _state == SeedbedState.Empty ? SeedbedState.Planted : SeedbedState.Empty;
 

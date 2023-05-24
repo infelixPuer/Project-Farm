@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8101248252613342922}
   - component: {fileID: 6570136130357492919}
   - component: {fileID: 5991617539894068707}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Seedbed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,5 +120,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _emptyMaterial: {fileID: 2100000, guid: 6e9801cdc25958c4b9a37e674d110cd2, type: 2}
   _plantedMaterial: {fileID: 2100000, guid: f3aaacb24e483b14d9a632416c1a95af, type: 2}
-  _wateredMaterial: {fileID: 2100000, guid: faf2a4519b726b34a85c74e6b39329c0, type: 2}
-  _readyToHarvestMaterial: {fileID: 2100000, guid: ab0b2ded89ae44f4889a7406cb12227a, type: 2}
