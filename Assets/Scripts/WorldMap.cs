@@ -53,26 +53,26 @@ public class WorldMap : MonoBehaviour
         _grid.CreateGridObjects(_debugObjectPrefab.transform);
     }
 
-    public void SetCellAtGridPosition(GridPosition gridPosition, Seedbed seedbed)
+    public void SetTileAtGridPosition(GridPosition gridPosition, ITilable tile)
     {
         var gridObject = _grid.GetGridObject(gridPosition);
-        gridObject.seedbed = seedbed;
+        gridObject.Tile = tile;
     }
 
     public void InstantiateSeedbed(Vector3 interactionPoint)
     {
-        if (_grid.GetGridObject(GetGridPosition(interactionPoint)).seedbed != null)
+        if (_grid.GetGridObject(GetGridPosition(interactionPoint)).State != GridObjectState.Empty)
         {
             Debug.LogWarning("Spot is already occupied!");
             return;
         }
         
         var seedbed = Instantiate(_seedbedPrefab, GetWorldPosition(GetGridPosition(interactionPoint)), Quaternion.identity);
-        seedbed.transform.localScale = WorldMap.Instance.GetLocalScale(seedbed.transform);
-        _grid.GetGridObject(GetGridPosition(interactionPoint)).seedbed = seedbed.GetComponent<Seedbed>();
+        seedbed.transform.localScale = GetLocalScale(seedbed.transform);
+        _grid.GetGridObject(GetGridPosition(interactionPoint)).State = GridObjectState.Occupied;
     }
 
-    public Seedbed GetCellAtGridPosition(GridPosition gridPosition) => _grid.GetGridObject(gridPosition).seedbed;
+    //public Seedbed GetCellAtGridPosition(GridPosition gridPosition) => _grid.GetGridObject(gridPosition).seedbed;
 
     public GridPosition GetGridPosition(Vector3 pos) => _grid.GetGridPosition(pos);
 

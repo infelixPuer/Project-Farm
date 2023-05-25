@@ -1,28 +1,40 @@
-
+public enum GridObjectState
+{
+    Empty,
+    Occupied
+}
 
 public class GridObject
 {
     public GridPosition GridPosition => _gridPosition;
 
-    public Seedbed seedbed
+    public GridObjectState State
     {
-        get => _seedbed;
-        set => _seedbed = value;
+        get => _gridObjectState;
+        set => _gridObjectState = value;
+    }
+
+    public ITilable Tile
+    {
+        get => _tile;
+        set => _tile = value;
     }
     
     private Grid _grid;
     private GridPosition _gridPosition;
-    private Seedbed _seedbed;
+    private GridObjectState _gridObjectState;
+    private ITilable _tile;
 
     public GridObject(Grid grid, GridPosition gridPosition)
     {
         _grid = grid;
         _gridPosition = gridPosition;
+        _gridObjectState = GridObjectState.Empty;
     }
 
     public override string ToString()
     {
         return $"{_gridPosition}" +
-               $"\nCell state: {seedbed?.State ?? SeedbedState.Empty}";
+               $"\nCell state: {State}";
     }
 }

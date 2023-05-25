@@ -27,16 +27,22 @@ public class Interacting : MonoBehaviour
         _cam = GetComponentInChildren<Camera>();
     }
 
+    private void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            PlayerManager.Instance.UpdatePlayerActionState(PlayerActionState.MakeSeedbed);
+            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.MakeSeedbed);
         
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            PlayerManager.Instance.UpdatePlayerActionState(PlayerActionState.Plant);
+            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Plant);
         
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            PlayerManager.Instance.UpdatePlayerActionState(PlayerActionState.Water);
+            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Water);
         
         if (Input.GetMouseButtonDown(0))
             Interact();
@@ -44,25 +50,25 @@ public class Interacting : MonoBehaviour
 
     private void Interact()
     {
-        MakeSeedbed(PlayerManager.Instance.PlayerAction);
-        Plant(PlayerManager.Instance.PlayerAction);
+        MakeSeedbed(InteractionManager.Instance.interaction);
+        Plant(InteractionManager.Instance.interaction);
     }
 
-    private void Plant(PlayerActionState state)
+    private void Plant(InteractionState state)
     {
-        if (state != PlayerActionState.Plant) return;
+        if (state != InteractionState.Plant) return;
         
         var ray = new Ray(_cam.transform.position, _cam.transform.forward);
         Physics.Raycast(ray, out var hitInfo, _interactionDistance, _plantLayer);
         Debug.DrawRay(_cam.transform.position, _cam.transform.forward, Color.green);
 
         if (hitInfo.collider != null)
-            hitInfo.collider.GetComponent<Seedbed>()?.UpdateSeedbedState();
+            hitInfo.collider.GetComponent<Seedbed>()?.UpdateTileState();
     }
 
-    private void MakeSeedbed(PlayerActionState state)
+    private void MakeSeedbed(InteractionState state)
     {
-        if (state != PlayerActionState.MakeSeedbed) return;
+        if (state != InteractionState.MakeSeedbed) return;
         
         var ray = new Ray(_cam.transform.position, _cam.transform.forward);
         Physics.Raycast(ray, out var hitInfo, _interactionDistance, _selectionLayer.value);

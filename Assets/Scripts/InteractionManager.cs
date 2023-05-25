@@ -1,19 +1,20 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public enum PlayerActionState
+public enum InteractionState
 {
     MakeSeedbed,
     Plant,
     Water
 }
 
-public class PlayerManager : MonoBehaviour
+public class InteractionManager : MonoBehaviour
 {
-    public static PlayerManager Instance;
+    public static InteractionManager Instance;
 
-    public PlayerActionState PlayerAction;
-    public event Action<PlayerActionState> OnPlayerActionStateChange; 
+    public InteractionState interaction;
+    public event Action<InteractionState> OnPlayerActionStateChange; 
 
     private void Awake()
     {
@@ -30,22 +31,22 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        UpdatePlayerActionState(PlayerActionState.MakeSeedbed);
+        UpdatePlayerActionState(InteractionState.MakeSeedbed);
     }
 
-    public void UpdatePlayerActionState(PlayerActionState newState)
+    public void UpdatePlayerActionState(InteractionState newState)
     {
-        PlayerAction = newState;
+        interaction = newState;
 
         switch (newState)
         {
-            case PlayerActionState.MakeSeedbed:
+            case InteractionState.MakeSeedbed:
                 HandleMakeSeedbed();
                 break;
-            case PlayerActionState.Plant:
+            case InteractionState.Plant:
                 HandlePlant();
                 break;
-            case PlayerActionState.Water:
+            case InteractionState.Water:
                 HandleWater();
                 break;
             default:

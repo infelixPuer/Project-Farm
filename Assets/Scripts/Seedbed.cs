@@ -6,7 +6,7 @@ public enum SeedbedState
     Planted
 }
 
-public class Seedbed : MonoBehaviour
+public class Seedbed : MonoBehaviour, ITilable
 {
     [SerializeField] 
     private Material _emptyMaterial;
@@ -27,20 +27,20 @@ public class Seedbed : MonoBehaviour
 
     private void Start()
     {
-        WorldMap.Instance.SetCellAtGridPosition(WorldMap.Instance.GetGridPosition(transform.position), this);
+        WorldMap.Instance.SetTileAtGridPosition(WorldMap.Instance.GetGridPosition(transform.position), this);
         _state = SeedbedState.Empty;
-        UpdateCellMaterial();
-    }
-
-    public void UpdateSeedbedState()
-    {
-        _state = _state == SeedbedState.Empty ? SeedbedState.Planted : SeedbedState.Empty;
-
         UpdateCellMaterial();
     }
 
     private void UpdateCellMaterial()
     {
         _renderer.material = _state == SeedbedState.Empty ? _emptyMaterial : _plantedMaterial;
+    }
+
+    public void UpdateTileState()
+    {
+        _state = _state == SeedbedState.Empty ? SeedbedState.Planted : SeedbedState.Empty;
+
+        UpdateCellMaterial();
     }
 }
