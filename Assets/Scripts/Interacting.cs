@@ -18,13 +18,18 @@ public class Interacting : MonoBehaviour
 
     [SerializeField] 
     private GameObject _seedbedPrefab;
+
+    [SerializeField] 
+    private Canvas _selectingCropCanvas;
     
     private GameObject _selectedObject;
     private Camera _cam;
+    private PlayerMovement _playerMovement;
 
     private void Awake()
     {
         _cam = GetComponentInChildren<Camera>();
+        _playerMovement = FindObjectOfType<PlayerMovement>();
     }
 
     private void Start()
@@ -44,6 +49,8 @@ public class Interacting : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3))
             InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Water);
         
+        ShowSelectingCropUI();
+
         if (Input.GetMouseButtonDown(0))
             Interact();
     }
@@ -76,5 +83,15 @@ public class Interacting : MonoBehaviour
 
         if (hitInfo.collider != null)
             WorldMap.Instance.InstantiateSeedbed(hitInfo.point);
+    }
+
+    private void ShowSelectingCropUI()
+    {
+        var isQPressed = Input.GetKey(KeyCode.Q);
+        
+        _selectingCropCanvas.gameObject.SetActive(isQPressed);
+        Cursor.lockState = isQPressed ? CursorLockMode.Confined : CursorLockMode.Locked;
+        Cursor.visible = isQPressed;
+        _playerMovement.enabled = !isQPressed;
     }
 }

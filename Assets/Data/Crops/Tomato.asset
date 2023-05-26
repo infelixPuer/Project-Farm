@@ -16,4 +16,14 @@ MonoBehaviour:
   GrowingTime: 9
   FrequencyOfWateringInDays: 2
   Output: 10
-  PhasesOfGrowing: []
+  PhasesOfGrowing:
+  - {fileID: 640033828804554226, guid: 65e65395f06e1394eaf15ff0c5a8b349, type: 3}
+  - {fileID: 640033828804554226, guid: c232de320e1ee644aad1db13935d9ada, type: 3}
+  - {fileID: 640033828804554226, guid: 7606004eda63057409a5ce8766913302, type: 3}
+  - {fileID: 640033828804554226, guid: d5cd1ba65f5954146bb4442626528ef5, type: 3}
+  - {fileID: 640033828804554226, guid: 648217ec0f982814cbbc2e108f5e699f, type: 3}
+  - {fileID: 640033828804554226, guid: ca6771ad91766554bbc0e282414ce4ae, type: 3}
+  - {fileID: 640033828804554226, guid: ef3ffa31b0f84e4468f2f654ad07964a, type: 3}
+  - {fileID: 640033828804554226, guid: 8bb754ac1331ef748a2b148019f68f1e, type: 3}
+  - {fileID: 640033828804554226, guid: 5ae1b17d0daeae64b9832eb688ece81a, type: 3}
+  - {fileID: 640033828804554226, guid: a68bc6e31bcd8e14e9f3bf1a90c33d30, type: 3}
