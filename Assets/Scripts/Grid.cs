@@ -36,7 +36,7 @@ public class Grid
     {
         foreach (var gridObject in _gridObjectArray)
         {
-            var debugTransform = GameObject.Instantiate(prefab, GetWorldPosition(gridObject.GridPosition), Quaternion.identity);
+            var debugTransform = GameObject.Instantiate(prefab, GetWorldPosition(gridObject.GridPosition), Quaternion.identity, WorldMap.Instance.transform);
             debugTransform.GetComponent<GridDebugObject>().GridObject = _gridObjectArray[gridObject.GridPosition.X, gridObject.GridPosition.Z];
         }
     }

@@ -69,7 +69,9 @@ public class WorldMap : MonoBehaviour
         
         var seedbed = Instantiate(_seedbedPrefab, GetWorldPosition(GetGridPosition(interactionPoint)), Quaternion.identity);
         seedbed.transform.localScale = GetLocalScale(seedbed.transform);
-        _grid.GetGridObject(GetGridPosition(interactionPoint)).State = GridObjectState.Occupied;
+        var gridObject = _grid.GetGridObject(GetGridPosition(interactionPoint));
+        seedbed.GetComponentInChildren<Seedbed>().Parent = gridObject;
+        gridObject.State = GridObjectState.Occupied;
     }
 
     //public Seedbed GetCellAtGridPosition(GridPosition gridPosition) => _grid.GetGridObject(gridPosition).seedbed;
@@ -79,6 +81,6 @@ public class WorldMap : MonoBehaviour
     public Vector3 GetWorldPosition(GridPosition gridPosition) => 
         new Vector3(gridPosition.X * _cellSizeInUnityUnit + 0.5f * _cellSizeInUnityUnit, 0f, gridPosition.Z * _cellSizeInUnityUnit + 0.5f * _cellSizeInUnityUnit);
 
-    public Vector3 GetLocalScale(Transform gameObjectTransform) => 
+    public Vector3 GetLocalScale(Transform gameObjectTransform) =>
         new Vector3(gameObjectTransform.localScale.x * _cellSizeInUnityUnit, gameObjectTransform.localScale.y, gameObjectTransform.localScale.z * _cellSizeInUnityUnit);
 }
