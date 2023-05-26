@@ -13,7 +13,9 @@ public class InteractionManager : MonoBehaviour
     public static InteractionManager Instance;
 
     public InteractionState interaction;
-    public event Action<InteractionState> OnPlayerActionStateChange; 
+    public event Action<InteractionState> OnPlayerActionStateChange;
+
+    public CropScriptableObject crop;
 
     private void Awake()
     {
