@@ -7,13 +7,13 @@ public class CropHolder : MonoBehaviour
 
     public void GetCrop()
     {
-        if (InteractionManager.Instance.crop == _crop)
+        if (InteractionManager.Instance.Crop == _crop)
         {
             Debug.Log($"{_crop.Name} is already assigned!");
             return;
         }
         
-        InteractionManager.Instance.crop = _crop;
-        Debug.Log($"{InteractionManager.Instance.crop.Name}");
+        InteractionManager.Instance.Crop = _crop;
+        Debug.Log($"{InteractionManager.Instance.Crop.Name}");
     }
 }

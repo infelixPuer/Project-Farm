@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New crop type", menuName = "SOs/Add new crop", order = 1)]
+[CreateAssetMenu(fileName = "New Crop type", menuName = "SOs/Add new Crop", order = 1)]
 public class CropScriptableObject : ScriptableObject
 {
     public string Name;

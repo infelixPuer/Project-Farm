@@ -6,7 +6,7 @@ public enum SeedbedState
     Planted
 }
 
-public class Seedbed : MonoBehaviour, ITilable
+public class Seedbed : MonoBehaviour, ITilable<object>
 {
     [SerializeField] 
     private Material _emptyMaterial;
@@ -43,20 +43,23 @@ public class Seedbed : MonoBehaviour, ITilable
         _renderer.material = _state == SeedbedState.Empty ? _emptyMaterial : _plantedMaterial;
     }
 
-    public void UpdateTileState()
+    public void UpdateTileState(object state)
     {
-        _state = _state == SeedbedState.Empty ? SeedbedState.Planted : SeedbedState.Empty;
+        _state = (SeedbedState)state;
 
         UpdateCellMaterial();
     }           
 
-    public void SetCrop(CropScriptableObject crop, Seedbed seedbed)
+    public void SetCrop(CropScriptableObject crop)
     {
         _crop = crop;
-        var mesh = GetComponentInChildren<MeshRenderer>();
-        var meshTransform = mesh.gameObject.transform;
-        var y = meshTransform.position.y + meshTransform.localScale.y * 0.5f + _crop.PhasesOfGrowing[0].transform.localScale.y * 0.5f;
+
+        var seedbedMeshTransform = GetComponentInChildren<MeshRenderer>()?.transform;
+
+        Debug.Assert(seedbedMeshTransform != null, "seedbedMeshTransform == null");
+
+        var y = seedbedMeshTransform!.position.y + seedbedMeshTransform.localScale.y * 0.5f + _crop.PhasesOfGrowing[0].transform.localScale.y * 0.5f;
         var plantPos = _plantPlace.transform.position;
-        Instantiate(_crop.PhasesOfGrowing[0], new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, seedbed.gameObject.transform);
+        Instantiate(_crop.PhasesOfGrowing[0], new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, transform);
     }
 }

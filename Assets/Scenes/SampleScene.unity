@@ -170,7 +170,7 @@ MonoBehaviour:
   _worldWidth: 10
   _worldHeight: 10
   _cellSizeInUnityUnit: 2
-  _seedbedPrefab: {fileID: 6012238669691139690, guid: d27855259fa50574484b9a032eb91af6, type: 3}
+  _seedbedPrefab: {fileID: 4128507791673510030, guid: 381cf3793b9c2b840be1f9ffbef92d1a, type: 3}
   _debugObjectPrefab: {fileID: 6233703928605714103, guid: 1ef52700140452347910e11291904a5e, type: 3}
 --- !u!1 &671859362
 GameObject:
@@ -851,7 +851,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425301237}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: -2, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -946,7 +946,7 @@ MonoBehaviour:
   _plantLayer:
     serializedVersion: 2
     m_Bits: 128
-  _seedbedPrefab: {fileID: 6012238669691139690, guid: d27855259fa50574484b9a032eb91af6, type: 3}
+  _seedbedPrefab: {fileID: 4128507791673510030, guid: 381cf3793b9c2b840be1f9ffbef92d1a, type: 3}
   _selectingCropCanvas: {fileID: 1663026703}
 --- !u!1 &1487452467
 GameObject:

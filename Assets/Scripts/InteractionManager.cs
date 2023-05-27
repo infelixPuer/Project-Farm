@@ -12,10 +12,10 @@ public class InteractionManager : MonoBehaviour
 {
     public static InteractionManager Instance;
 
-    public InteractionState interaction;
+    public InteractionState Interaction;
     public event Action<InteractionState> OnPlayerActionStateChange;
 
-    public CropScriptableObject crop;
+    public CropScriptableObject Crop;
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class InteractionManager : MonoBehaviour
 
     public void UpdatePlayerActionState(InteractionState newState)
     {
-        interaction = newState;
+        Interaction = newState;
 
         switch (newState)
         {

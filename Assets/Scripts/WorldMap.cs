@@ -53,7 +53,7 @@ public class WorldMap : MonoBehaviour
         _grid.CreateGridObjects(_debugObjectPrefab.transform);
     }
 
-    public void SetTileAtGridPosition(GridPosition gridPosition, ITilable tile)
+    public void SetTileAtGridPosition(GridPosition gridPosition, ITilable<object> tile)
     {
         var gridObject = _grid.GetGridObject(gridPosition);
         gridObject.Tile = tile;

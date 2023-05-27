@@ -1,4 +1,4 @@
-﻿public interface ITilable
+﻿public interface ITilable<in T>
 {
-        public void UpdateTileState();
+        public void UpdateTileState(T t);
 }
