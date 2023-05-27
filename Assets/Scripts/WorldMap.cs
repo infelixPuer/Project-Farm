@@ -61,7 +61,11 @@ public class WorldMap : MonoBehaviour
 
     public void InstantiateSeedbed(Vector3 interactionPoint)
     {
-        if (_grid.GetGridObject(GetGridPosition(interactionPoint)).State != GridObjectState.Empty)
+        var gridObject = _grid.GetGridObject(GetGridPosition(interactionPoint));
+
+        if (gridObject == null) return;
+        
+        if (gridObject.State != GridObjectState.Empty)
         {
             Debug.LogWarning("Spot is already occupied!");
             return;
@@ -69,7 +73,6 @@ public class WorldMap : MonoBehaviour
         
         var seedbed = Instantiate(_seedbedPrefab, GetWorldPosition(GetGridPosition(interactionPoint)), Quaternion.identity);
         var model = seedbed.GetComponentInChildren<MeshRenderer>()?.gameObject;
-        var gridObject = _grid.GetGridObject(GetGridPosition(interactionPoint));
         
         model!.transform.localScale = GetLocalScale(model.transform);
         seedbed.GetComponentInChildren<Seedbed>().Parent = gridObject;

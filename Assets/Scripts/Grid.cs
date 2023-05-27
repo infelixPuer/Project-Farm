@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Grid
@@ -27,10 +28,21 @@ public class Grid
         new Vector3(gridPosition.X + 0.5f, 0, gridPosition.Z + 0.5f) * _cellSizeInUnityUnits;
 
     public GridPosition GetGridPosition(Vector3 position) => 
-        new((int)(position.x / _cellSizeInUnityUnits),
-            (int)(position.z / _cellSizeInUnityUnits));
+        new((int)Mathf.Floor(position.x / _cellSizeInUnityUnits),
+            (int)Mathf.Floor(position.z / _cellSizeInUnityUnits));
 
-    public GridObject GetGridObject(GridPosition gridPosition) => _gridObjectArray[gridPosition.X, gridPosition.Z];
+    public GridObject GetGridObject(GridPosition gridPosition)
+    {
+        try
+        {
+            return _gridObjectArray[gridPosition.X, gridPosition.Z];
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Debug.LogWarning("Position is outside of the grid!");
+            return null;
+        }
+    }
 
     public void CreateGridObjects(Transform prefab)
     {
