@@ -46,6 +46,12 @@ public class Seedbed : Tile
 
     public void SetCrop(CropScriptableObject crop)
     {
+        // if (crop == null)
+        // {
+        //     Debug.LogWarning("Crop is not selected!");
+        //     return;
+        // }
+        
         _crop = crop;
 
         var seedbedMeshTransform = GetComponentInChildren<MeshRenderer>()?.transform;

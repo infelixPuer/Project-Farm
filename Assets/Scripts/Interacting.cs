@@ -83,6 +83,12 @@ public class Interacting : MonoBehaviour
 
     private void Plant()
     {
+        if (!InteractionManager.Instance.IsCropSelected)
+        {
+            Debug.LogWarning("Crop is not selected!");
+            return;
+        }
+        
         var ray = new Ray(_cam.transform.position, _cam.transform.forward);
         var hasHit = Physics.Raycast(ray, out var hitInfo, _interactionDistance, _plantLayer);
 

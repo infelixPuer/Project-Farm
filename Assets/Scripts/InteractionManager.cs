@@ -16,6 +16,7 @@ public class InteractionManager : MonoBehaviour
     public event Action<InteractionState> OnPlayerActionStateChange;
 
     public CropScriptableObject Crop;
+    public bool IsCropSelected;
 
     private void Awake()
     {
@@ -28,6 +29,11 @@ public class InteractionManager : MonoBehaviour
         {
             Destroy(this);
         }
+    }
+
+    private void Update()
+    {
+        IsCropSelected = Crop != null;
     }
 
     private void Start()
