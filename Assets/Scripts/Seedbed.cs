@@ -1,12 +1,6 @@
 using UnityEngine;
 
-public enum SeedbedState
-{
-    Empty,
-    Planted
-}
-
-public class Seedbed : MonoBehaviour, ITilable<object>
+public class Seedbed : Tile
 {
     [SerializeField] 
     private Material _emptyMaterial;
@@ -21,9 +15,9 @@ public class Seedbed : MonoBehaviour, ITilable<object>
     
     private MeshRenderer _renderer;
 
-    public SeedbedState State => _state;
+    public TileState State => _state;
 
-    private SeedbedState _state;
+    private TileState _state;
     private CropScriptableObject _crop;
 
     private void Awake()
@@ -34,18 +28,18 @@ public class Seedbed : MonoBehaviour, ITilable<object>
     private void Start()
     {
         WorldMap.Instance.SetTileAtGridPosition(WorldMap.Instance.GetGridPosition(transform.position), this);
-        _state = SeedbedState.Empty;
+        _state = TileState.Empty;
         UpdateCellMaterial();
     }
 
     private void UpdateCellMaterial()
     {
-        _renderer.material = _state == SeedbedState.Empty ? _emptyMaterial : _plantedMaterial;
+        _renderer.material = _state == TileState.Empty ? _emptyMaterial : _plantedMaterial;
     }
 
-    public void UpdateTileState(object state)
+    public override void UpdateTileState(TileState state)
     {
-        _state = (SeedbedState)state;
+        _state = state;
 
         UpdateCellMaterial();
     }           

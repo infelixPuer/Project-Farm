@@ -90,9 +90,9 @@ public class Interacting : MonoBehaviour
 
         var seedbed = hitInfo.collider.GetComponentInParent<Seedbed>();
 
-        if (seedbed == null || seedbed.State != SeedbedState.Empty) return;
+        if (seedbed == null || seedbed.State != TileState.Empty) return;
 
-        seedbed.UpdateTileState(SeedbedState.Planted);
+        seedbed.UpdateTileState(TileState.Occupied);
         seedbed.SetCrop(InteractionManager.Instance.Crop);
     }
 

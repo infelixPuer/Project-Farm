@@ -14,7 +14,7 @@ public class GridObject
         set => _gridObjectState = value;
     }
 
-    public ITilable<object> Tile
+    public Tile Tile
     {
         get => _tile;
         set => _tile = value;
@@ -23,7 +23,7 @@ public class GridObject
     private Grid _grid;
     private GridPosition _gridPosition;
     private GridObjectState _gridObjectState;
-    private ITilable<object> _tile;
+    private Tile _tile;
 
     public GridObject(Grid grid, GridPosition gridPosition)
     {
