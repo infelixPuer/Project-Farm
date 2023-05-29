@@ -19,7 +19,9 @@ public class Seedbed : Tile
 
     public GridObject Parent;
     private MeshRenderer _renderer;
-    private CropScriptableObject _crop;
+    private CropScriptableObject _cropSO;
+    private Crop _crop;
+    
 
     private void Awake()
     {
@@ -45,14 +47,17 @@ public class Seedbed : Tile
         UpdateCellMaterial();
     }           
 
-    public void SetCrop(CropScriptableObject crop)
+    public void PlantCrop(CropScriptableObject crop)
     {
-        _crop = crop;
+        _cropSO = crop;
 
         var seedbedTransform = _seedbedModel.transform;
 
-        var y = seedbedTransform!.position.y + seedbedTransform.localScale.y * 0.5f + _crop.PhasesOfGrowing[0].transform.localScale.y * 0.5f;
+        var y = seedbedTransform!.position.y + seedbedTransform.localScale.y * 0.5f + _cropSO.PhasesOfGrowing[0].transform.localScale.y * 0.5f;
         var plantPos = _plantPlace.transform.position;
-        Instantiate(_cropPrefab, new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, transform);
+        var cropGameObject = Instantiate(_cropPrefab, new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, transform);
+        _crop = cropGameObject.GetComponent<Crop>();
     }
+
+    public Crop GetCrop() => _crop;
 }

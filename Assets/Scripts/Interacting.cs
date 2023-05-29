@@ -59,7 +59,7 @@ public class Interacting : MonoBehaviour
             InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Plant);
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Water);
+            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Grow);
     }
 
     private void Interact()
@@ -74,13 +74,24 @@ public class Interacting : MonoBehaviour
             case InteractionState.Plant:
                 Plant();
                 break;
-            case InteractionState.Water:
+            case InteractionState.Grow:
+                Grow();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
     }
+    
+    private void MakeSeedbed()
+    {
+        var ray = new Ray(_cam.transform.position, _cam.transform.forward);
+        var hasHit = Physics.Raycast(ray, out var hitInfo, _interactionDistance, _selectionLayer.value);
 
+        if (!hasHit) return;
+
+        WorldMap.Instance.InstantiateSeedbed(hitInfo.point);
+    }
+    
     private void Plant()
     {
         if (!InteractionManager.Instance.IsCropSelected)
@@ -99,18 +110,18 @@ public class Interacting : MonoBehaviour
         if (seedbed == null || seedbed.State != TileState.Empty) return;
 
         seedbed.UpdateTileState(TileState.Occupied);
-        seedbed.SetCrop(InteractionManager.Instance.Crop);
+        seedbed.PlantCrop(InteractionManager.Instance.Crop);
     }
 
-    private void MakeSeedbed()
+    private void Grow()
     {
         var ray = new Ray(_cam.transform.position, _cam.transform.forward);
-        var hasHit = Physics.Raycast(ray, out var hitInfo, _interactionDistance, _selectionLayer.value);
-        Debug.DrawRay(_cam.transform.position, _cam.transform.forward, Color.green);
+        var hasHit = Physics.Raycast(ray, out var hitInfo, _interactionDistance, _plantLayer.value);
 
         if (!hasHit) return;
 
-        WorldMap.Instance.InstantiateSeedbed(hitInfo.point);
+        var seedbed = hitInfo.collider.GetComponentInParent<Seedbed>();
+        seedbed.GetCrop().Grow();
     }
 
     // ReSharper disable once InconsistentNaming

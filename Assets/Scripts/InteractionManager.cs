@@ -5,7 +5,7 @@ public enum InteractionState
 {
     MakeSeedbed,
     Plant,
-    Water
+    Grow
 }
 
 public class InteractionManager : MonoBehaviour
@@ -53,7 +53,7 @@ public class InteractionManager : MonoBehaviour
             case InteractionState.Plant:
                 HandlePlant();
                 break;
-            case InteractionState.Water:
+            case InteractionState.Grow:
                 HandleWater();
                 break;
             default:

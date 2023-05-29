@@ -41,7 +41,7 @@ public class Crop : MonoBehaviour
 
     public void Grow()
     {
-        if (_growingStage == _growingTime + 1)
+        if (_growingStage == _growingTime)
         {
             Debug.Log("Crop is ready to harvest!");
             return;
@@ -50,5 +50,6 @@ public class Crop : MonoBehaviour
         ++_growingStage;
         _meshFilter = _crop.PhasesOfGrowing[_growingStage].GetComponent<MeshFilter>();
         transform.localScale = _crop.PhasesOfGrowing[_growingStage].transform.localScale;
+        transform.position = new Vector3(transform.position.x, transform.localScale.y * 0.5f + 0.05f, transform.position.z);
     }
 }
