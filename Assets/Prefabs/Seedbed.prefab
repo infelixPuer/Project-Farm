@@ -151,9 +151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce11f4270035de459c49d31ea3205c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  State: 0
   _emptyMaterial: {fileID: 2100000, guid: 6e9801cdc25958c4b9a37e674d110cd2, type: 2}
   _plantedMaterial: {fileID: 2100000, guid: f3aaacb24e483b14d9a632416c1a95af, type: 2}
   _plantPlace: {fileID: 6763048826457799617}
+  _seedbedModel: {fileID: 485858210923969886}
+  _cropPrefab: {fileID: 9058858380290141276, guid: e0daeaa19a2b826458770259bfa7725c, type: 3}
 --- !u!1 &6763048826457799617
 GameObject:
   m_ObjectHideFlags: 0

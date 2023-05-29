@@ -11,13 +11,14 @@ public class Seedbed : Tile
     [SerializeField]
     private GameObject _plantPlace;
 
+    [SerializeField] 
+    private GameObject _seedbedModel;
+
+    [SerializeField] 
+    private GameObject _cropPrefab;
+
     public GridObject Parent;
-    
     private MeshRenderer _renderer;
-
-    public TileState State => _state;
-
-    private TileState _state;
     private CropScriptableObject _crop;
 
     private void Awake()
@@ -28,38 +29,30 @@ public class Seedbed : Tile
     private void Start()
     {
         WorldMap.Instance.SetTileAtGridPosition(WorldMap.Instance.GetGridPosition(transform.position), this);
-        _state = TileState.Empty;
+        State = TileState.Empty;
         UpdateCellMaterial();
     }
 
     private void UpdateCellMaterial()
     {
-        _renderer.material = _state == TileState.Empty ? _emptyMaterial : _plantedMaterial;
+        _renderer.material = State == TileState.Empty ? _emptyMaterial : _plantedMaterial;
     }
 
     public override void UpdateTileState(TileState state)
     {
-        _state = state;
+        State = state;
 
         UpdateCellMaterial();
     }           
 
     public void SetCrop(CropScriptableObject crop)
     {
-        // if (crop == null)
-        // {
-        //     Debug.LogWarning("Crop is not selected!");
-        //     return;
-        // }
-        
         _crop = crop;
 
-        var seedbedMeshTransform = GetComponentInChildren<MeshRenderer>()?.transform;
+        var seedbedTransform = _seedbedModel.transform;
 
-        Debug.Assert(seedbedMeshTransform != null, "seedbedMeshTransform == null");
-
-        var y = seedbedMeshTransform!.position.y + seedbedMeshTransform.localScale.y * 0.5f + _crop.PhasesOfGrowing[0].transform.localScale.y * 0.5f;
+        var y = seedbedTransform!.position.y + seedbedTransform.localScale.y * 0.5f + _crop.PhasesOfGrowing[0].transform.localScale.y * 0.5f;
         var plantPos = _plantPlace.transform.position;
-        Instantiate(_crop.PhasesOfGrowing[0], new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, transform);
+        Instantiate(_cropPrefab, new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, transform);
     }
 }

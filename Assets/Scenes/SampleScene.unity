@@ -1125,8 +1125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd606233f3dc808419a13a75c2d9ff23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interaction: 0
-  crop: {fileID: 0}
+  Interaction: 0
+  Crop: {fileID: 0}
+  IsCropSelected: 0
 --- !u!4 &1559859927
 Transform:
   m_ObjectHideFlags: 0
