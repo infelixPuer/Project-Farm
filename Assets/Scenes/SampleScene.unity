@@ -938,8 +938,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9479929224d12344ea3ce70c33e84052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionDistance: 3.5
-  _selectedMaterial: {fileID: 2100000, guid: ab0b2ded89ae44f4889a7406cb12227a, type: 2}
+  _interactionDistance: 0
+  _selectedMaterial: {fileID: 0}
   _selectionLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1126,7 +1126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Interaction: 0
-  Crop: {fileID: 0}
+  Crop: {fileID: 11400000, guid: 758893ae4f3225c4f8c338e4575e9c3a, type: 2}
   IsCropSelected: 0
 --- !u!4 &1559859927
 Transform:
