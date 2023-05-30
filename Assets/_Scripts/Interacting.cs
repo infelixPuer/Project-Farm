@@ -3,33 +3,17 @@ using UnityEngine;
 
 public class Interacting : MonoBehaviour
 {
-    [Range(0f, 10f)]
-    [SerializeField] 
-    private float _interactionDistance;
-
-    [SerializeField] 
-    private Material _selectedMaterial;
-
-    [SerializeField] 
-    private LayerMask _selectionLayer;
-
-    [SerializeField] 
-    private LayerMask _plantLayer;
-
-    [SerializeField] 
-    private GameObject _seedbedPrefab;
 
     [SerializeField] 
     private Canvas _selectingCropCanvas;
     
-    private Camera _cam;
     private PlayerMovement _playerMovement;
+    private Action _interactionAction;
     
     private bool _isSelectingCrop;
 
     private void Awake()
     {
-        _cam = GetComponentInChildren<Camera>();
         _playerMovement = FindObjectOfType<PlayerMovement>();
     }
 
@@ -50,80 +34,30 @@ public class Interacting : MonoBehaviour
         ShowSelectingCropUI();
     }
 
-    private static void ChooseInteractionOption()
+    private void ChooseInteractionOption()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.MakeSeedbed);
+            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.MakingSeedbed, this);
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Plant);
+            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Planting, this);
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Grow);
+            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Growing, this);
+    }
+
+    public void OnInteractionAction(Action action)
+    {
+        _interactionAction += action;
     }
 
     private void Interact()
     {
         if (!Input.GetMouseButtonDown(0)) return;
         
-        switch (InteractionManager.Instance.Interaction)
-        {
-            case InteractionState.MakeSeedbed:
-                MakeSeedbed();
-                break;
-            case InteractionState.Plant:
-                Plant();
-                break;
-            case InteractionState.Grow:
-                Grow();
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+        _interactionAction?.Invoke();
     }
     
-    private void MakeSeedbed()
-    {
-        var ray = new Ray(_cam.transform.position, _cam.transform.forward);
-        var hasHit = Physics.Raycast(ray, out var hitInfo, _interactionDistance, _selectionLayer.value);
-
-        if (!hasHit) return;
-
-        WorldMap.Instance.InstantiateSeedbed(hitInfo.point);
-    }
-    
-    private void Plant()
-    {
-        if (!InteractionManager.Instance.IsCropSelected)
-        {
-            Debug.LogWarning("Crop is not selected!");
-            return;
-        }
-        
-        var ray = new Ray(_cam.transform.position, _cam.transform.forward);
-        var hasHit = Physics.Raycast(ray, out var hitInfo, _interactionDistance, _plantLayer);
-
-        if (!hasHit) return;
-
-        var seedbed = hitInfo.collider.GetComponentInParent<Seedbed>();
-
-        if (seedbed == null || seedbed.State != TileState.Empty) return;
-
-        seedbed.UpdateTileState(TileState.Occupied);
-        seedbed.PlantCrop(InteractionManager.Instance.Crop);
-    }
-
-    private void Grow()
-    {
-        var ray = new Ray(_cam.transform.position, _cam.transform.forward);
-        var hasHit = Physics.Raycast(ray, out var hitInfo, _interactionDistance, _plantLayer.value);
-
-        if (!hasHit) return;
-
-        var seedbed = hitInfo.collider.GetComponentInParent<Seedbed>();
-        seedbed.GetCrop().Grow();
-    }
-
     // ReSharper disable once InconsistentNaming
     private void ShowSelectingCropUI()
     {
