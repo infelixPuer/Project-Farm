@@ -9,6 +9,7 @@ public class Crop : MonoBehaviour
     private int _output;
 
     private MeshFilter _meshFilter;
+    private Seedbed _parentSeedbed;
     private int _growingStage;
 
     private void Awake()
@@ -27,11 +28,6 @@ public class Crop : MonoBehaviour
         Plant();
     }
 
-    private void OnEnable()
-    {
-        
-    }
-
     private void Plant()
     {
         _growingStage = 0;
@@ -47,9 +43,21 @@ public class Crop : MonoBehaviour
             return;
         }
 
+        if (!_parentSeedbed.GetWateredStatus())
+        {
+            Debug.LogWarning("Seedbed is not watered!\nCrop can't grow!");
+            return;
+        }
+        
+        _parentSeedbed.DrySeedbed();
         ++_growingStage;
         _meshFilter = _crop.PhasesOfGrowing[_growingStage].GetComponent<MeshFilter>();
         transform.localScale = _crop.PhasesOfGrowing[_growingStage].transform.localScale;
         transform.position = new Vector3(transform.position.x, transform.localScale.y * 0.5f + 0.05f, transform.position.z);
+    }
+
+    public void SetParentSeedbed(Seedbed seedbed)
+    {
+        _parentSeedbed = seedbed;
     }
 }

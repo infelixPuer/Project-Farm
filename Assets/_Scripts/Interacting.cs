@@ -44,10 +44,14 @@ public class Interacting : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
             InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Growing, this);
+        
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Watering, this);
     }
 
     public void OnInteractionAction(Action action)
     {
+        _interactionAction = null;
         _interactionAction += action;
     }
 
@@ -55,7 +59,7 @@ public class Interacting : MonoBehaviour
     {
         if (!Input.GetMouseButtonDown(0)) return;
         
-        _interactionAction?.Invoke();
+        _interactionAction?.Invoke(); 
     }
     
     // ReSharper disable once InconsistentNaming
