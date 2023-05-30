@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -24,6 +25,9 @@ public class InteractionManager : MonoBehaviour
 
     [SerializeField] 
     private GameObject _seedbedPrefab;
+
+    [SerializeField] 
+    private TextMeshProUGUI _interactionText;
 
     private Camera _cam;
     
@@ -102,28 +106,32 @@ public class InteractionManager : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
-        
+
         OnPlayerActionStateChange?.Invoke(newState);
     }
 
     private void HandleMakingSeedbed(Interacting interacting)
     {
         interacting.OnInteractionAction(MakeSeedbed);
+        _interactionText.text = "Interaction action: Making seedbeds";
     }
 
     private void HandlePlanting(Interacting interacting)
     {
         interacting.OnInteractionAction(Plant);
+        _interactionText.text = "Interaction action: Planting";
     }
     
     private void HandleWatering(Interacting interacting)
     {
         interacting.OnInteractionAction(Water);
+        _interactionText.text = "Interaction action: Watering";
     }
 
     private void HandleGrowing(Interacting interacting)
     {
         interacting.OnInteractionAction(Grow);
+        _interactionText.text = "Interaction action: Growing";
     }
 
     private void MakeSeedbed()
