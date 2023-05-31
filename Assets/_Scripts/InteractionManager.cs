@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public enum InteractionState
 {
@@ -36,8 +37,10 @@ public class InteractionManager : MonoBehaviour
     public InteractionState interactionState;
     public event Action<InteractionState> OnPlayerActionStateChange;
 
-    public CropScriptableObject Crop;
+    public CropScriptableObject SelectedCrop;
     public bool IsCropSelected;
+
+    private List<CropScriptableObject> _crops;
 
     private void Awake()
     {
@@ -52,11 +55,12 @@ public class InteractionManager : MonoBehaviour
         }
         
         _cam = Camera.main;
+        _crops = Resources.LoadAll<CropScriptableObject>("Scriptables/Crops").ToList();
     }
 
     private void Update()
     {
-        IsCropSelected = Crop != null;
+        IsCropSelected = SelectedCrop != null;
     }
 
     private void Start()
@@ -166,7 +170,7 @@ public class InteractionManager : MonoBehaviour
         if (seedbed == null || seedbed.State != TileState.Empty) return;
 
         seedbed.UpdateTileState(TileState.Occupied);
-        seedbed.PlantCrop(Crop);
+        seedbed.PlantCrop(SelectedCrop);
     }
 
     private void Water()

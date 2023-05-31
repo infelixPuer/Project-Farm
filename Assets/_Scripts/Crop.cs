@@ -8,13 +8,17 @@ public class Crop : MonoBehaviour
     private int _frequencyOfWatering;
     private int _output;
 
-    private MeshFilter _meshFilter;
+    private MeshFilter _filter;
+    private MeshRenderer _renderer;
     private Seedbed _parentSeedbed;
     private int _growingStage;
 
     private void Awake()
     {
-        _crop = InteractionManager.Instance.Crop;
+        _filter = GetComponent<MeshFilter>();
+        _renderer = GetComponent<MeshRenderer>();
+        
+        _crop = InteractionManager.Instance.SelectedCrop;
 
         Debug.Assert(_crop.GrowingTime != _crop.PhasesOfGrowing.Length + 1, "There is not enough phases of growing to fulfill growing time!");
         
@@ -22,16 +26,15 @@ public class Crop : MonoBehaviour
         _growingTime = _crop.GrowingTime;
         _frequencyOfWatering = _crop.FrequencyOfWateringInDays;
         _output = _crop.Output;
-
-        _meshFilter = GetComponent<MeshFilter>();
-
+        
         Plant();
     }
 
     private void Plant()
     {
         _growingStage = 0;
-        _meshFilter.sharedMesh = _crop.PhasesOfGrowing[_growingStage].GetComponent<MeshFilter>().sharedMesh;
+        _filter.sharedMesh = _crop.PhasesOfGrowing[_growingStage].GetComponent<MeshFilter>().sharedMesh;
+        _renderer.sharedMaterial = _crop.PhasesOfGrowing[_growingStage].GetComponent<MeshRenderer>().sharedMaterial;
         transform.localScale = _crop.PhasesOfGrowing[_growingStage].transform.localScale;
     }
 
@@ -51,7 +54,8 @@ public class Crop : MonoBehaviour
         
         _parentSeedbed.DrySeedbed();
         ++_growingStage;
-        _meshFilter = _crop.PhasesOfGrowing[_growingStage].GetComponent<MeshFilter>();
+        _filter.sharedMesh = _crop.PhasesOfGrowing[_growingStage].GetComponent<MeshFilter>().sharedMesh;
+        _renderer.sharedMaterial = _crop.PhasesOfGrowing[_growingStage].GetComponent<MeshRenderer>().sharedMaterial;
         transform.localScale = _crop.PhasesOfGrowing[_growingStage].transform.localScale;
         transform.position = new Vector3(transform.position.x, transform.localScale.y * 0.5f + 0.05f, transform.position.z);
     }
