@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Crop : MonoBehaviour
 {
-    private CropScriptableObject _crop;
+    [FormerlySerializedAs("_crop")] public CropScriptableObject CropSO;
     private int _growingTime;
     private int _frequencyOfWatering;
     private int _output;
@@ -18,14 +19,14 @@ public class Crop : MonoBehaviour
         _filter = GetComponent<MeshFilter>();
         _renderer = GetComponent<MeshRenderer>();
         
-        _crop = InteractionManager.Instance.SelectedCrop;
+        CropSO = InteractionManager.Instance.SelectedCrop;
 
-        Debug.Assert(_crop.GrowingTime != _crop.PhasesOfGrowing.Length + 1, "There is not enough phases of growing to fulfill growing time!");
+        Debug.Assert(CropSO.GrowingTime != CropSO.PhasesOfGrowing.Length + 1, "There is not enough phases of growing to fulfill growing time!");
         
-        gameObject.name = _crop.Name;
-        _growingTime = _crop.GrowingTime;
-        _frequencyOfWatering = _crop.FrequencyOfWateringInDays;
-        _output = _crop.Output;
+        gameObject.name = CropSO.Name;
+        _growingTime = CropSO.GrowingTime;
+        _frequencyOfWatering = CropSO.FrequencyOfWateringInDays;
+        _output = CropSO.Output;
         
         Plant();
     }
@@ -33,9 +34,9 @@ public class Crop : MonoBehaviour
     private void Plant()
     {
         _growingStage = 0;
-        _filter.sharedMesh = _crop.PhasesOfGrowing[_growingStage].GetComponent<MeshFilter>().sharedMesh;
-        _renderer.sharedMaterial = _crop.PhasesOfGrowing[_growingStage].GetComponent<MeshRenderer>().sharedMaterial;
-        transform.localScale = _crop.PhasesOfGrowing[_growingStage].transform.localScale;
+        _filter.sharedMesh = CropSO.PhasesOfGrowing[_growingStage].GetComponent<MeshFilter>().sharedMesh;
+        _renderer.sharedMaterial = CropSO.PhasesOfGrowing[_growingStage].GetComponent<MeshRenderer>().sharedMaterial;
+        transform.localScale = CropSO.PhasesOfGrowing[_growingStage].transform.localScale;
     }
 
     public void Grow()
@@ -54,9 +55,9 @@ public class Crop : MonoBehaviour
         
         _parentSeedbed.DrySeedbed();
         ++_growingStage;
-        _filter.sharedMesh = _crop.PhasesOfGrowing[_growingStage].GetComponent<MeshFilter>().sharedMesh;
-        _renderer.sharedMaterial = _crop.PhasesOfGrowing[_growingStage].GetComponent<MeshRenderer>().sharedMaterial;
-        transform.localScale = _crop.PhasesOfGrowing[_growingStage].transform.localScale;
+        _filter.sharedMesh = CropSO.PhasesOfGrowing[_growingStage].GetComponent<MeshFilter>().sharedMesh;
+        _renderer.sharedMaterial = CropSO.PhasesOfGrowing[_growingStage].GetComponent<MeshRenderer>().sharedMaterial;
+        transform.localScale = CropSO.PhasesOfGrowing[_growingStage].transform.localScale;
         transform.position = new Vector3(transform.position.x, transform.localScale.y * 0.5f + 0.05f, transform.position.z);
     }
 

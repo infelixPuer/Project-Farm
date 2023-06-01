@@ -59,4 +59,6 @@ public class TimeManager : MonoBehaviour
     }
 
     public int GetCurrentDay() => _dayCounter;
+    
+    public DateTime GetCurrentTime() => _currentTime;
 }
