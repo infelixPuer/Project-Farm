@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f28cbe5d9b65db4489b7ed0507da566e, type: 3}
+  m_Name: Carrot
+  m_EditorClassIdentifier: 
+  Name: Carrot
+  GrowingTime: 9
+  FrequencyOfWateringInDays: 2
+  Output: 10
+  PhasesOfGrowing:
+  - {fileID: 640033828804554226, guid: 2c6da18722e2d644cba15d8e5a72c80e, type: 3}
+  - {fileID: 640033828804554226, guid: ac3a59c50e16911428fb42c5a6701f59, type: 3}
+  - {fileID: 640033828804554226, guid: b658a8221d502e24191a7be2a35824b4, type: 3}
+  - {fileID: 640033828804554226, guid: fef5d3cf0299b414e8ef8e8e08afa330, type: 3}
+  - {fileID: 640033828804554226, guid: 23ad3ff13d05fa44f9050c8b4c2c9fe0, type: 3}
+  - {fileID: 640033828804554226, guid: 0469d16c8683a09429fac3de639f4d68, type: 3}
+  - {fileID: 640033828804554226, guid: 741fac3dd211faf4ea45adb909db6012, type: 3}
+  - {fileID: 640033828804554226, guid: 9ea425fb4457bb64ea344bc52d0b56e8, type: 3}
+  - {fileID: 640033828804554226, guid: 59948ecc4dd7749479b30c9e21388f82, type: 3}
+  - {fileID: 640033828804554226, guid: 7f671144208b50945aeff9bec03ca7c4, type: 3}

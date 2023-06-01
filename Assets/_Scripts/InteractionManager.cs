@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum InteractionState
 {
@@ -39,6 +40,7 @@ public class InteractionManager : MonoBehaviour
 
     public CropScriptableObject SelectedCrop;
     public bool IsCropSelected;
+    [FormerlySerializedAs("SelectingCrop")] public bool IsSelectingCrop;
 
     private List<CropScriptableObject> _crops;
 

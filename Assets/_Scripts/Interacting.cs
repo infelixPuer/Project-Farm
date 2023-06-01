@@ -10,7 +10,7 @@ public class Interacting : MonoBehaviour
     private PlayerMovement _playerMovement;
     private Action _interactionAction;
     
-    private bool _isSelectingCrop;
+    //private bool _isSelectingCrop;
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class Interacting : MonoBehaviour
 
     private void Update()
     {
-        if (!_isSelectingCrop)
+        if (!InteractionManager.Instance.IsSelectingCrop)
         {
             ChooseInteractionOption();
             Interact();
@@ -65,13 +65,13 @@ public class Interacting : MonoBehaviour
     // ReSharper disable once InconsistentNaming
     private void ShowSelectingCropUI()
     {
-        if ((!Input.GetKey(KeyCode.Q) || _isSelectingCrop) && (Input.GetKey(KeyCode.Q) || !_isSelectingCrop)) return;
+        if ((!Input.GetKey(KeyCode.Q) || InteractionManager.Instance.IsSelectingCrop) && (Input.GetKey(KeyCode.Q) || !InteractionManager.Instance.IsSelectingCrop)) return;
 
-        _isSelectingCrop = !_isSelectingCrop;
+        InteractionManager.Instance.IsSelectingCrop = !InteractionManager.Instance.IsSelectingCrop;
 
-        _selectingCropCanvas.gameObject.SetActive(_isSelectingCrop);
-        Cursor.lockState = _isSelectingCrop ? CursorLockMode.Confined : CursorLockMode.Locked;
-        Cursor.visible = _isSelectingCrop;
-        _playerMovement.enabled = !_isSelectingCrop;
+        _selectingCropCanvas.gameObject.SetActive(InteractionManager.Instance.IsSelectingCrop);
+        Cursor.lockState = InteractionManager.Instance.IsSelectingCrop ? CursorLockMode.Confined : CursorLockMode.Locked;
+        Cursor.visible = InteractionManager.Instance.IsSelectingCrop;
+        _playerMovement.enabled = !InteractionManager.Instance.IsSelectingCrop;
     }
 }
