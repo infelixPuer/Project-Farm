@@ -7,16 +7,18 @@ public class CropStateMachine : MonoBehaviour
     private CropGrowingState _cropGrowingState = new();
 
     private Crop _crop;
+    private CropScriptableObject _cropSO;
 
     private void Awake()
     {
         _crop = GetComponent<Crop>();
+        _cropSO = InteractionManager.Instance.SelectedCrop;
     }
 
     private void Start()
     {
         _currentState = _cropGrowingState;
-        _currentState.Crop = _crop;
+        _currentState.Crop = _cropSO;
         _currentState.EnterCropState(this);
     }
 

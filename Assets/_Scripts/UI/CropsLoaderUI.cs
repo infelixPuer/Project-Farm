@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CropsLoader : MonoBehaviour
+public class CropsLoaderUI : MonoBehaviour
 {
     [SerializeField] 
     private Canvas _canvas;

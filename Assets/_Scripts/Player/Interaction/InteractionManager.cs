@@ -9,8 +9,7 @@ public enum InteractionState
 {
     MakingSeedbed,
     Planting,
-    Watering,
-    Growing
+    Watering
 }
 
 public class InteractionManager : MonoBehaviour
@@ -82,8 +81,6 @@ public class InteractionManager : MonoBehaviour
                 break;
             case InteractionState.Watering:
                 break;
-            case InteractionState.Growing:
-                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
@@ -105,9 +102,6 @@ public class InteractionManager : MonoBehaviour
                 break;
             case InteractionState.Watering:
                 HandleWatering(interacting);
-                break;
-            case InteractionState.Growing:
-                HandleGrowing(interacting);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -132,12 +126,6 @@ public class InteractionManager : MonoBehaviour
     {
         interacting.OnInteractionAction(Water);
         _interactionText.text = "Interaction action: Watering";
-    }
-
-    private void HandleGrowing(Interacting interacting)
-    {
-        interacting.OnInteractionAction(Grow);
-        _interactionText.text = "Interaction action: Growing";
     }
 
     private void MakeSeedbed()
@@ -190,19 +178,4 @@ public class InteractionManager : MonoBehaviour
         
         seedbed.WaterSeedbed();
     }
-
-    private void Grow()
-    {
-        if (interactionState != InteractionState.Growing) return;
-        
-        var ray = new Ray(_cam.transform.position, _cam.transform.forward);
-        var hasHit = Physics.Raycast(ray, out var hitInfo, _interactionDistance, _plantLayer.value);
-
-        if (!hasHit) return;
-
-        var seedbed = hitInfo.collider.GetComponentInParent<Seedbed>();
-        seedbed.GetCrop().Grow();
-    }
-
-    
 }

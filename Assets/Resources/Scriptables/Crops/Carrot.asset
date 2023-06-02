@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Carrot
   m_EditorClassIdentifier: 
   Name: Carrot
-  GrowingTime: 9
+  GrowingTime: 2
   FrequencyOfWateringInDays: 2
   Output: 10
   PhasesOfGrowing:

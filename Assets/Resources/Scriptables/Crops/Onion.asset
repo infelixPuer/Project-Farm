@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Onion
   m_EditorClassIdentifier: 
   Name: Onion
-  GrowingTime: 9
+  GrowingTime: 4
   FrequencyOfWateringInDays: 2
   Output: 10
   PhasesOfGrowing:

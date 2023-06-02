@@ -3,14 +3,11 @@ using UnityEngine;
 
 public class Interacting : MonoBehaviour
 {
-
     [SerializeField] 
     private Canvas _selectingCropCanvas;
     
     private PlayerMovement _playerMovement;
     private Action _interactionAction;
-    
-    //private bool _isSelectingCrop;
 
     private void Awake()
     {
@@ -41,9 +38,6 @@ public class Interacting : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
             InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Planting, this);
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Growing, this);
         
         if (Input.GetKeyDown(KeyCode.Alpha4))
             InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Watering, this);

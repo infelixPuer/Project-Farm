@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tomato
   m_EditorClassIdentifier: 
   Name: Tomato
-  GrowingTime: 9
+  GrowingTime: 5
   FrequencyOfWateringInDays: 2
   Output: 10
   PhasesOfGrowing:

@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeMultipier: 10000
-  _startHour: 23
+  _startHour: 12
   _textMeshPro: {fileID: 1700978480}
 --- !u!4 &522601900
 Transform:

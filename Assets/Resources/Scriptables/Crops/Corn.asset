@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Corn
   m_EditorClassIdentifier: 
   Name: Corn
-  GrowingTime: 9
+  GrowingTime: 3
   FrequencyOfWateringInDays: 2
   Output: 10
   PhasesOfGrowing:
