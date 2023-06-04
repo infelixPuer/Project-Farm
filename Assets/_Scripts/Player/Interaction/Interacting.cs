@@ -5,6 +5,9 @@ public class Interacting : MonoBehaviour
 {
     [SerializeField] 
     private Canvas _selectingCropCanvas;
+
+    [SerializeField] 
+    private Canvas _inventoryCanvas;
     
     private PlayerMovement _playerMovement;
     private Action _interactionAction;
@@ -29,6 +32,7 @@ public class Interacting : MonoBehaviour
         }
         
         ShowSelectingCropUI();
+        ShowInventory();
     }
 
     private void ChooseInteractionOption()
@@ -67,5 +71,10 @@ public class Interacting : MonoBehaviour
         Cursor.lockState = InteractionManager.Instance.IsSelectingCrop ? CursorLockMode.Confined : CursorLockMode.Locked;
         Cursor.visible = InteractionManager.Instance.IsSelectingCrop;
         _playerMovement.enabled = !InteractionManager.Instance.IsSelectingCrop;
+    }
+    
+    private void ShowInventory()
+    {
+            _inventoryCanvas.gameObject.SetActive(Input.GetKey(KeyCode.Tab));
     }
 }
