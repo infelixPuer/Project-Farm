@@ -1,4 +1,5 @@
 using _Scripts.Player.Inventory;
+using _Scripts.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ public class InventoryLoaderUI : MonoBehaviour
     private PlayerInventory _playerInventory;
 
     [SerializeField] 
-    private GameObject _itemUIPrefab;
+    private InventoryItemUI _itemUIPrefab;
 
     private void OnEnable()
     {
@@ -21,17 +22,8 @@ public class InventoryLoaderUI : MonoBehaviour
                 continue;
             
             var itemObject = _itemUIPrefab;
-            itemObject.GetComponentInChildren<Image>().sprite = inventory[i].ItemData.Sprite;
-            var TMPs = itemObject.GetComponentsInChildren<TextMeshProUGUI>();
-
-            foreach (var text in TMPs)
-            {
-                if (text.gameObject.name == "ItemCountText")
-                {
-                    text.text = inventory[i].Count.ToString();
-                    break;
-                }
-            }
+            itemObject.GetItemSprite().sprite = inventory[i].ItemData.Sprite;
+            itemObject.GetTextMeshPro().text = inventory[i].Count.ToString();
             
             Instantiate(itemObject, gameObject.transform);
         }

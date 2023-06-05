@@ -4,7 +4,7 @@
     {
         private int _inventorySize = 7;
         private Item[] _inventory;
-        private int _stackSize = 10;
+        // private int _stackSize = 10;
 
         public Inventory()
         {
