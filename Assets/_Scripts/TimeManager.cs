@@ -19,6 +19,8 @@ public class TimeManager : MonoBehaviour
     private int _dayCounter;
     private bool _isNewDay;
 
+    public bool TimeBlocked;
+
     private void Awake()
     {
         if (Instance == null)
@@ -41,7 +43,7 @@ public class TimeManager : MonoBehaviour
 
     private void UpdateTime()
     {
-        if (InteractionManager.Instance.IsSelectingCrop) return;
+        if (TimeBlocked) return;
         
         _currentTime = _currentTime.AddSeconds(Time.deltaTime * _timeMultipier);
         

@@ -891,7 +891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInventory: {fileID: 1425301247}
-  _itemUIPrefab: {fileID: 1220286330207217878, guid: 85a5e628644e80e4184f510cfef50b59, type: 3}
+  _itemUIPrefab: {fileID: 1220286330207217878, guid: 2cf4231d5cc1a5848b30ce99be7a448e, type: 3}
 --- !u!114 &1278742479
 MonoBehaviour:
   m_ObjectHideFlags: 0

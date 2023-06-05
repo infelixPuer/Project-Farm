@@ -51,14 +51,14 @@ namespace _Scripts.Player.Inventory
 
         public void AddItem(ItemSO item)
         {
-            _itemAddedSuccsessfuly = this.Inventory.AddItem(item);
+            _itemAddedSuccsessfuly = this.Inventory.AddItem(new Item(item, 1));
             
             if (_itemAddedSuccsessfuly)
                 Debug.Log("Item added!");
             else 
-                Debug.Log("Inventory is full!");
+                Debug.LogWarning("Inventory is full!");
         }
 
-        public Dictionary<ItemSO, int> GetInventory() => Inventory.GetItems();
+        public Item[] GetInventory() => Inventory.GetItems();
     }
 }

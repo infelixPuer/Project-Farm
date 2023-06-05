@@ -1,31 +1,46 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace _Scripts.Player.Inventory
+﻿namespace _Scripts.Player.Inventory
 {
     public class Inventory
     {
         private int _inventorySize = 7;
-        private Dictionary<ItemSO, int> _inventory;
+        private Item[] _inventory;
+        private int _stackSize = 10;
 
         public Inventory()
         {
-            _inventory = new Dictionary<ItemSO, int>(_inventorySize);
+            _inventory = new Item[_inventorySize];
         }
 
-        public bool AddItem(ItemSO item)
+        public bool AddItem(Item item)
         {
-            if (_inventory.Count == _inventorySize) 
+            if (_inventory.ItemCount() == _inventorySize && (_inventory.AvaliableSlot() != -1))
                 return false;
 
-            if (!_inventory.ContainsKey(item))
-                _inventory.Add(item, 1);
+            if (!_inventory.ContainsItem(item))
+            {
+                _inventory.AddItem(item);
+            }
             else
-                _inventory[item]++;
+            {
+                var availableStackIndex = _inventory.AvaliableStack(item);
+
+                if (availableStackIndex == -1)
+                {
+                    var availableSlotIndex = _inventory.AvaliableSlot();
+                    
+                    if (availableSlotIndex == -1)
+                        return false;
+                    
+                    _inventory[availableSlotIndex] = item;
+                    return true;
+                }
+                
+                _inventory[availableStackIndex].Count++;
+            }
 
             return true;
         }
 
-        public Dictionary<ItemSO, int> GetItems() => _inventory;
+        public Item[] GetItems() => _inventory;
     }
 }

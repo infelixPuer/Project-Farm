@@ -1,4 +1,5 @@
 using System;
+using _Scripts.Player.Interaction;
 using UnityEngine;
 
 public class Interacting : MonoBehaviour
@@ -12,9 +13,13 @@ public class Interacting : MonoBehaviour
     private PlayerMovement _playerMovement;
     private Action _interactionAction;
 
+    private Camera _cam;
+    private bool _isInventoryOpened;
+
     private void Awake()
     {
         _playerMovement = FindObjectOfType<PlayerMovement>();
+        _cam = Camera.main;
     }
 
     private void Start()
@@ -29,6 +34,19 @@ public class Interacting : MonoBehaviour
         {
             ChooseInteractionOption();
             Interact();
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                var ray = new Ray(_cam.transform.position, _cam.transform.forward);
+
+                if (Physics.Raycast(ray, out var hitInfo, 3f))
+                {
+                    if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable obj))
+                    {
+                        obj.Interact();
+                    }
+                }
+            }
         }
         
         ShowSelectingCropUI();
@@ -66,6 +84,7 @@ public class Interacting : MonoBehaviour
         if ((!Input.GetKey(KeyCode.Q) || InteractionManager.Instance.IsSelectingCrop) && (Input.GetKey(KeyCode.Q) || !InteractionManager.Instance.IsSelectingCrop)) return;
 
         InteractionManager.Instance.IsSelectingCrop = !InteractionManager.Instance.IsSelectingCrop;
+        TimeManager.Instance.TimeBlocked = InteractionManager.Instance.IsSelectingCrop;
 
         _selectingCropCanvas.gameObject.SetActive(InteractionManager.Instance.IsSelectingCrop);
         Cursor.lockState = InteractionManager.Instance.IsSelectingCrop ? CursorLockMode.Confined : CursorLockMode.Locked;
@@ -75,6 +94,14 @@ public class Interacting : MonoBehaviour
     
     private void ShowInventory()
     {
-            _inventoryCanvas.gameObject.SetActive(Input.GetKey(KeyCode.Tab));
+        if ((!Input.GetKey(KeyCode.Tab) || _isInventoryOpened) && (Input.GetKey(KeyCode.Tab) || !_isInventoryOpened))
+            return;
+
+        TimeManager.Instance.TimeBlocked = !_isInventoryOpened;
+        _isInventoryOpened = !_isInventoryOpened;
+        _inventoryCanvas.gameObject.SetActive(_isInventoryOpened);
+        Cursor.lockState = _isInventoryOpened ? CursorLockMode.Confined : CursorLockMode.Locked;
+        Cursor.visible = _isInventoryOpened;
+        _playerMovement.enabled = !_isInventoryOpened;
     }
 }

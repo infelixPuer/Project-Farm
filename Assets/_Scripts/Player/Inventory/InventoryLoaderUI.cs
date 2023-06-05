@@ -15,17 +15,20 @@ public class InventoryLoaderUI : MonoBehaviour
     {
         var inventory = _playerInventory.GetInventory();
 
-        foreach (var item in inventory)
+        for (int i = 0; i < inventory.Length; i++)
         {
+            if (inventory[i].IsEmpty)
+                continue;
+            
             var itemObject = _itemUIPrefab;
-            itemObject.GetComponentInChildren<Image>().sprite = item.Key.Sprite;
+            itemObject.GetComponentInChildren<Image>().sprite = inventory[i].ItemData.Sprite;
             var TMPs = itemObject.GetComponentsInChildren<TextMeshProUGUI>();
 
             foreach (var text in TMPs)
             {
                 if (text.gameObject.name == "ItemCountText")
                 {
-                    text.text = item.Value.ToString();
+                    text.text = inventory[i].Count.ToString();
                     break;
                 }
             }
