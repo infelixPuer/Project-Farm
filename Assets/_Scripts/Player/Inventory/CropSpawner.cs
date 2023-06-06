@@ -19,6 +19,6 @@ public class CropSpawner : MonoBehaviour, IInteractable
 
     public void Interact(RaycastHit hitInfo)
     {
-        throw new System.NotImplementedException();
+        
     }
 }

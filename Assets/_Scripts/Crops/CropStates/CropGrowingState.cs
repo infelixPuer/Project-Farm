@@ -12,19 +12,23 @@ public class CropGrowingState : CropBaseState
     private DateTime _dateOfPlanting;
     private TimeSpan _elapsedTime;
     
-    public override void EnterCropState(CropStateMachine stateMachine)
+    public override void EnterCropState(CropStateMachine crop)
     {
         _cropStartingScale = 0.1f * Vector3.one;
         _dateOfPlanting = TimeManager.Instance.GetCurrentTime();
         
-        _timeOfGrowing = TimeSpan.FromDays(Crop.GrowingTime);
+        _timeOfGrowing = TimeSpan.FromDays(Crop.GrowthTime);
         
-        stateMachine.gameObject.transform.localScale = _cropStartingScale;
+        crop.gameObject.transform.localScale = _cropStartingScale;
     }
 
     public override void UpdateCropState(CropStateMachine crop)
     {
-        if (crop.gameObject.transform.localScale.x >= 1f) return;
+        if (crop.gameObject.transform.localScale.x >= 1f)
+        {
+            crop.TransitionToState(crop.CropReadyToHarvestState);
+            return;
+        }
         
         _elapsedTime = TimeManager.Instance.GetCurrentTime() - _dateOfPlanting ;
         var t = _elapsedTime / _timeOfGrowing;

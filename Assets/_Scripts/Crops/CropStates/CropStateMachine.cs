@@ -1,13 +1,19 @@
-using System;
+using _Scripts.Crops.CropStates;
+using _Scripts.Player.Interaction.InteractionTypes;
+using _Scripts.Player.Inventory;
 using UnityEngine;
 
 public class CropStateMachine : MonoBehaviour
 {
+    [SerializeField] 
+    private HarvestCrop _harvestCrop;
+    
     private CropBaseState _currentState;
-    private CropGrowingState _cropGrowingState = new();
+    public CropGrowingState CropGrowingState = new();
+    public CropReadyToHarvestState CropReadyToHarvestState = new();
 
     private Crop _crop;
-    private CropScriptableObject _cropSO;
+    private ItemSO _cropSO;
 
     private void Awake()
     {
@@ -17,19 +23,25 @@ public class CropStateMachine : MonoBehaviour
 
     private void Start()
     {
-        _currentState = _cropGrowingState;
+        _currentState = CropGrowingState;
         _currentState.Crop = _cropSO;
         _currentState.EnterCropState(this);
     }
 
     private void Update()
     {
-        _currentState.UpdateCropState(this);
+        _currentState?.UpdateCropState(this);
     }
 
     public void TransitionToState(CropBaseState state)
     {
         _currentState = state;
         _currentState.EnterCropState(this);
+    }
+
+    public HarvestCrop GetHarvestCrop()
+    {
+        _harvestCrop.Item = _cropSO;
+       return _harvestCrop;
     }
 }

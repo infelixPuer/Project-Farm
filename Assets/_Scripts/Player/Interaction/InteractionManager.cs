@@ -1,4 +1,5 @@
 using System;
+using _Scripts.Player.Inventory;
 using TMPro;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ public class InteractionManager : MonoBehaviour
     public InteractionState interactionState;
     public event Action<InteractionState> OnPlayerActionStateChange;
 
-    public CropScriptableObject SelectedCrop;
+    public ItemSO SelectedCrop;
     public bool IsCropSelected => SelectedCrop != null;
     public bool IsSelectingCrop;
 

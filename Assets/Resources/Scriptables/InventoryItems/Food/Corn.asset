@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21c7ee3d8a7c493da66891f7dd4c79de, type: 3}
-  m_Name: TomatoSeed
+  m_Name: Corn
   m_EditorClassIdentifier: 
-  Id: Tomato_seed
-  Name: Tomato seed
-  Sprite: {fileID: 21300000, guid: 02d2865cfdbe9c340932145e2ad131ee, type: 3}
-  Object: {fileID: 9058858380290141276, guid: e0daeaa19a2b826458770259bfa7725c, type: 3}
-  ItemType: {fileID: 11400000, guid: 0d564143f7cee9a45a537d62ed2764d8, type: 2}
+  Id: Corn_object
+  Name: Corn
+  GrowthTime: 3
+  Sprite: {fileID: 21300000, guid: 5cb6a3249fe519c4b9a6a20c8c15b08f, type: 3}
+  Object: {fileID: 640033828804554226, guid: 6bf18057aad711846ab15960c2a5d4e4, type: 3}
+  ItemType: {fileID: 11400000, guid: a3cb625c5b22b8e459bfdd6c8a77a277, type: 2}

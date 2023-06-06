@@ -1,3 +1,4 @@
+using _Scripts.Player.Inventory;
 using UnityEngine;
 
 public class Seedbed : Tile
@@ -22,7 +23,7 @@ public class Seedbed : Tile
 
     public GridObject Parent;
     private MeshRenderer _renderer;
-    private CropScriptableObject _cropSO;
+    private ItemSO _cropSO;
     private Crop _crop;
 
     private bool _isWatered;
@@ -51,13 +52,13 @@ public class Seedbed : Tile
         UpdateCellMaterial();
     }           
 
-    public void PlantCrop(CropScriptableObject crop)
+    public void PlantCrop(ItemSO crop)
     {
         _cropSO = crop;
 
         var seedbedTransform = _seedbedModel.transform;
 
-        var y = seedbedTransform!.position.y + seedbedTransform.localScale.y * 0.5f + _cropSO.PhasesOfGrowing[0].transform.localScale.y * 0.5f;
+        var y = seedbedTransform!.position.y + seedbedTransform.localScale.y * 0.5f + _cropSO.Object.transform.localScale.y * 0.5f;
         var plantPos = _plantPlace.transform.position;
         var cropGameObject = Instantiate(_cropPrefab, new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, transform);
         _crop = cropGameObject.GetComponent<Crop>();

@@ -1568,14 +1568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd606233f3dc808419a13a75c2d9ff23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactionDistance: 3
-  _selectionLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _plantLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _seedbedPrefab: {fileID: 4128507791673510030, guid: 381cf3793b9c2b840be1f9ffbef92d1a, type: 3}
   _interactionText: {fileID: 1159479411}
   interactionState: 0
   SelectedCrop: {fileID: 0}
@@ -1766,10 +1758,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95cd3873b3c54cad8836088205f87541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectionLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  _interactionDistance: 3
 --- !u!1 &1646697590
 GameObject:
   m_ObjectHideFlags: 0
@@ -2325,7 +2313,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767879709}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

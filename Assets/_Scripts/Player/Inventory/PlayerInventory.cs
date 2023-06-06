@@ -15,7 +15,7 @@ namespace _Scripts.Player.Inventory
 
         private void Awake()
         {
-            this.Inventory = new Inventory();
+            Inventory = new Inventory();
             AddItem(Tomato);
             AddItem(Tomato);
             AddItem(Tomato);
@@ -51,7 +51,7 @@ namespace _Scripts.Player.Inventory
 
         public void AddItem(ItemSO item)
         {
-            _itemAddedSuccsessfuly = this.Inventory.AddItem(new Item(item, 1));
+            _itemAddedSuccsessfuly = Inventory.AddItem(new Item(item, 1));
             
             if (_itemAddedSuccsessfuly)
                 Debug.Log("Item added!");

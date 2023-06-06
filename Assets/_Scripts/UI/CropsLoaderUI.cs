@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using _Scripts.Player.Inventory;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,11 +16,11 @@ public class CropsLoaderUI : MonoBehaviour
     [SerializeField] 
     private GameObject _panelItemPrefab;
 
-    private List<CropScriptableObject> _crops;
+    private List<ItemSO> _crops;
 
     private void Awake()
     {
-        _crops = Resources.LoadAll<CropScriptableObject>("Scriptables/Crops").ToList();
+        _crops = Resources.LoadAll<ItemSO>("Scriptables/InventoryItems/Food/").ToList();
 
         foreach (var crop in _crops)
         {
@@ -42,7 +43,7 @@ public class CropsLoaderUI : MonoBehaviour
         _canvas.gameObject.SetActive(false);
     }
 
-    private void OnCropSelected(CropScriptableObject crop)
+    private void OnCropSelected(ItemSO crop)
     {
         InteractionManager.Instance.SelectedCrop = crop;
     }

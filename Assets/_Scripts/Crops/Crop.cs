@@ -1,8 +1,10 @@
+using _Scripts.Player.Inventory;
 using UnityEngine;
 
 public class Crop : MonoBehaviour
 {
     public CropScriptableObject CropSO;
+    public ItemSO Item;
 
     private MeshFilter _filter;
     private MeshRenderer _renderer;
@@ -13,18 +15,18 @@ public class Crop : MonoBehaviour
         _filter = GetComponent<MeshFilter>();
         _renderer = GetComponent<MeshRenderer>();
         
-        CropSO = InteractionManager.Instance.SelectedCrop;
+        Item = InteractionManager.Instance.SelectedCrop;
         
-        gameObject.name = CropSO.Name;
+        gameObject.name = Item.Name;
         
         Plant();
     }
 
     private void Plant()
     {
-        _filter.sharedMesh = CropSO.PhasesOfGrowing[0].GetComponent<MeshFilter>().sharedMesh;
-        _renderer.sharedMaterial = CropSO.PhasesOfGrowing[0].GetComponent<MeshRenderer>().sharedMaterial;
-        transform.localScale = CropSO.PhasesOfGrowing[0].transform.localScale;
+        _filter.sharedMesh = Item.Object.GetComponent<MeshFilter>().sharedMesh;
+        _renderer.sharedMaterial = Item.Object.GetComponent<MeshRenderer>().sharedMaterial;
+        transform.localScale = Item.Object.transform.localScale;
     }
 
     public void SetParentSeedbed(Seedbed seedbed) => _parentSeedbed = seedbed;
