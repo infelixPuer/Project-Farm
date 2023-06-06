@@ -1,8 +1,8 @@
 using System;
-using _Scripts.Player.Interaction;
 using UnityEngine;
+using _Scripts.Player.Interaction;
 
-public class Interacting : MonoBehaviour
+public class Interactor : MonoBehaviour
 {
     [SerializeField] 
     private Canvas _selectingCropCanvas;
@@ -33,19 +33,11 @@ public class Interacting : MonoBehaviour
         if (!InteractionManager.Instance.IsSelectingCrop)
         {
             ChooseInteractionOption();
-            Interact();
+            SpecialInteraction();
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                var ray = new Ray(_cam.transform.position, _cam.transform.forward);
-
-                if (Physics.Raycast(ray, out var hitInfo, 3f))
-                {
-                    if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable obj))
-                    {
-                        obj.Interact();
-                    }
-                }
+                SimpleInteraction();
             }
         }
         
@@ -56,26 +48,41 @@ public class Interacting : MonoBehaviour
     private void ChooseInteractionOption()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.MakingSeedbed, this);
+            InteractionManager.Instance.UpdatePlayerInteractionState(InteractionState.MakingSeedbed);
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Planting, this);
+            InteractionManager.Instance.UpdatePlayerInteractionState(InteractionState.Planting);
         
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-            InteractionManager.Instance.UpdatePlayerActionState(InteractionState.Watering, this);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            InteractionManager.Instance.UpdatePlayerInteractionState(InteractionState.Watering);
     }
 
-    public void OnInteractionAction(Action action)
-    {
-        _interactionAction = null;
-        _interactionAction += action;
-    }
-
-    private void Interact()
+    private void SpecialInteraction()
     {
         if (!Input.GetMouseButtonDown(0)) return;
         
-        _interactionAction?.Invoke(); 
+        var ray = new Ray(_cam.transform.position, _cam.transform.forward);
+        
+        if (Physics.Raycast(ray, out var hitInfo, 3f))
+        {
+            if (hitInfo.collider.gameObject.TryGetComponent<IInteractable>(out var obj))
+            {
+                obj.Interact(hitInfo);
+            }
+        }
+    }
+
+    private void SimpleInteraction()
+    {
+        var ray = new Ray(_cam.transform.position, _cam.transform.forward);
+
+        if (Physics.Raycast(ray, out var hitInfo, 3f))
+        {
+            if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable obj))
+            {
+                obj.Interact();
+            }
+        }
     }
     
     // ReSharper disable once InconsistentNaming
