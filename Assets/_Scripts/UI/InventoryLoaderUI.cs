@@ -1,8 +1,6 @@
 using _Scripts.Player.Inventory;
 using _Scripts.UI;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InventoryLoaderUI : MonoBehaviour
 {
@@ -25,8 +23,6 @@ public class InventoryLoaderUI : MonoBehaviour
             }
             
             var itemObject = _itemUIPrefab.Init(inventory[i].ItemData.Sprite, inventory[i].Count.ToString());
-            // itemObject.GetItemSprite().sprite = inventory[i].ItemData.Sprite;
-            // itemObject.GetTextMeshPro().text = inventory[i].Count.ToString();
             
             Instantiate(itemObject, gameObject.transform);
         }

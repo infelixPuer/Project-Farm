@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace _Scripts.Player.Inventory
+﻿namespace _Scripts.Player.Inventory
 {
     public static class InventoryHelpers
     {
