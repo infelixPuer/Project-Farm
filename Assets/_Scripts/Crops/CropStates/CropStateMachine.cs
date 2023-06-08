@@ -9,6 +9,9 @@ public class CropStateMachine : MonoBehaviour
     [SerializeField] 
     private HarvestCrop _harvestCrop;
     
+    [HideInInspector]
+    public bool IsReadyToHarvest;
+    
     private CropBaseState _currentState;
     public CropGrowingState CropGrowingState = new();
     public CropReadyToHarvestState CropReadyToHarvestState = new();

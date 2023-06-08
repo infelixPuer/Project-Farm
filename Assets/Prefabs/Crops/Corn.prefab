@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _harvestCrop: {fileID: -7353506306224171536}
+  IsReadyToHarvest: 0
 --- !u!114 &-7353506306224171536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,3 +150,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cropBase: {fileID: -8669328967027355339}
+  _cropStateMachine: {fileID: 275696113280395497}

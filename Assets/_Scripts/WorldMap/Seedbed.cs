@@ -19,14 +19,12 @@ public class Seedbed : Tile
     [SerializeField] 
     private GameObject _seedbedModel;
 
-    [SerializeField] 
-    private GameObject _cropPrefab;
-
     public GridObject Parent;
     private MeshRenderer _renderer;
     private ItemSO _cropSO;
     private Crop _crop;
     private CropBase _cropBase;
+    private float _waterLevel;
 
     private bool _isWatered;
 
@@ -66,8 +64,6 @@ public class Seedbed : Tile
         _cropBase = cropGameObject.GetComponent<CropBase>();
         _cropBase.SetParentSeedbed(this);
     }
-
-    public Crop GetCrop() => _crop;
 
     public void WaterSeedbed()
     {
