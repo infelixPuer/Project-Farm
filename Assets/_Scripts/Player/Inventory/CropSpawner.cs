@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using _Scripts.Player.Interaction;
 using _Scripts.Player.Inventory;
 using UnityEngine;

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace _Scripts.Crops.CropTypes
+﻿namespace _Scripts.Crops.CropTypes
 {
     public class OnionCrop : CropBase
     {

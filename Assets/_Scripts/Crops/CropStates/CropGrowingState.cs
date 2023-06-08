@@ -14,7 +14,6 @@ public class CropGrowingState : CropBaseState
         _cropStartingScale = 0.1f * Vector3.one;
         _dateOfPlanting = TimeManager.Instance.GetCurrentTime();
         
-        //TODO: Get actual time of growing
         _timeOfGrowing = TimeSpan.FromDays(crop.GetCrop().GrowthTime);
         
         crop.gameObject.transform.localScale = _cropStartingScale;
