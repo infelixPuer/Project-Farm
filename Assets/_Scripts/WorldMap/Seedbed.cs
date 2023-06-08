@@ -66,7 +66,7 @@ public class Seedbed : Tile
     {
         State = state;
 
-        UpdateCellMaterial();
+        //UpdateCellMaterial();
     }           
 
     public void PlantCrop(ItemSO crop)
