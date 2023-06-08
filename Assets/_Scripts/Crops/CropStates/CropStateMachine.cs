@@ -1,3 +1,4 @@
+using _Scripts.Crops;
 using _Scripts.Crops.CropStates;
 using _Scripts.Player.Interaction.InteractionTypes;
 using _Scripts.Player.Inventory;
@@ -12,12 +13,12 @@ public class CropStateMachine : MonoBehaviour
     public CropGrowingState CropGrowingState = new();
     public CropReadyToHarvestState CropReadyToHarvestState = new();
 
-    private Crop _crop;
+    private CropBase _crop;
     private ItemSO _cropSO;
 
     private void Awake()
     {
-        _crop = GetComponent<Crop>();
+        _crop = GetComponent<CropBase>();
         _cropSO = InteractionManager.Instance.SelectedCrop;
     }
 
@@ -44,4 +45,6 @@ public class CropStateMachine : MonoBehaviour
         _harvestCrop.Item = _cropSO;
        return _harvestCrop;
     }
+    
+    public CropBase GetCrop() => _crop;
 }

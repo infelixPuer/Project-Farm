@@ -1,3 +1,4 @@
+using _Scripts.Crops;
 using _Scripts.Player.Inventory;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ public class Seedbed : Tile
     private MeshRenderer _renderer;
     private ItemSO _cropSO;
     private Crop _crop;
+    private CropBase _cropBase;
 
     private bool _isWatered;
 
@@ -60,9 +62,9 @@ public class Seedbed : Tile
 
         var y = seedbedTransform!.position.y + seedbedTransform.localScale.y * 0.5f + _cropSO.Object.transform.localScale.y * 0.5f;
         var plantPos = _plantPlace.transform.position;
-        var cropGameObject = Instantiate(_cropPrefab, new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, transform);
-        _crop = cropGameObject.GetComponent<Crop>();
-        _crop.SetParentSeedbed(this);
+        var cropGameObject = Instantiate(crop.Object, new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, transform);
+        _cropBase = cropGameObject.GetComponent<CropBase>();
+        _cropBase.SetParentSeedbed(this);
     }
 
     public Crop GetCrop() => _crop;

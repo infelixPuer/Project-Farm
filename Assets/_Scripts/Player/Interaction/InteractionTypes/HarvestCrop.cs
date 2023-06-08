@@ -1,4 +1,5 @@
-﻿using _Scripts.Player.Inventory;
+﻿using _Scripts.Crops;
+using _Scripts.Player.Inventory;
 using UnityEngine;
 
 namespace _Scripts.Player.Interaction.InteractionTypes
@@ -7,6 +8,9 @@ namespace _Scripts.Player.Interaction.InteractionTypes
     {
         [SerializeField] 
         private Crop _crop;
+
+        [SerializeField] 
+        private CropBase _cropBase;
         
         private PlayerInventory _inventory;
         
@@ -19,9 +23,9 @@ namespace _Scripts.Player.Interaction.InteractionTypes
 
         public void Interact()
         {
-            _inventory.AddItem(Item);
-            _crop.GetParentSeedbed().UpdateTileState(TileState.Empty);
-            Destroy(_crop.gameObject);
+            _inventory.AddItem(Item, _cropBase.Output);
+            _cropBase.GetParentSeedbed().UpdateTileState(TileState.Empty);
+            Destroy(_cropBase.gameObject);
         }
 
         public void Interact(RaycastHit hitInfo)

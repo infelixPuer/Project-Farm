@@ -4,9 +4,6 @@ using Vector3 = UnityEngine.Vector3;
 
 public class CropGrowingState : CropBaseState
 {
-    private MeshFilter _filter;
-    private MeshRenderer _renderer;
-    
     private Vector3 _cropStartingScale;
     private TimeSpan _timeOfGrowing;
     private DateTime _dateOfPlanting;
@@ -17,7 +14,8 @@ public class CropGrowingState : CropBaseState
         _cropStartingScale = 0.1f * Vector3.one;
         _dateOfPlanting = TimeManager.Instance.GetCurrentTime();
         
-        _timeOfGrowing = TimeSpan.FromDays(Crop.GrowthTime);
+        //TODO: Get actual time of growing
+        _timeOfGrowing = TimeSpan.FromDays(crop.GetCrop().GrowthTime);
         
         crop.gameObject.transform.localScale = _cropStartingScale;
     }

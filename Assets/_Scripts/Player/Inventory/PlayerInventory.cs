@@ -16,42 +16,42 @@ namespace _Scripts.Player.Inventory
         private void Awake()
         {
             Inventory = new Inventory();
-            AddItem(Tomato);
-            AddItem(Tomato);
-            AddItem(Tomato);
-            AddItem(Tomato);
-            AddItem(Tomato);
-            AddItem(Tomato);
-            AddItem(Tomato);
-            AddItem(Tomato);
-            AddItem(Tomato);
-            AddItem(Corn);
-            AddItem(Corn);
-            AddItem(Corn);
-            AddItem(Corn);
-            AddItem(Corn);
-            AddItem(Corn);
-            AddItem(Corn);
-            AddItem(Carrot);
-            AddItem(Carrot);
-            AddItem(Carrot);
-            AddItem(Carrot);
-            AddItem(Carrot);
-            AddItem(Carrot);
-            AddItem(Carrot);
-            AddItem(Carrot);
-            AddItem(Carrot);
-            AddItem(Carrot);
-            AddItem(Carrot);
-            AddItem(Carrot);
-            AddItem(Onion);
-            AddItem(Onion);
-            AddItem(Onion);
+            AddItem(Tomato, 1);
+            AddItem(Tomato, 1);
+            AddItem(Tomato, 1);
+            AddItem(Tomato, 1);
+            AddItem(Tomato, 1);
+            AddItem(Tomato, 1);
+            AddItem(Tomato, 1);
+            AddItem(Tomato, 1);
+            AddItem(Tomato, 1);    
+            AddItem(Corn, 1);
+            AddItem(Corn, 1);
+            AddItem(Corn, 1);
+            AddItem(Corn, 1);
+            AddItem(Corn, 1);
+            AddItem(Corn, 1);
+            AddItem(Corn, 1);
+            AddItem(Carrot, 1);
+            AddItem(Carrot, 1);
+            AddItem(Carrot, 1);
+            AddItem(Carrot, 1);
+            AddItem(Carrot, 1);
+            AddItem(Carrot, 1);
+            AddItem(Carrot, 1);
+            AddItem(Carrot, 1);
+            AddItem(Carrot, 1);
+            AddItem(Carrot, 1);
+            AddItem(Carrot, 1);
+            AddItem(Carrot, 1);
+            AddItem(Onion, 1);
+            AddItem(Onion, 1);
+            AddItem(Onion, 1);
         }
 
-        public void AddItem(ItemSO item)
+        public void AddItem(ItemSO item, int count)
         {
-            _itemAddedSuccsessfuly = Inventory.AddItem(new Item(item, 1));
+            _itemAddedSuccsessfuly = Inventory.AddItem(new Item(item, count));
             
             if (_itemAddedSuccsessfuly)
                 Debug.Log("Item added!");

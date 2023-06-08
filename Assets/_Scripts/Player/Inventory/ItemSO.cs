@@ -7,7 +7,6 @@ namespace _Scripts.Player.Inventory
     {
         public string Id;
         public string Name;
-        public int GrowthTime;
         public Sprite Sprite;
         public GameObject Object;
         public ItemTypeSO ItemType;

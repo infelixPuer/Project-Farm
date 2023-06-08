@@ -13,29 +13,33 @@
 
         public bool AddItem(Item item)
         {
-            if (_inventory.ItemCount() == _inventorySize && (_inventory.AvaliableSlot() != -1))
-                return false;
-
-            if (!_inventory.ContainsItem(item))
+            for (int i = 0; i < item.Count; i++)
             {
-                _inventory.AddItem(item);
-            }
-            else
-            {
-                var availableStackIndex = _inventory.AvaliableStack(item);
+                if (_inventory.ItemCount() == _inventorySize && (_inventory.AvaliableSlot() != -1))
+                    return false;
 
-                if (availableStackIndex == -1)
+                if (!_inventory.ContainsItem(item))
                 {
-                    var availableSlotIndex = _inventory.AvaliableSlot();
-                    
-                    if (availableSlotIndex == -1)
-                        return false;
-                    
-                    _inventory[availableSlotIndex] = item;
-                    return true;
+                    _inventory.AddItem(item);
                 }
+                else
+                {
+                    var availableStackIndex = _inventory.AvaliableStack(item);
+
+                    if (availableStackIndex == -1)
+                    {
+                        var availableSlotIndex = _inventory.AvaliableSlot();
+                    
+                        if (availableSlotIndex == -1)
+                            return false;
+                    
+                        _inventory[availableSlotIndex] = new Item(item.ItemData, 1);
+                        
+                        continue;
+                    }
                 
-                _inventory[availableStackIndex].Count++;
+                    _inventory[availableStackIndex].Count++;
+                }
             }
 
             return true;

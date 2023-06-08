@@ -9,6 +9,8 @@ namespace _Scripts.Player.Interaction.InteractionTypes
 
         public void Interact(RaycastHit hitInfo)
         {
+            if (InteractionManager.Instance.interactionState != InteractionState.Planting) return;
+            
             if (!hitInfo.collider.transform.parent.TryGetComponent<Seedbed>(out var seedbed)) return;
             
             if (seedbed.State != TileState.Empty) return;
