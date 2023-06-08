@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 902621410802576374}
   - component: {fileID: 1837611804705495639}
   - component: {fileID: 6389750307664716896}
+  - component: {fileID: -4000073975563878150}
   - component: {fileID: 2117982441633479683}
   - component: {fileID: -4105795839379199665}
   m_Layer: 0
@@ -107,6 +108,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-4000073975563878150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640033828804554226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3965ca283e45bc866a15223e67bd62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 11400000, guid: 49edd61597bb70e4a924d1bd1b7197a6, type: 2}
+  GrowthTime: 2
+  Output: 2
 --- !u!114 &2117982441633479683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,4 +148,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbf4ba3a6750409db693cfc36c544d1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _crop: {fileID: 0}
+  _cropBase: {fileID: -4000073975563878150}

@@ -7,9 +7,6 @@ namespace _Scripts.Player.Interaction.InteractionTypes
     public class HarvestCrop : MonoBehaviour, IInteractable
     {
         [SerializeField] 
-        private Crop _crop;
-
-        [SerializeField] 
         private CropBase _cropBase;
         
         private PlayerInventory _inventory;
