@@ -23,6 +23,7 @@ public class CropStateMachine : MonoBehaviour
     {
         _crop = GetComponent<CropBase>();
         _cropSO = InteractionManager.Instance.SelectedCrop;
+        _harvestCrop.Item = _cropSO;
     }
 
     private void Start()

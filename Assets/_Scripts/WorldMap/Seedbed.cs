@@ -2,8 +2,6 @@ using System;
 using _Scripts.Crops;
 using _Scripts.Player.Inventory;
 using UnityEngine;
-using UnityEngine.Serialization;
-
 public class Seedbed : Tile
 {
     [SerializeField] 
@@ -35,6 +33,7 @@ public class Seedbed : Tile
     private Crop _crop;
     private CropBase _cropBase;
 
+    // Variables for managing water level
     private float _waterLevelAfterWatering;
     private TimeSpan _elapsedTime;
     private DateTime _dateOfWatering;
