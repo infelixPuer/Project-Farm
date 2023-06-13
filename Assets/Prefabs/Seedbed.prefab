@@ -170,7 +170,7 @@ MonoBehaviour:
   _wateredMaterial: {fileID: 2100000, guid: faf2a4519b726b34a85c74e6b39329c0, type: 2}
   _plantPlace: {fileID: 6763048826457799617}
   _seedbedModel: {fileID: 485858210923969886}
-  _daysToDry: 2
+  _daysToDry: 2.5
   _currentWaterLevel: 0
 --- !u!1 &6763048826457799617
 GameObject:

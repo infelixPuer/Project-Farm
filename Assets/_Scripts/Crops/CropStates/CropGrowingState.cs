@@ -8,29 +8,40 @@ public class CropGrowingState : CropBaseState
     private TimeSpan _timeOfGrowing;
     private DateTime _dateOfPlanting;
     private TimeSpan _elapsedTime;
+    private float _t;
     
-    public override void EnterCropState(CropStateMachine crop)
+    public override void EnterCropState(CropStateMachine stateMachine)
     {
         _cropStartingScale = 0.1f * Vector3.one;
-        _dateOfPlanting = TimeManager.Instance.GetCurrentTime();
+        _dateOfPlanting = stateMachine.PlantedDate;
         
-        _timeOfGrowing = TimeSpan.FromDays(crop.GetCrop().GrowthTime);
+        _timeOfGrowing = TimeSpan.FromDays(stateMachine.GetCrop().GrowthTime);
         
-        crop.gameObject.transform.localScale = _cropStartingScale;
+        stateMachine.transform.localScale = _cropStartingScale;
+        Debug.Log(TimeManager.Instance.GetCurrentTime());
     }
 
-    public override void UpdateCropState(CropStateMachine crop)
+    public override void UpdateCropState(CropStateMachine stateMachine)
     {
-        if (crop.gameObject.transform.localScale.x >= 1f)
+        var crop = stateMachine.GetCrop();
+        
+        if (_elapsedTime >= _timeOfGrowing)
         {
-            crop.TransitionToState(crop.CropReadyToHarvestState);
+            stateMachine.TransitionToState(stateMachine.CropReadyToHarvestState);
+            Debug.Log(TimeManager.Instance.GetCurrentTime());
             return;
         }
-        
-        _elapsedTime = TimeManager.Instance.GetCurrentTime() - _dateOfPlanting ;
-        var t = _elapsedTime / _timeOfGrowing;
 
-        crop.gameObject.transform.localScale = Mathf.Lerp(_cropStartingScale.x, 1f, (float)t) * Vector3.one;
-        crop.gameObject.transform.position = new Vector3(crop.gameObject.transform.position.x, crop.gameObject.transform.localScale.y * 0.5f + 0.05f, crop.gameObject.transform.position.z);
+        if (crop.GetParentSeedbed().GetCurrentWaterLevel() <= crop.MinimalWaterLevel)
+        {
+            stateMachine.TransitionToState(stateMachine.CropSlowGrowingState);
+            return;
+        }
+
+        _elapsedTime = TimeManager.Instance.GetCurrentTime() - _dateOfPlanting;
+        _t = (float)(_elapsedTime / _timeOfGrowing);
+
+        stateMachine.gameObject.transform.localScale = Mathf.Lerp(_cropStartingScale.x, 1f, _t) * Vector3.one;
+        stateMachine.gameObject.transform.position = new Vector3(stateMachine.gameObject.transform.position.x, stateMachine.gameObject.transform.localScale.y * 0.5f + 0.05f, stateMachine.gameObject.transform.position.z);
     }
 }

@@ -123,6 +123,7 @@ MonoBehaviour:
   Item: {fileID: 11400000, guid: 1bd857be3299022489b7c615bcffd7db, type: 2}
   GrowthTime: 4
   Output: 4
+  MinimalWaterLevel: 0.4
 --- !u!114 &3709716503430698027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _harvestCrop: {fileID: -8987554168888563207}
+  _crop: {fileID: -4851667951280552576}
   IsReadyToHarvest: 0
 --- !u!114 &-8987554168888563207
 MonoBehaviour:

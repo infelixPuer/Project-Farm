@@ -20,7 +20,7 @@ public class Seedbed : Tile
     private GameObject _seedbedModel;
     
     [SerializeField]
-    private int _daysToDry;
+    private float _daysToDry;
 
     [SerializeField]
     [Range(0f, 1f)]
@@ -33,7 +33,6 @@ public class Seedbed : Tile
     private Crop _crop;
     private CropBase _cropBase;
 
-    // Variables for managing water level
     private float _waterLevelAfterWatering;
     private TimeSpan _elapsedTime;
     private DateTime _dateOfWatering;
@@ -64,8 +63,6 @@ public class Seedbed : Tile
     public override void UpdateTileState(TileState state)
     {
         State = state;
-
-        //UpdateCellMaterial();
     }           
 
     public void PlantCrop(ItemSO crop)
@@ -90,16 +87,21 @@ public class Seedbed : Tile
         _renderer.material = _wateredMaterial;
     }
 
-    public void UpdateWaterLevel()
+    private void UpdateWaterLevel()
     {
         if (!_isWatered) return;
         
         _elapsedTime = TimeManager.Instance.GetCurrentTime() - _dateOfWatering;
-        var t = _elapsedTime / TimeSpan.FromDays(_daysToDry) / _waterLevelAfterWatering;
+        var t = _elapsedTime / (TimeSpan.FromDays(_daysToDry) * _waterLevelAfterWatering);
         
         _currentWaterLevel = Mathf.Lerp(_waterLevelAfterWatering, 0f, (float)t);
         
         if (_currentWaterLevel <= 0f) DrySeedbed();
+    }
+    
+    public float GetCurrentWaterLevel()
+    {
+        return _currentWaterLevel;
     }
 
     public void DrySeedbed()
@@ -108,8 +110,8 @@ public class Seedbed : Tile
         _renderer.material = _emptyMaterial;
     }
 
-    public bool GetWateredStatus()
-    {
-        return _isWatered;
-    }
+    // public bool GetWateredStatus()
+    // {
+    //     return _isWatered;
+    // }
 }

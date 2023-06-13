@@ -8,6 +8,7 @@ namespace _Scripts.Crops
         public ItemSO Item;
         public int GrowthTime;
         public int Output;
+        public float MinimalWaterLevel;
 
         protected MeshFilter _filter;
         protected MeshRenderer _renderer;

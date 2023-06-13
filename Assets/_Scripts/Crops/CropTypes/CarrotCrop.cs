@@ -6,6 +6,7 @@
         {
             Init();
             Plant();
+            MinimalWaterLevel = 0.4f;
         }
     }
 }

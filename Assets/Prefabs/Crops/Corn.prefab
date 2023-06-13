@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &902621410802576374
 MeshFilter:
@@ -123,6 +123,7 @@ MonoBehaviour:
   Item: {fileID: 11400000, guid: b12caba72cfc40e4b8fe4841a5b0af63, type: 2}
   GrowthTime: 3
   Output: 3
+  MinimalWaterLevel: 0.4
 --- !u!114 &275696113280395497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _harvestCrop: {fileID: -7353506306224171536}
+  _crop: {fileID: -8669328967027355339}
   IsReadyToHarvest: 0
 --- !u!114 &-7353506306224171536
 MonoBehaviour:
