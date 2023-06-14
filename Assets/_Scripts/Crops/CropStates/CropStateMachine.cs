@@ -24,6 +24,7 @@ public class CropStateMachine : MonoBehaviour
     public CropReadyToHarvestState CropReadyToHarvestState = new();
     public CropSlowGrowingState CropSlowGrowingState = new();
     public CropWiltingState CropWiltingState = new();
+    public CropDeadState CropDeadState = new();
     
     private ItemSO _cropSO;
 

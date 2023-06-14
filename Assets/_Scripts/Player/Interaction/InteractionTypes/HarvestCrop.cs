@@ -25,7 +25,7 @@ namespace _Scripts.Player.Interaction.InteractionTypes
         {
             if (!_cropStateMachine.IsReadyToHarvest) return;
             
-            _inventory.AddItem(Item, _cropBase.Output);
+            _inventory.AddItem(Item, (int)(_cropBase.Output * transform.localScale.x));
             _cropBase.GetParentSeedbed().UpdateTileState(TileState.Empty);
             Destroy(_cropBase.gameObject);
         }

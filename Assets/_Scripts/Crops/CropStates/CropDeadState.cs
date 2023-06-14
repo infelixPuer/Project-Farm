@@ -2,12 +2,11 @@
 
 namespace _Scripts.Crops.CropStates
 {
-    public class CropReadyToHarvestState : CropBaseState
+    public class CropDeadState : CropBaseState
     {
         public override void EnterCropState(CropStateMachine stateMachine)
         {
-            Debug.LogWarning($"Crop scale on harvest: {stateMachine.transform.localScale.x}");
-            stateMachine.IsReadyToHarvest = true;
+            Debug.Log("Enter Dead State");
         }
 
         public override void UpdateCropState(CropStateMachine stateMachine)
