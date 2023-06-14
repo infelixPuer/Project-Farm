@@ -30,7 +30,6 @@ public class Seedbed : Tile
     
     private MeshRenderer _renderer;
     private ItemSO _cropSO;
-    private Crop _crop;
     private CropBase _cropBase;
 
     private float _waterLevelAfterWatering;

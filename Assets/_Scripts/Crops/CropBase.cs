@@ -5,6 +5,10 @@ namespace _Scripts.Crops
 {
     public abstract class CropBase : MonoBehaviour
     {
+        [Range(0f, 1f)]
+        [SerializeField] 
+        protected float _cropQuality;
+        
         public ItemSO Item;
         public int GrowthTime;
         public int Output;
@@ -16,9 +20,10 @@ namespace _Scripts.Crops
 
         protected virtual void Init()
         {
+            _cropQuality = 1f;
+            Item = InteractionManager.Instance.SelectedCrop;
             _filter = GetComponent<MeshFilter>();
             _renderer = GetComponent<MeshRenderer>();
-            Item = InteractionManager.Instance.SelectedCrop;
             gameObject.name = Item.Name;
         }
 
