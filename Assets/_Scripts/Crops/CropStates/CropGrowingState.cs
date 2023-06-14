@@ -5,17 +5,25 @@ using Vector3 = UnityEngine.Vector3;
 public class CropGrowingState : CropBaseState
 {
     private Vector3 _cropStartingScale;
-    private TimeSpan _timeOfGrowing;
-    private DateTime _dateOfPlanting;
-    private TimeSpan _elapsedTime;
+    private TimeSpan _intialTimeOfGrowing;
+    private TimeSpan _timeOfGrowingThatLeftSinceEnteringState;
+    private DateTime _dateOfEnteringState;
+    private TimeSpan _elapsedTimeSinceEnteringState;
     private float _t;
+    private float _maxScale;
     
     public override void EnterCropState(CropStateMachine stateMachine)
     {
-        _cropStartingScale = 0.1f * Vector3.one;
-        _dateOfPlanting = stateMachine.PlantedDate;
+        _cropStartingScale = stateMachine.transform.localScale;
+        _dateOfEnteringState = TimeManager.Instance.GetCurrentTime();
         
-        _timeOfGrowing = TimeSpan.FromDays(stateMachine.GetCrop().GrowthTime);
+        _intialTimeOfGrowing = TimeSpan.FromDays(stateMachine.GetCrop().GrowthTime);
+        _timeOfGrowingThatLeftSinceEnteringState = _intialTimeOfGrowing - (_dateOfEnteringState - stateMachine.PlantedDate);
+
+        var initialGrowth = Mathf.Lerp(0.1f, 1f, (float)((TimeManager.Instance.GetCurrentTime() - stateMachine.PlantedDate) / _intialTimeOfGrowing));
+        var currentGrowth = Mathf.Lerp(_cropStartingScale.x, 1f, (float)((TimeManager.Instance.GetCurrentTime() - _dateOfEnteringState) / _timeOfGrowingThatLeftSinceEnteringState));
+        
+        _maxScale = 1f - initialGrowth - currentGrowth;
         
         stateMachine.transform.localScale = _cropStartingScale;
         Debug.Log(TimeManager.Instance.GetCurrentTime());
@@ -25,7 +33,7 @@ public class CropGrowingState : CropBaseState
     {
         var crop = stateMachine.GetCrop();
         
-        if (_elapsedTime >= _timeOfGrowing)
+        if (_elapsedTimeSinceEnteringState >= _intialTimeOfGrowing)
         {
             stateMachine.TransitionToState(stateMachine.CropReadyToHarvestState);
             Debug.Log(TimeManager.Instance.GetCurrentTime());
@@ -38,10 +46,10 @@ public class CropGrowingState : CropBaseState
             return;
         }
 
-        _elapsedTime = TimeManager.Instance.GetCurrentTime() - _dateOfPlanting;
-        _t = (float)(_elapsedTime / _timeOfGrowing);
+        _elapsedTimeSinceEnteringState = TimeManager.Instance.GetCurrentTime() - _dateOfEnteringState;
+        _t = (float)(_elapsedTimeSinceEnteringState / _timeOfGrowingThatLeftSinceEnteringState);
 
-        stateMachine.gameObject.transform.localScale = Mathf.Lerp(_cropStartingScale.x, 1f, _t) * Vector3.one;
+        stateMachine.gameObject.transform.localScale = Mathf.Lerp(_cropStartingScale.x, _maxScale, _t) * Vector3.one;
         stateMachine.gameObject.transform.position = new Vector3(stateMachine.gameObject.transform.position.x, stateMachine.gameObject.transform.localScale.y * 0.5f + 0.05f, stateMachine.gameObject.transform.position.z);
     }
 }

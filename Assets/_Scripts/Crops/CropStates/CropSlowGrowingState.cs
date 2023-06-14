@@ -18,11 +18,10 @@ namespace _Scripts.Crops.CropStates
         {
             Debug.Log("Enter Slow Growing State");
 
-            _dateOfEnteringState = TimeManager.Instance.GetCurrentTime();
-            _timeOfGrowingThatLeftSinceEnteringState = TimeSpan.FromDays(stateMachine.GetCrop().GrowthTime) - (_dateOfEnteringState - stateMachine.PlantedDate);
-            _cropScaleOnEnteringState = stateMachine.transform.localScale;
-
             _initialTimeOfGrowing = TimeSpan.FromDays(stateMachine.GetCrop().GrowthTime);
+            _dateOfEnteringState = TimeManager.Instance.GetCurrentTime();
+            _timeOfGrowingThatLeftSinceEnteringState = _initialTimeOfGrowing - (_dateOfEnteringState - stateMachine.PlantedDate);
+            _cropScaleOnEnteringState = stateMachine.transform.localScale;
         }
 
         public override void UpdateCropState(CropStateMachine stateMachine)
@@ -36,15 +35,13 @@ namespace _Scripts.Crops.CropStates
                 Debug.Log(TimeManager.Instance.GetCurrentTime());
                 return;
             }
-            
-            //
-            // if (_currentWaterLevel > crop.GetCrop().MinimalWaterLevel)
-            // {
-            //     crop.TransitionToState(crop.CropGrowingState);
-            //     return;
-            // }
-            //
-            
+
+            if (_currentWaterLevel > stateMachine.GetCrop().MinimalWaterLevel)
+            {
+                stateMachine.TransitionToState(stateMachine.CropGrowingState);
+                return;
+            }
+
             if (_currentWaterLevel <= 0f)
             {
                 stateMachine.TransitionToState(stateMachine.CropWiltingState);
@@ -53,8 +50,9 @@ namespace _Scripts.Crops.CropStates
             
             _elapsedTimeSinceEnteringState = TimeManager.Instance.GetCurrentTime() - _dateOfEnteringState;
             _t = (float)(_elapsedTimeSinceEnteringState / _timeOfGrowingThatLeftSinceEnteringState);
-            var k = Mathf.Lerp(0.5f, 1f, _currentWaterLevel / _crop.MinimalWaterLevel);
-
+            // var k = Mathf.Lerp(0.5f, 1f, _currentWaterLevel / _crop.MinimalWaterLevel);
+            var k = _currentWaterLevel / _crop.MinimalWaterLevel * 0.5f + 0.5f;
+            
             stateMachine.transform.localScale = Mathf.Lerp(_cropScaleOnEnteringState.x, 1f, _t * k) * Vector3.one;
             stateMachine.transform.position = new Vector3(stateMachine.transform.position.x, stateMachine.transform.localScale.y * 0.5f + 0.05f, stateMachine.transform.position.z);
         }
