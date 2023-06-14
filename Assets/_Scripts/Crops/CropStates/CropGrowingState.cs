@@ -23,7 +23,7 @@ public class CropGrowingState : CropBaseState
         var initialGrowth = Mathf.Lerp(0.1f, 1f, (float)((TimeManager.Instance.GetCurrentTime() - stateMachine.PlantedDate) / _intialTimeOfGrowing));
         var currentGrowth = Mathf.Lerp(_cropStartingScale.x, 1f, (float)((TimeManager.Instance.GetCurrentTime() - _dateOfEnteringState) / _timeOfGrowingThatLeftSinceEnteringState));
         
-        _maxScale = 1f - initialGrowth - currentGrowth;
+        _maxScale = 1f - (initialGrowth - currentGrowth);
         
         stateMachine.transform.localScale = _cropStartingScale;
         Debug.Log(TimeManager.Instance.GetCurrentTime());

@@ -6,12 +6,12 @@ namespace _Scripts.Crops.CropStates
     public class CropSlowGrowingState : CropBaseState
     {
         private CropBase _crop;
-        private TimeSpan _elapsedTimeSinceEnteringState;
-        private float _currentWaterLevel;
-        private TimeSpan _initialTimeOfGrowing;
         private DateTime _dateOfEnteringState;
+        private TimeSpan _elapsedTimeSinceEnteringState;
+        private TimeSpan _initialTimeOfGrowing;
         private TimeSpan _timeOfGrowingThatLeftSinceEnteringState;
         private Vector3 _cropScaleOnEnteringState;
+        private float _currentWaterLevel;
         private float _t;
 
         public override void EnterCropState(CropStateMachine stateMachine)
