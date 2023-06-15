@@ -52,10 +52,10 @@ namespace _Scripts.Player.Inventory
         {
             _itemAddedSuccsessfuly = Inventory.AddItem(new Item(item, count));
             
-            if (_itemAddedSuccsessfuly)
-                Debug.Log("Item added!");
-            else 
-                Debug.LogWarning("Inventory is full!");
+            // if (_itemAddedSuccsessfuly)
+            //     Debug.Log("Item added!");
+            // else 
+            //     Debug.LogWarning("Inventory is full!");
         }
 
         public Item[] GetInventory() => Inventory.GetItems();

@@ -12,9 +12,10 @@ namespace _Scripts.Crops.CropStates
         private TimeSpan _timeOfGrowingThatLeftSinceEnteringState;
         private Vector3 _cropScaleOnEnteringState;
         private float _currentWaterLevel;
+        private float _initialCropQuality;
         private float _t;
         
-        private float _wiltingScale = 0.75f;
+        private float _wiltingScale = 0.5f;
         
         public override void EnterCropState(CropStateMachine stateMachine)
         {
@@ -25,6 +26,7 @@ namespace _Scripts.Crops.CropStates
             _initialTimeOfGrowing = TimeSpan.FromDays(stateMachine.GetCrop().GrowthTime);
             _timeOfGrowingThatLeftSinceEnteringState = _initialTimeOfGrowing - (_dateOfEnteringState - stateMachine.PlantedDate);
             _cropScaleOnEnteringState = stateMachine.transform.localScale;
+            _initialCropQuality = _crop.GetCropQuality();
             
             Debug.Log($"Crop scale: {_cropScaleOnEnteringState.x}");
         }
@@ -39,7 +41,7 @@ namespace _Scripts.Crops.CropStates
                 return;
             }
 
-            if (stateMachine.transform.localScale.x <= _cropScaleOnEnteringState.x * _wiltingScale)
+            if (_t >= 1f)
             {
                 Debug.Log($"Crop scale: {stateMachine.transform.localScale.x}");
                 stateMachine.TransitionToState(stateMachine.CropDeadState);
@@ -48,6 +50,8 @@ namespace _Scripts.Crops.CropStates
             
             _elapsedTimeSinceEnteringState = TimeManager.Instance.GetCurrentTime() - _dateOfEnteringState;
             _t = (float)(_elapsedTimeSinceEnteringState / _timeOfGrowingThatLeftSinceEnteringState);
+            
+            _crop.SetCropQuality(Mathf.Lerp(_initialCropQuality, 0f, _t));
             
             stateMachine.transform.localScale = Mathf.Lerp(_cropScaleOnEnteringState.x, _cropScaleOnEnteringState.x * _wiltingScale, _t) * Vector3.one;
             stateMachine.transform.position = new Vector3(stateMachine.transform.position.x, stateMachine.transform.localScale.y * 0.5f + 0.05f, stateMachine.transform.position.z);

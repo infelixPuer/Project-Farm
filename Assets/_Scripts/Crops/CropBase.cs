@@ -36,5 +36,7 @@ namespace _Scripts.Crops
 
         public virtual void SetParentSeedbed(Seedbed seedbed) => _parentSeedbed = seedbed;
         public virtual Seedbed GetParentSeedbed() => _parentSeedbed;
+        public void SetCropQuality(float value) => _cropQuality = value;
+        public float GetCropQuality() => _cropQuality;
     }
 }

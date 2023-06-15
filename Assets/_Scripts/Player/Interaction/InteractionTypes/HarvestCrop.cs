@@ -1,4 +1,5 @@
-﻿using _Scripts.Crops;
+﻿using System;
+using _Scripts.Crops;
 using _Scripts.Player.Inventory;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ namespace _Scripts.Player.Interaction.InteractionTypes
         {
             if (!_cropStateMachine.IsReadyToHarvest) return;
             
-            _inventory.AddItem(Item, (int)(_cropBase.Output * transform.localScale.x));
+            _inventory.AddItem(Item, Mathf.RoundToInt(_cropBase.GetCropQuality() * _cropBase.Output));
             _cropBase.GetParentSeedbed().UpdateTileState(TileState.Empty);
             Destroy(_cropBase.gameObject);
         }

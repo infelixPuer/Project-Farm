@@ -53,6 +53,7 @@ namespace _Scripts.Crops.CropStates
             // var k = Mathf.Lerp(0.5f, 1f, _currentWaterLevel / _crop.MinimalWaterLevel);
             var k = _currentWaterLevel / _crop.MinimalWaterLevel * 0.5f + 0.5f;
             
+            _crop.SetCropQuality(k * k - k + 1f);
             stateMachine.transform.localScale = Mathf.Lerp(_cropScaleOnEnteringState.x, 1f, _t * k) * Vector3.one;
             stateMachine.transform.position = new Vector3(stateMachine.transform.position.x, stateMachine.transform.localScale.y * 0.5f + 0.05f, stateMachine.transform.position.z);
         }
