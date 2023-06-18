@@ -6,7 +6,8 @@ namespace _Scripts.Crops.CropStates
     {
         public override void EnterCropState(CropStateMachine stateMachine)
         {
-            Debug.Log("Enter Dead State");
+            Debug.LogWarning("Enter Dead State");
+            stateMachine.IsReadyToHarvest = true;
         }
 
         public override void UpdateCropState(CropStateMachine stateMachine)

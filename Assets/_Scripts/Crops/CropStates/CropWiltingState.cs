@@ -15,11 +15,11 @@ namespace _Scripts.Crops.CropStates
         private float _initialCropQuality;
         private float _t;
         
-        private float _wiltingScale = 0.5f;
+        private const float _wiltingScale = 0.5f;
         
         public override void EnterCropState(CropStateMachine stateMachine)
         {
-            Debug.Log("Enter Wilting State");
+            Debug.LogWarning("Enter Wilting State");
             
             _crop = stateMachine.GetCrop();
             _dateOfEnteringState = TimeManager.Instance.GetCurrentTime();

@@ -16,7 +16,7 @@ namespace _Scripts.Crops.CropStates
 
         public override void EnterCropState(CropStateMachine stateMachine)
         {
-            Debug.Log("Enter Slow Growing State");
+            Debug.LogWarning("Enter Slow Growing State");
 
             _initialTimeOfGrowing = TimeSpan.FromDays(stateMachine.GetCrop().GrowthTime);
             _dateOfEnteringState = TimeManager.Instance.GetCurrentTime();

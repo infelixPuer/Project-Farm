@@ -1,6 +1,7 @@
 ﻿using System;
 using _Scripts.Crops;
 using _Scripts.Player.Inventory;
+using _Scripts.Helpers;
 using UnityEngine;
 
 namespace _Scripts.Player.Interaction.InteractionTypes
@@ -26,7 +27,10 @@ namespace _Scripts.Player.Interaction.InteractionTypes
         {
             if (!_cropStateMachine.IsReadyToHarvest) return;
             
-            _inventory.AddItem(Item, Mathf.RoundToInt(_cropBase.GetCropQuality() * _cropBase.Output));
+            var initialItemCount = Mathf.RoundToInt(_cropBase.GetCropQuality() * _cropBase.Output);
+            var itemCount = GaussianRandomNumberGenerator.GenerateRandomNumber(initialItemCount, 1.5f);
+            
+            _inventory.AddItem(Item, (int)Math.Round(itemCount));
             _cropBase.GetParentSeedbed().UpdateTileState(TileState.Empty);
             Destroy(_cropBase.gameObject);
         }
