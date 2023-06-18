@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18b5dacd5414befb64f054442b8f269, type: 3}
   m_Name: Instrument
   m_EditorClassIdentifier: 
-  IsStackable: 1
+  IsStackable: 0
   Category: 0

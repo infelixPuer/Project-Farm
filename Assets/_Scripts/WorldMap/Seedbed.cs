@@ -66,14 +66,15 @@ public class Seedbed : Tile
 
     public void PlantCrop(ItemSO crop)
     {
+        crop.Object.TryGetComponent<Seed>(out var seed);
         _cropSO = crop;
 
         var seedbedTransform = _seedbedModel.transform;
 
-        var y = seedbedTransform!.position.y + seedbedTransform.localScale.y * 0.5f + _cropSO.Object.transform.localScale.y * 0.5f;
+        var y = seedbedTransform!.position.y + seedbedTransform.localScale.y * 0.5f + seed.CropPrefab.transform.localScale.y * 0.5f;
         var plantPos = _plantPlace.transform.position;
-        var cropGameObject = Instantiate(crop.Object, new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, transform);
-        _cropBase = cropGameObject.GetComponent<CropBase>();
+        var cropObject = Instantiate(seed.CropPrefab, new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, transform);
+        _cropBase = cropObject.GetComponent<CropBase>();
         _cropBase.SetParentSeedbed(this);
     }
 

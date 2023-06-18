@@ -16,13 +16,13 @@ public class CropsLoaderUI : MonoBehaviour
     [SerializeField] 
     private GameObject _panelItemPrefab;
 
-    private List<ItemSO> _crops;
+    private List<ItemSO> _seeds;
 
     private void Awake()
     {
-        _crops = Resources.LoadAll<ItemSO>("Scriptables/InventoryItems/Food/").ToList();
+        _seeds = Resources.LoadAll<ItemSO>("Scriptables/InventoryItems/Seeds/").ToList();
 
-        foreach (var crop in _crops)
+        foreach (var seed in _seeds)
         {
             var item = Instantiate(_panelItemPrefab, _panel.transform);
             var button = item.GetComponentInChildren<Button>();
@@ -34,17 +34,17 @@ public class CropsLoaderUI : MonoBehaviour
             }
             else
             {
-                tmp.text = crop.Name;
+                tmp.text = seed.Name;
             }
             
-            button.onClick.AddListener(() => OnCropSelected(crop));
+            button.onClick.AddListener(() => OnSeedSelected(seed));
         }
         
         _canvas.gameObject.SetActive(false);
     }
 
-    private void OnCropSelected(ItemSO crop)
+    private void OnSeedSelected(ItemSO seed)
     {
-        InteractionManager.Instance.SelectedCrop = crop;
+        InteractionManager.Instance.SelectedSeed = seed;
     }
 }

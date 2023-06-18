@@ -30,7 +30,7 @@ public class Interactor : MonoBehaviour
 
     private void Update()
     {
-        if (!InteractionManager.Instance.IsSelectingCrop)
+        if (!InteractionManager.Instance.IsSelectingSeed)
         {
             ChooseInteractionOption();
             SpecialInteraction();
@@ -88,15 +88,15 @@ public class Interactor : MonoBehaviour
     // ReSharper disable once InconsistentNaming
     private void ShowSelectingCropUI()
     {
-        if ((!Input.GetKey(KeyCode.Q) || InteractionManager.Instance.IsSelectingCrop) && (Input.GetKey(KeyCode.Q) || !InteractionManager.Instance.IsSelectingCrop)) return;
+        if ((!Input.GetKey(KeyCode.Q) || InteractionManager.Instance.IsSelectingSeed) && (Input.GetKey(KeyCode.Q) || !InteractionManager.Instance.IsSelectingSeed)) return;
 
-        InteractionManager.Instance.IsSelectingCrop = !InteractionManager.Instance.IsSelectingCrop;
-        TimeManager.Instance.TimeBlocked = InteractionManager.Instance.IsSelectingCrop;
+        InteractionManager.Instance.IsSelectingSeed = !InteractionManager.Instance.IsSelectingSeed;
+        TimeManager.Instance.TimeBlocked = InteractionManager.Instance.IsSelectingSeed;
 
-        _selectingCropCanvas.gameObject.SetActive(InteractionManager.Instance.IsSelectingCrop);
-        Cursor.lockState = InteractionManager.Instance.IsSelectingCrop ? CursorLockMode.Confined : CursorLockMode.Locked;
-        Cursor.visible = InteractionManager.Instance.IsSelectingCrop;
-        _playerMovement.enabled = !InteractionManager.Instance.IsSelectingCrop;
+        _selectingCropCanvas.gameObject.SetActive(InteractionManager.Instance.IsSelectingSeed);
+        Cursor.lockState = InteractionManager.Instance.IsSelectingSeed ? CursorLockMode.Confined : CursorLockMode.Locked;
+        Cursor.visible = InteractionManager.Instance.IsSelectingSeed;
+        _playerMovement.enabled = !InteractionManager.Instance.IsSelectingSeed;
     }
     
     private void ShowInventory()

@@ -26,19 +26,21 @@ public class CropStateMachine : MonoBehaviour
     public CropWiltingState CropWiltingState = new();
     public CropDeadState CropDeadState = new();
     
-    private ItemSO _cropSO;
+    private ItemSO _seedSO;
 
     private void Awake()
     {
-        _cropSO = InteractionManager.Instance.SelectedCrop;
-        _harvestCrop.Item = _cropSO;
+        _seedSO = InteractionManager.Instance.SelectedSeed;
+        
+        // TODO: Find a way to refactor extraction of the item from the seed
+        _harvestCrop.Item = _seedSO.Object.GetComponent<Seed>().CropPrefab.GetComponent<CropBase>().Item;
         PlantedDate = TimeManager.Instance.GetCurrentTime();
     }
 
     private void Start()
     {
         _currentState = CropGrowingState;
-        _currentState.Crop = _cropSO;
+        _currentState.Crop = _seedSO;
         _currentState.EnterCropState(this);
     }
 
@@ -55,7 +57,7 @@ public class CropStateMachine : MonoBehaviour
 
     public HarvestCrop GetHarvestCrop()
     {
-        _harvestCrop.Item = _cropSO;
+        _harvestCrop.Item = _seedSO;
        return _harvestCrop;
     }
     

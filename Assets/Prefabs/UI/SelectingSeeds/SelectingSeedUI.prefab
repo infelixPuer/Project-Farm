@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3842061051721166295}
   - component: {fileID: 3182089924221396990}
   m_Layer: 5
-  m_Name: SelectingCropUI
+  m_Name: SelectingSeedUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

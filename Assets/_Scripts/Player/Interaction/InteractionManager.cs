@@ -2,6 +2,7 @@ using System;
 using _Scripts.Player.Inventory;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum InteractionState
 {
@@ -20,9 +21,9 @@ public class InteractionManager : MonoBehaviour
     public InteractionState interactionState;
     public event Action<InteractionState> OnPlayerActionStateChange;
 
-    public ItemSO SelectedCrop;
-    public bool IsCropSelected => SelectedCrop != null;
-    public bool IsSelectingCrop;
+    public ItemSO SelectedSeed;
+    public bool IsSeedSelected => SelectedSeed != null;
+    public bool IsSelectingSeed;
 
     private void Awake()
     {

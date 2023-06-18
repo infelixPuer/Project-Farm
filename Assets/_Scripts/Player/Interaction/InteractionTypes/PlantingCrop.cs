@@ -17,7 +17,7 @@ namespace _Scripts.Player.Interaction.InteractionTypes
 
             try
             {
-                seedbed.PlantCrop(InteractionManager.Instance.SelectedCrop);
+                seedbed.PlantCrop(InteractionManager.Instance.SelectedSeed);
                 seedbed.UpdateTileState(TileState.Occupied);
             }
             catch (NullReferenceException)

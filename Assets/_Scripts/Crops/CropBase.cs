@@ -1,4 +1,5 @@
 ﻿using _Scripts.Player.Inventory;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _Scripts.Crops
@@ -21,7 +22,7 @@ namespace _Scripts.Crops
         protected virtual void Init()
         {
             _cropQuality = 1f;
-            Item = InteractionManager.Instance.SelectedCrop;
+            Item = InteractionManager.Instance.SelectedSeed;
             _filter = GetComponent<MeshFilter>();
             _renderer = GetComponent<MeshRenderer>();
             gameObject.name = Item.Name;
@@ -29,9 +30,10 @@ namespace _Scripts.Crops
 
         protected virtual void Plant()
         {
-            _filter.sharedMesh = Item.Object.GetComponent<MeshFilter>().sharedMesh;
-            _renderer.sharedMaterial = Item.Object.GetComponent<MeshRenderer>().sharedMaterial;
-            transform.localScale = Item.Object.transform.localScale;
+            Item.Object.TryGetComponent<Seed>(out var seed);
+            _filter.sharedMesh = seed.CropPrefab.GetComponent<MeshFilter>().sharedMesh;
+            _renderer.sharedMaterial = seed.CropPrefab.GetComponent<MeshRenderer>().sharedMaterial;
+            transform.localScale = seed.CropPrefab.transform.localScale;
         }
 
         public virtual void SetParentSeedbed(Seedbed seedbed) => _parentSeedbed = seedbed;
