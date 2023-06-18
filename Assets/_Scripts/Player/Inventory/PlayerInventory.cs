@@ -4,6 +4,7 @@ namespace _Scripts.Player.Inventory
 {
     public class PlayerInventory : MonoBehaviour
     {
+        public Wallet Wallet;
         public Inventory Inventory;
         public ItemSO Tomato;
         public ItemSO Corn;
@@ -15,6 +16,11 @@ namespace _Scripts.Player.Inventory
         private void Awake()
         {
             Inventory = new Inventory();
+            Wallet = new Wallet();
+            
+            Wallet.AddMoney(100);
+            Wallet.RemoveMoney(50);
+            Wallet.RemoveMoney(150);
             AddItem(Tomato, 1);
             AddItem(Tomato, 1);
             AddItem(Tomato, 1);
@@ -58,6 +64,6 @@ namespace _Scripts.Player.Inventory
             //     Debug.LogWarning("Inventory is full!");
         }
 
-        public Item[] GetInventory() => Inventory.GetItems();
+        public Item[] GetInventoryItems() => Inventory.GetItems();
     }
 }

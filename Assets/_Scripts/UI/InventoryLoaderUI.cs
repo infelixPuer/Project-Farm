@@ -12,7 +12,7 @@ public class InventoryLoaderUI : MonoBehaviour
 
     private void OnEnable()
     {
-        var inventory = _playerInventory.GetInventory();
+        var inventory = _playerInventory.GetInventoryItems();
 
         for (int i = 0; i < inventory.Length; i++)
         {
