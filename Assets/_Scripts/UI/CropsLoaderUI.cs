@@ -39,8 +39,6 @@ public class CropsLoaderUI : MonoBehaviour
             
             button.onClick.AddListener(() => OnSeedSelected(seed));
         }
-        
-        _canvas.gameObject.SetActive(false);
     }
 
     private void OnSeedSelected(ItemSO seed)

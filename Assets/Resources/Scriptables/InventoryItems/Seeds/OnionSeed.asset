@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: Onion_seed
   Name: Onion seed
+  Price: 5
   Sprite: {fileID: 0}
   Object: {fileID: 640033828804554226, guid: f55ca0a660281f4438d7f7c4744b6ecd, type: 3}
   ItemType: {fileID: 11400000, guid: 0d564143f7cee9a45a537d62ed2764d8, type: 2}

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using _Scripts.Player.Interaction;
+using _Scripts.UI;
 
 public class Interactor : MonoBehaviour
 {
@@ -88,27 +89,25 @@ public class Interactor : MonoBehaviour
     // ReSharper disable once InconsistentNaming
     private void ShowSelectingCropUI()
     {
-        if ((!Input.GetKey(KeyCode.Q) || InteractionManager.Instance.IsSelectingSeed) && (Input.GetKey(KeyCode.Q) || !InteractionManager.Instance.IsSelectingSeed)) return;
-
-        InteractionManager.Instance.IsSelectingSeed = !InteractionManager.Instance.IsSelectingSeed;
-        TimeManager.Instance.TimeBlocked = InteractionManager.Instance.IsSelectingSeed;
-
-        _selectingCropCanvas.gameObject.SetActive(InteractionManager.Instance.IsSelectingSeed);
-        Cursor.lockState = InteractionManager.Instance.IsSelectingSeed ? CursorLockMode.Confined : CursorLockMode.Locked;
-        Cursor.visible = InteractionManager.Instance.IsSelectingSeed;
-        _playerMovement.enabled = !InteractionManager.Instance.IsSelectingSeed;
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            UIManager.Instance.HideCanvas(_selectingCropCanvas);
+        }
+        
+        if (!Input.GetKeyDown(KeyCode.Q)) return;
+        
+        UIManager.Instance.ShowCanvas(_selectingCropCanvas);
     }
     
     private void ShowInventory()
     {
-        if ((!Input.GetKey(KeyCode.Tab) || _isInventoryOpened) && (Input.GetKey(KeyCode.Tab) || !_isInventoryOpened))
-            return;
-
-        TimeManager.Instance.TimeBlocked = !_isInventoryOpened;
-        _isInventoryOpened = !_isInventoryOpened;
-        _inventoryCanvas.gameObject.SetActive(_isInventoryOpened);
-        Cursor.lockState = _isInventoryOpened ? CursorLockMode.Confined : CursorLockMode.Locked;
-        Cursor.visible = _isInventoryOpened;
-        _playerMovement.enabled = !_isInventoryOpened;
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            UIManager.Instance.HideCanvas(_inventoryCanvas);
+        }
+        
+        if (!Input.GetKeyDown(KeyCode.Tab)) return;
+        
+        UIManager.Instance.ShowCanvas(_inventoryCanvas);
     }
 }

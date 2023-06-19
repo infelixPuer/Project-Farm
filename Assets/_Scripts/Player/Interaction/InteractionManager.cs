@@ -23,7 +23,7 @@ public class InteractionManager : MonoBehaviour
 
     public ItemSO SelectedSeed;
     public bool IsSeedSelected => SelectedSeed != null;
-    public bool IsSelectingSeed;
+    [FormerlySerializedAs("IsViewingUI")] public bool IsSelectingSeed;
 
     private void Awake()
     {

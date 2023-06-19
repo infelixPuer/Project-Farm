@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: Corn_seed
   Name: Corn seed
+  Price: 5
   Sprite: {fileID: 0}
   Object: {fileID: 640033828804554226, guid: 25ea752cc9eaedc459f37efd585dee77, type: 3}
   ItemType: {fileID: 11400000, guid: 0d564143f7cee9a45a537d62ed2764d8, type: 2}

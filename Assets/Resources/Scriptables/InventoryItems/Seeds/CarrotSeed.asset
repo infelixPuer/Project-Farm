@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: Carrot_seed
   Name: Carrot seed
+  Price: 5
   Sprite: {fileID: 0}
   Object: {fileID: 640033828804554226, guid: 56c70094a362d20448495955a4960f20, type: 3}
   ItemType: {fileID: 11400000, guid: 0d564143f7cee9a45a537d62ed2764d8, type: 2}

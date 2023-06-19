@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: Carrot_object
   Name: Carrot
-  GrowthTime: 2
+  Price: 10
   Sprite: {fileID: 21300000, guid: 156fae6565e8f0f489e9b1dc49d16b3f, type: 3}
   Object: {fileID: 640033828804554226, guid: 2c6da18722e2d644cba15d8e5a72c80e, type: 3}
   ItemType: {fileID: 11400000, guid: a3cb625c5b22b8e459bfdd6c8a77a277, type: 2}

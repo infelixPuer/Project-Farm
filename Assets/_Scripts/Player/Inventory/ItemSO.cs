@@ -7,6 +7,7 @@ namespace _Scripts.Player.Inventory
     {
         public string Id;
         public string Name;
+        public int Price;
         public Sprite Sprite;
         public GameObject Object;
         public ItemTypeSO ItemType;
