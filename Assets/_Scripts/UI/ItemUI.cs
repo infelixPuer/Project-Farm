@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
-    public class InventoryItemUI : MonoBehaviour
+    public class ItemUI : MonoBehaviour
     {
         [FormerlySerializedAs("_sprite")] [SerializeField] 
         private Image _image;
@@ -16,7 +16,7 @@ namespace _Scripts.UI
         public Image GetItemSprite() => _image;
         public TextMeshProUGUI GetTextMeshPro() => _tmp;
         
-        public InventoryItemUI Init(Sprite sprite, string text)
+        public ItemUI Init(Sprite sprite, string text)
         {
             _image.sprite = sprite;
             _tmp.text = text;

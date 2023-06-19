@@ -55,7 +55,7 @@ namespace _Scripts.UI
         
         public void HideCanvas(Canvas canvas)
         {
-            if (_history.Peek() != canvas) return;
+            if (_history.Count > 0 && _history.Peek() != canvas) return;
             
             if (_history.Count > 0)
             {

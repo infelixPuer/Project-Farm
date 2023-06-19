@@ -1,9 +1,14 @@
-﻿using UnityEngine;
+﻿using _Scripts.UI;
+using TMPro;
+using UnityEngine;
 
 namespace _Scripts.Player.Inventory
 {
-    public class PlayerInventory : MonoBehaviour
+    public class PlayerInventory : LoadableObject
     {
+        [SerializeField] 
+        private TextMeshProUGUI _currentBalanceText;
+        
         public Wallet Wallet;
         public Inventory Inventory;
         public ItemSO Tomato;
@@ -18,9 +23,9 @@ namespace _Scripts.Player.Inventory
             Inventory = new Inventory();
             Wallet = new Wallet();
             
-            Wallet.AddMoney(100);
-            Wallet.RemoveMoney(50);
-            Wallet.RemoveMoney(150);
+            AddToBalance(100);
+            RemoveFromBalance(50);
+            RemoveFromBalance(150);
             AddItem(Tomato, 1);
             AddItem(Tomato, 1);
             AddItem(Tomato, 1);
@@ -64,6 +69,36 @@ namespace _Scripts.Player.Inventory
             //     Debug.LogWarning("Inventory is full!");
         }
 
+        public void AddToBalance(int value)
+        {
+            Wallet.AddMoney(value);
+            _currentBalanceText.text = "Balance: " + Wallet.Balance.ToString();
+        }
+        
+        public void RemoveFromBalance(int value)
+        {
+            Wallet.RemoveMoney(value);
+            _currentBalanceText.text = "Balance: " + Wallet.Balance.ToString();
+        }
+
         public Item[] GetInventoryItems() => Inventory.GetItems();
+
+        public override void LoadItems(ItemUI itemPrefab, GameObject itemContainer)
+        {
+            var inventory = Inventory.GetItems();
+            
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i].IsEmpty)
+                {
+                    Instantiate(itemPrefab.Init(null, ""), itemContainer.transform);
+                    continue;
+                }
+            
+                var itemObject = itemPrefab.Init(inventory[i].ItemData.Sprite, inventory[i].Count.ToString());
+            
+                Instantiate(itemObject, itemContainer.transform);
+            }
+        }
     }
 }

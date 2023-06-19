@@ -14,7 +14,7 @@ namespace _Scripts.World
         Seeds
     }
     
-    public abstract class MarketplaceBase : MonoBehaviour, IInteractable
+    public abstract class MarketplaceBase : LoadableObject, IInteractable
     {
         [SerializeField] 
         private Canvas _shopUI;
@@ -44,5 +44,14 @@ namespace _Scripts.World
         }
 
         public void Interact(RaycastHit hitInfo) { }
+
+        public override void LoadItems(ItemUI itemPrefab, GameObject itemContainer)
+        {
+            foreach (var item in Items)
+            {
+                var itemObject = Instantiate(itemPrefab.Init(item.Sprite, $"{item.Price}"), itemContainer.transform);
+                //var button = itemObject.GetComponentInChildren<Button>();
+            }
+        }
     }
 }

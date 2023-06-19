@@ -1,4 +1,6 @@
-﻿using _Scripts.World;
+﻿using System;
+using _Scripts.Player.Inventory;
+using _Scripts.World;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,36 +15,23 @@ namespace _Scripts.UI
         private GameObject _itemContainer;
         
         [SerializeField]
-        private GameObject _itemPrefab;
-        
-        [SerializeField]
-        private MarketplaceBase _marketplaceBase;
+        private ItemUI _itemPrefab;
+
+        [SerializeField] 
+        private LoadableObject _itemStorage;
 
         private void Awake()
         {
             _canvas = GetComponentInParent<Canvas>();
             var buttonExit = _canvas.GetComponentInChildren<Button>();
             buttonExit.onClick.AddListener(() => UIManager.Instance.HideCanvas(_canvas));
-
-            foreach (var item in _marketplaceBase.Items)
-            {
-                var itemObject = Instantiate(_itemPrefab, _itemContainer.transform);
-                var button = itemObject.GetComponentInChildren<Button>();
-                var tmp = button.gameObject.GetComponentInChildren<TMP_Text>();
-                
-                if (tmp == null)
-                {
-                    Debug.LogError("Tmp is null");
-                }
-                else
-                {
-                    tmp.text = item.Name;
-                }
-            }
-            
-            _canvas.gameObject.SetActive(false);
         }
-        
+
+        private void Start()
+        {
+            _itemStorage.LoadItems(_itemPrefab, _itemContainer);
+        }
+
         public void Close()
         {
             _canvas.gameObject.SetActive(false);

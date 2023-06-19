@@ -8,7 +8,7 @@ public class InventoryLoaderUI : MonoBehaviour
     private PlayerInventory _playerInventory;
 
     [SerializeField] 
-    private InventoryItemUI _itemUIPrefab;
+    private ItemUI _itemUIPrefab;
 
     private void OnEnable()
     {
