@@ -18,11 +18,11 @@ public class InventoryLoaderUI : MonoBehaviour
         {
             if (inventory[i].IsEmpty)
             {
-                Instantiate(_itemUIPrefab.Init(null, ""), gameObject.transform);
+                Instantiate(_itemUIPrefab.Init(null, "", ( ) => { }), gameObject.transform);
                 continue;
             }
             
-            var itemObject = _itemUIPrefab.Init(inventory[i].ItemData.Sprite, inventory[i].Count.ToString());
+            var itemObject = _itemUIPrefab.Init(inventory[i].ItemData.Sprite, inventory[i].Count.ToString(), ( ) => { });
             
             Instantiate(itemObject, gameObject.transform);
         }

@@ -28,7 +28,7 @@ namespace _Scripts.Player.Interaction.InteractionTypes
             if (!_cropStateMachine.IsReadyToHarvest) return;
             
             var initialItemCount = Mathf.RoundToInt(_cropBase.GetCropQuality() * _cropBase.Output);
-            var itemCount = GaussianRandomNumberGenerator.GenerateRandomNumber(initialItemCount, 1.5f);
+            var itemCount = GaussianRandomNumberGenerator.GenerateRandomNumber(initialItemCount, 1f);
             
             _inventory.AddItem(Item, (int)Math.Round(itemCount));
             _cropBase.GetParentSeedbed().UpdateTileState(TileState.Empty);

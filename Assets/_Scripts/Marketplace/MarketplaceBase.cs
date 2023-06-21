@@ -5,6 +5,8 @@ using _Scripts.Player.Interaction;
 using _Scripts.Player.Inventory;
 using _Scripts.UI;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace _Scripts.World
 {
@@ -14,7 +16,7 @@ namespace _Scripts.World
         Seeds
     }
     
-    public abstract class MarketplaceBase : LoadableObject, IInteractable
+    public abstract class MarketplaceBase : LoadableItems, IInteractable
     {
         [SerializeField] 
         private Canvas _shopUI;
@@ -45,13 +47,18 @@ namespace _Scripts.World
 
         public void Interact(RaycastHit hitInfo) { }
 
-        public override void LoadItems(ItemUI itemPrefab, GameObject itemContainer)
+        public override List<Button> LoadItems(ItemUI itemPrefab, GameObject itemContainer, UnityAction action)
         {
+            var buttons = new List<Button>();
+            
             foreach (var item in Items)
             {
-                var itemObject = Instantiate(itemPrefab.Init(item.Sprite, $"{item.Price}"), itemContainer.transform);
-                //var button = itemObject.GetComponentInChildren<Button>();
+                var itemObject = Instantiate(itemPrefab.Init(item.Sprite, $"{item.Price}", ( ) => { }), itemContainer.transform);
+                var button = itemObject.GetComponentInChildren<Button>();
+                buttons.Add(button);
             }
+            
+            return buttons;
         }
     }
 }

@@ -1,10 +1,13 @@
-﻿using _Scripts.UI;
+﻿using System.Collections.Generic;
+using _Scripts.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace _Scripts.Player.Inventory
 {
-    public class PlayerInventory : LoadableObject
+    public class PlayerInventory : LoadableItems
     {
         [SerializeField] 
         private TextMeshProUGUI _currentBalanceText;
@@ -83,22 +86,27 @@ namespace _Scripts.Player.Inventory
 
         public Item[] GetInventoryItems() => Inventory.GetItems();
 
-        public override void LoadItems(ItemUI itemPrefab, GameObject itemContainer)
+        public override List<Button> LoadItems(ItemUI itemPrefab, GameObject itemContainer, UnityAction action)
         {
             var inventory = Inventory.GetItems();
+            var buttons = new List<Button>();
             
             for (int i = 0; i < inventory.Length; i++)
             {
                 if (inventory[i].IsEmpty)
                 {
-                    Instantiate(itemPrefab.Init(null, ""), itemContainer.transform);
+                    Instantiate(itemPrefab.Init(null, "", null), itemContainer.transform);
                     continue;
                 }
             
-                var itemObject = itemPrefab.Init(inventory[i].ItemData.Sprite, inventory[i].Count.ToString());
+                var itemObject = itemPrefab.Init(inventory[i].ItemData.Sprite, inventory[i].Count.ToString(), () => { });
+                var button = itemObject.GetComponentInChildren<Button>();
+                buttons.Add(button);
             
                 Instantiate(itemObject, itemContainer.transform);
             }
+            
+            return buttons;
         }
     }
 }

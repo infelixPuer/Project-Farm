@@ -1,16 +1,17 @@
-﻿using System;
-using _Scripts.Player.Inventory;
-using _Scripts.World;
-using TMPro;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+public enum MarketplaceInteractionType
+{
+    Buy,
+    Sell
+}
 
 namespace _Scripts.UI
 {
     public class MarketplaceItemsLoader : MonoBehaviour
     {
-        private Canvas _canvas;
-        
         [SerializeField]
         private GameObject _itemContainer;
         
@@ -18,7 +19,12 @@ namespace _Scripts.UI
         private ItemUI _itemPrefab;
 
         [SerializeField] 
-        private LoadableObject _itemStorage;
+        private LoadableItems _itemStorage;
+
+        public MarketplaceInteractionType InteractionType;
+
+        private Canvas _canvas;
+        private List<Button> _buttons;
 
         private void Awake()
         {
@@ -29,7 +35,7 @@ namespace _Scripts.UI
 
         private void Start()
         {
-            _itemStorage.LoadItems(_itemPrefab, _itemContainer);
+            _buttons = _itemStorage.LoadItems(_itemPrefab, _itemContainer, null);
         }
 
         public void Close()
@@ -37,5 +43,7 @@ namespace _Scripts.UI
             _canvas.gameObject.SetActive(false);
             InteractionManager.Instance.IsSelectingSeed = false;
         }
+        
+        
     }
 }

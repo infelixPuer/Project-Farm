@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: Onion_object
   Name: Onion
-  GrowthTime: 4
+  Price: 8
   Sprite: {fileID: 21300000, guid: 081e27003faee2345bab4fe4e9151599, type: 3}
   Object: {fileID: 640033828804554226, guid: 235f6210a4740d14394f16c52b665521, type: 3}
   ItemType: {fileID: 11400000, guid: a3cb625c5b22b8e459bfdd6c8a77a277, type: 2}

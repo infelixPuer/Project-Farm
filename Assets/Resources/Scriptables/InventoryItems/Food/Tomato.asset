@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: Tomato_object
   Name: Tomato
-  GrowthTime: 5
+  Price: 7
   Sprite: {fileID: 21300000, guid: 02d2865cfdbe9c340932145e2ad131ee, type: 3}
   Object: {fileID: 640033828804554226, guid: 65e65395f06e1394eaf15ff0c5a8b349, type: 3}
   ItemType: {fileID: 11400000, guid: a3cb625c5b22b8e459bfdd6c8a77a277, type: 2}

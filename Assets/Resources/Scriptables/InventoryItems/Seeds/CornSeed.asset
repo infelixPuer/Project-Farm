@@ -15,6 +15,6 @@ MonoBehaviour:
   Id: Corn_seed
   Name: Corn seed
   Price: 5
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: b67c1738c4c0f9546a52e37a9ee8935a, type: 3}
   Object: {fileID: 640033828804554226, guid: 25ea752cc9eaedc459f37efd585dee77, type: 3}
   ItemType: {fileID: 11400000, guid: 0d564143f7cee9a45a537d62ed2764d8, type: 2}

@@ -15,6 +15,6 @@ MonoBehaviour:
   Id: Tomato_seed
   Name: Tomato seed
   Price: 5
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 201353af6d56fa04eb4680a49134c638, type: 3}
   Object: {fileID: 640033828804554226, guid: f56b282fb5a27ad43a1ed68385bd69ae, type: 3}
   ItemType: {fileID: 11400000, guid: 0d564143f7cee9a45a537d62ed2764d8, type: 2}

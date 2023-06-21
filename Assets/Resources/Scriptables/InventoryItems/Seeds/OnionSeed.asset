@@ -15,6 +15,6 @@ MonoBehaviour:
   Id: Onion_seed
   Name: Onion seed
   Price: 5
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 2d02b1424914eae469e620abaf0b0493, type: 3}
   Object: {fileID: 640033828804554226, guid: f55ca0a660281f4438d7f7c4744b6ecd, type: 3}
   ItemType: {fileID: 11400000, guid: 0d564143f7cee9a45a537d62ed2764d8, type: 2}
