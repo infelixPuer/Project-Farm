@@ -6,7 +6,6 @@ using _Scripts.Player.Inventory;
 using _Scripts.UI;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace _Scripts.World
 {
@@ -20,9 +19,6 @@ namespace _Scripts.World
     {
         [SerializeField] 
         private Canvas _shopUI;
-
-        [SerializeField] 
-        private PlayerMovement _playerMovement;
         
         public ShopType ShopType;
 
@@ -36,29 +32,17 @@ namespace _Scripts.World
         public void Interact()
         {
             UIManager.Instance.ShowCanvas(_shopUI);
-            
-            // _shopUI.gameObject.SetActive(true);
-            // InteractionManager.Instance.IsSelectingSeed = true;
-            // _playerMovement.enabled = false;
-            // TimeManager.Instance.TimeBlocked = true;
-            // Cursor.visible = true;
-            // Cursor.lockState = CursorLockMode.Confined;
         }
 
         public void Interact(RaycastHit hitInfo) { }
 
-        public override List<Button> LoadItems(ItemUI itemPrefab, GameObject itemContainer, UnityAction action)
+        public override void LoadItems(ItemUI itemPrefab, GameObject itemContainer, UnityAction action)
         {
-            var buttons = new List<Button>();
-            
             foreach (var item in Items)
             {
-                var itemObject = Instantiate(itemPrefab.Init(item.Sprite, $"{item.Price}", ( ) => { }), itemContainer.transform);
-                var button = itemObject.GetComponentInChildren<Button>();
-                buttons.Add(button);
+                var itemObject = Instantiate(itemPrefab.Init(item.Sprite, $"{item.Price}", action), itemContainer.transform);
+                itemObject.SetButtonAction(action);
             }
-            
-            return buttons;
         }
     }
 }

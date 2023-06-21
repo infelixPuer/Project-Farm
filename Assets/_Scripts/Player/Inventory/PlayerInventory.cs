@@ -86,7 +86,7 @@ namespace _Scripts.Player.Inventory
 
         public Item[] GetInventoryItems() => Inventory.GetItems();
 
-        public override List<Button> LoadItems(ItemUI itemPrefab, GameObject itemContainer, UnityAction action)
+        public override void LoadItems(ItemUI itemPrefab, GameObject itemContainer, UnityAction action)
         {
             var inventory = Inventory.GetItems();
             var buttons = new List<Button>();
@@ -99,14 +99,9 @@ namespace _Scripts.Player.Inventory
                     continue;
                 }
             
-                var itemObject = itemPrefab.Init(inventory[i].ItemData.Sprite, inventory[i].Count.ToString(), () => { });
-                var button = itemObject.GetComponentInChildren<Button>();
-                buttons.Add(button);
-            
-                Instantiate(itemObject, itemContainer.transform);
+                var itemObject = Instantiate(itemPrefab.Init(inventory[i].ItemData.Sprite, inventory[i].Count.ToString(), action), itemContainer.transform);
+                itemObject.SetButtonAction(action);
             }
-            
-            return buttons;
         }
     }
 }

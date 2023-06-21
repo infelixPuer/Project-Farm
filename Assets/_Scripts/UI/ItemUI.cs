@@ -17,8 +17,6 @@ namespace _Scripts.UI
         [Header("Functionality")]
         [SerializeField]
         private Button _button;
-        
-        public UnityAction OnButtonPressed;
 
         public Image GetItemSprite() => _image;
         public TextMeshProUGUI GetTextMeshPro() => _tmp;
@@ -27,10 +25,14 @@ namespace _Scripts.UI
         {
             _image.sprite = sprite;
             _tmp.text = text;
-            OnButtonPressed = action;
-            _button.onClick.AddListener(OnButtonPressed);
-
+            
             return this;
+        }
+        
+        public void SetButtonAction(UnityAction action)
+        {
+            _button.onClick.RemoveAllListeners();
+            _button.onClick.AddListener(action);
         }
     }
 }
