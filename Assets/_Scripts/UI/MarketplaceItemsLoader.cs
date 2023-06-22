@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Scripts.World;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +30,9 @@ namespace _Scripts.UI
         private Canvas _canvas;
         private List<Button> _buttons;
         private ChoosingItemAmount _chooseItemGameObject;
+        private Button _selectedButton;
+        private Color _selectedColor = Color.red;
+        private Color _defaultColor = Color.white;
 
         private void Awake()
         {
@@ -39,14 +41,17 @@ namespace _Scripts.UI
             buttonExit.onClick.AddListener(() => UIManager.Instance.HideCanvas(_canvas));
         }
 
-        private void Start()
+        private void OnEnable()
         {
-            _itemStorage.LoadItems(_itemPrefab, _itemContainer.gameObject, OnItemPressed);
-            
-            // foreach (var button in _buttons)
-            // {
-            //     button.onClick.AddListener(OnItemPressed);
-            // }
+            var buttons = _itemStorage.LoadItems(_itemPrefab, _itemContainer.gameObject, OnItemPressed);
+            buttons.ForEach(x => x.onClick.AddListener(() => OnButtonSelected(x)));
+        }
+
+
+        private void OnDisable()
+        {
+            foreach (Transform child in transform)
+                Destroy(child.gameObject);
         }
 
         public void Close()
@@ -55,7 +60,7 @@ namespace _Scripts.UI
             InteractionManager.Instance.IsSelectingSeed = false;
         }
         
-        public void OnItemPressed()
+        private void OnItemPressed(ItemUI item)
         {
             if (_chooseItemGameObject is not null)
             {
@@ -64,9 +69,21 @@ namespace _Scripts.UI
             
             _chooseItemGameObject = Instantiate(_chooseAmountOfItemsPrefab, _canvas.transform);
             _chooseItemGameObject.SetButtonText(InteractionType == MarketplaceInteractionType.Buy ? "Buy" : "Sell");
+            _chooseItemGameObject.SetSliderMaxValue(item.Count ?? 10);
             var rectTransform = _chooseItemGameObject.GetComponent<RectTransform>();
             rectTransform.anchorMin = _itemContainer.anchorMin;
             rectTransform.anchorMax = _itemContainer.anchorMax;
+        }
+
+        private void OnButtonSelected(Button button)
+        {
+            if (_selectedButton is not null)
+            {
+                _selectedButton.image.color = _defaultColor;
+            }
+            
+            _selectedButton = button;
+            _selectedButton.image.color = _selectedColor;
         }
     }
 }

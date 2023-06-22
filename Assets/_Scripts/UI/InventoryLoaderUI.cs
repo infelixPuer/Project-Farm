@@ -18,11 +18,11 @@ public class InventoryLoaderUI : MonoBehaviour
         {
             if (inventory[i].IsEmpty)
             {
-                Instantiate(_itemUIPrefab.Init(null, "", ( ) => { }), gameObject.transform);
+                Instantiate(_itemUIPrefab.Init(null, null, null), gameObject.transform);
                 continue;
             }
             
-            var itemObject = _itemUIPrefab.Init(inventory[i].ItemData.Sprite, inventory[i].Count.ToString(), ( ) => { });
+            var itemObject = _itemUIPrefab.Init(inventory[i].ItemData.Sprite, inventory[i].Count, inventory[i].ItemData);
             
             Instantiate(itemObject, gameObject.transform);
         }
@@ -31,8 +31,6 @@ public class InventoryLoaderUI : MonoBehaviour
     private void OnDisable()
     {
         foreach (Transform child in transform)
-        {
             Destroy(child.gameObject);
-        }
     }
 }

@@ -1,6 +1,9 @@
-﻿using TMPro;
+﻿using System;
+using _Scripts.Player.Inventory;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace _Scripts.UI
@@ -12,27 +15,33 @@ namespace _Scripts.UI
         private Image _image;
 
         [SerializeField] 
-        private TextMeshProUGUI _tmp;
+        private TextMeshProUGUI _itemCount;
         
         [Header("Functionality")]
         [SerializeField]
         private Button _button;
 
+        public ItemSO ItemData { get; private set; }
+        public int? Count { get; private set; }
+
         public Image GetItemSprite() => _image;
-        public TextMeshProUGUI GetTextMeshPro() => _tmp;
-        
-        public ItemUI Init(Sprite sprite, string text, UnityAction action)
+        public TextMeshProUGUI GetTextMeshPro() => _itemCount;
+
+        public ItemUI Init(Sprite sprite, int? count, ItemSO item)
         {
             _image.sprite = sprite;
-            _tmp.text = text;
+            _itemCount.text = count.ToString();
+            Count = count;
+            ItemData = item;
             
             return this;
         }
         
         public void SetButtonAction(UnityAction action)
         {
-            _button.onClick.RemoveAllListeners();
             _button.onClick.AddListener(action);
         }
+        
+        public Button GetButton() => _button;
     }
 }

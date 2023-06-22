@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Scripts.UI;
 using TMPro;
 using UnityEngine;
@@ -86,7 +87,7 @@ namespace _Scripts.Player.Inventory
 
         public Item[] GetInventoryItems() => Inventory.GetItems();
 
-        public override void LoadItems(ItemUI itemPrefab, GameObject itemContainer, UnityAction action)
+        public override List<Button> LoadItems(ItemUI itemPrefab, GameObject itemContainer, Action<ItemUI> action)
         {
             var inventory = Inventory.GetItems();
             var buttons = new List<Button>();
@@ -95,13 +96,17 @@ namespace _Scripts.Player.Inventory
             {
                 if (inventory[i].IsEmpty)
                 {
-                    Instantiate(itemPrefab.Init(null, "", null), itemContainer.transform);
+                    Instantiate(itemPrefab.Init(null, null, null), itemContainer.transform);
                     continue;
                 }
             
-                var itemObject = Instantiate(itemPrefab.Init(inventory[i].ItemData.Sprite, inventory[i].Count.ToString(), action), itemContainer.transform);
-                itemObject.SetButtonAction(action);
+                var itemObject = Instantiate(itemPrefab, itemContainer.transform);
+                itemObject.Init(inventory[i].ItemData.Sprite, inventory[i].Count, inventory[i].ItemData);
+                itemObject.SetButtonAction(() => action(itemObject));
+                buttons.Add(itemObject.GetButton());
             }
+            
+            return buttons;
         }
     }
 }
