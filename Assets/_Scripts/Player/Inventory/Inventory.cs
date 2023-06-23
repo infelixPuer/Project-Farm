@@ -1,4 +1,6 @@
-﻿namespace _Scripts.Player.Inventory
+﻿using UnityEngine;
+
+namespace _Scripts.Player.Inventory
 {
     public class Inventory
     {
@@ -44,6 +46,28 @@
             return true;
         }
 
+        public void RemoveItem(Item item)
+        {
+            // TODO: Implement RemoveItem method
+
+            if (!_inventory.ContainsItem(item))
+            {
+                Debug.LogError("Item not found in inventory");
+                return;
+            }
+            
+            var itemIndex = _inventory.ItemIndex(item);
+            _inventory[itemIndex].Count -= item.Count;
+            
+            if (_inventory[itemIndex].Count <= 0)
+                _inventory[itemIndex] = new Item();
+        }
+
+        public int GetItemCount(Item item)
+        {
+            return -1;
+        }
+        
         public Item[] GetItems() => _inventory;
     }
 }

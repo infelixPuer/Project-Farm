@@ -5,8 +5,6 @@ using _Scripts.Player.Interaction;
 using _Scripts.Player.Inventory;
 using _Scripts.UI;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace _Scripts.World
 {
@@ -37,18 +35,18 @@ namespace _Scripts.World
 
         public void Interact(RaycastHit hitInfo) { }
 
-        public override List<Button> LoadItems(ItemUI itemPrefab, GameObject itemContainer, Action<ItemUI> action)
+        public override List<ItemUI> LoadItems(ItemUI itemPrefab, GameObject itemContainer, Action<ItemUI> action)
         {
-            var buttons = new List<Button>();
+            var itemObjects = new List<ItemUI>();
             
             foreach (var item in Items)
             {
                 var itemObject = Instantiate(itemPrefab.Init(item.Sprite, item.Price, item), itemContainer.transform);
                 itemObject.SetButtonAction(() => action(itemObject));
-                buttons.Add(itemObject.GetButton());
+                itemObjects.Add(itemObject);
             }
 
-            return buttons;
+            return itemObjects;
         }
     }
 }

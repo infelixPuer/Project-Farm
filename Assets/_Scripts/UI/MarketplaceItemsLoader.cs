@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Scripts.Player.Inventory;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +23,9 @@ namespace _Scripts.UI
 
         [SerializeField] 
         private LoadableItems _itemStorage;
+        
+        [SerializeField]
+        private TextMeshProUGUI _currentBalanceText;
 
         [SerializeField] 
         private ChoosingItemAmount _chooseAmountOfItemsPrefab;
@@ -33,6 +38,7 @@ namespace _Scripts.UI
         private Button _selectedButton;
         private Color _selectedColor = Color.red;
         private Color _defaultColor = Color.white;
+        private ItemUI _selectedItem;
 
         private void Awake()
         {
@@ -43,10 +49,14 @@ namespace _Scripts.UI
 
         private void OnEnable()
         {
-            var buttons = _itemStorage.LoadItems(_itemPrefab, _itemContainer.gameObject, OnItemPressed);
-            buttons.ForEach(x => x.onClick.AddListener(() => OnButtonSelected(x)));
-        }
+            var itemObjects = _itemStorage.LoadItems(_itemPrefab, _itemContainer.gameObject, OnItemPressed);
+            itemObjects.ForEach(x => x.SetButtonAction(() => OnItemSelected(x)));
 
+            if (_currentBalanceText is not null)
+            {
+                _currentBalanceText.text = "Money: " + _itemStorage.GetComponent<PlayerInventory>()?.Wallet.Balance.ToString();
+            }
+        }
 
         private void OnDisable()
         {
@@ -70,20 +80,76 @@ namespace _Scripts.UI
             _chooseItemGameObject = Instantiate(_chooseAmountOfItemsPrefab, _canvas.transform);
             _chooseItemGameObject.SetButtonText(InteractionType == MarketplaceInteractionType.Buy ? "Buy" : "Sell");
             _chooseItemGameObject.SetSliderMaxValue(item.Count ?? 10);
+            _chooseItemGameObject.AddListenerToSlider((value) => _chooseItemGameObject.SetButtonAction(() => OnConfrimationButtonClick(item, (int)value)));
+            
             var rectTransform = _chooseItemGameObject.GetComponent<RectTransform>();
             rectTransform.anchorMin = _itemContainer.anchorMin;
             rectTransform.anchorMax = _itemContainer.anchorMax;
         }
 
-        private void OnButtonSelected(Button button)
+        private void OnItemSelected(ItemUI item)
         {
             if (_selectedButton is not null)
             {
                 _selectedButton.image.color = _defaultColor;
             }
             
-            _selectedButton = button;
+            _selectedButton = item.GetButton();
+            _selectedItem = item;
             _selectedButton.image.color = _selectedColor;
+            
+            var value = _chooseItemGameObject.GetSliderValue();
+            _chooseItemGameObject.SetButtonAction(() => OnConfrimationButtonClick(item, value));
+        }
+
+        private void OnConfrimationButtonClick(ItemUI item, int amount)
+        {
+            var playerInventory = _itemStorage.GetComponent<PlayerInventory>();
+            var price = item.ItemData.Price;
+            var totalPrice = price * amount;
+            
+            if (InteractionType == MarketplaceInteractionType.Buy)
+            {
+                if (playerInventory.Wallet.Balance < totalPrice)
+                {
+                    Debug.Log("Not enough money");
+                    return;
+                }
+                
+                playerInventory.Wallet.RemoveMoney(totalPrice);
+                playerInventory.AddItem(item.ItemData, amount);
+            }
+            else
+            {
+                if (item.Count < amount)
+                {
+                    Debug.Log("Not enough items");
+                    return;
+                }
+                
+                playerInventory.Wallet.AddMoney(totalPrice);
+                playerInventory.RemoveItem(item.ItemData, amount);
+                
+                // TODO: Make it so that the item is removed from the marketplace
+            }
+            
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            // TODO: Find a way to refresh the items without destroying the buttons
+            
+            foreach (Transform child in transform)
+                Destroy(child.gameObject);
+            
+            var itemObjects = _itemStorage.LoadItems(_itemPrefab, _itemContainer.gameObject, OnItemPressed);
+            itemObjects.ForEach(x => x.SetButtonAction(() => OnItemSelected(x)));
+
+            if (_currentBalanceText is not null)
+            {
+                _currentBalanceText.text = "Money: " + _itemStorage.GetComponent<PlayerInventory>()?.Wallet.Balance.ToString();
+            }
         }
     }
 }

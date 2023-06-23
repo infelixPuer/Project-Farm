@@ -9,6 +9,6 @@ namespace _Scripts.UI
     public abstract class LoadableItems : MonoBehaviour
     {
         
-        public abstract List<Button> LoadItems(ItemUI itemPrefab, GameObject itemContainer, Action<ItemUI> action);
+        public abstract List<ItemUI> LoadItems(ItemUI itemPrefab, GameObject itemContainer, Action<ItemUI> action);
     }
 }

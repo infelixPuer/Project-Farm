@@ -41,6 +41,17 @@ namespace _Scripts.UI
         {
             _button.onClick.AddListener(action);
         }
+
+        public void SubtractFromCount(int amount)
+        {
+            if (amount > Count)
+                Debug.LogError("Amount is bigger than count");
+            
+            Count -= amount;
+            
+            if (Count == 0)
+                Destroy(gameObject);
+        }
         
         public Button GetButton() => _button;
     }

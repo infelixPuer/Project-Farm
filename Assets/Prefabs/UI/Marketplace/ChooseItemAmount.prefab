@@ -673,6 +673,7 @@ MonoBehaviour:
   _tmp: {fileID: 3340803840211949185}
   _slider: {fileID: 5736838702842112742}
   _buttonText: {fileID: 2700516611537177573}
+  _button: {fileID: 6617299199549902481}
 --- !u!1 &7447045817842694144
 GameObject:
   m_ObjectHideFlags: 0

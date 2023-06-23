@@ -73,6 +73,11 @@ namespace _Scripts.Player.Inventory
             //     Debug.LogWarning("Inventory is full!");
         }
 
+        public void RemoveItem(ItemSO item, int count)
+        {
+            Inventory.RemoveItem(new Item(item, count));
+        }
+
         public void AddToBalance(int value)
         {
             Wallet.AddMoney(value);
@@ -87,10 +92,10 @@ namespace _Scripts.Player.Inventory
 
         public Item[] GetInventoryItems() => Inventory.GetItems();
 
-        public override List<Button> LoadItems(ItemUI itemPrefab, GameObject itemContainer, Action<ItemUI> action)
+        public override List<ItemUI> LoadItems(ItemUI itemPrefab, GameObject itemContainer, Action<ItemUI> action)
         {
             var inventory = Inventory.GetItems();
-            var buttons = new List<Button>();
+            var itemObjects = new List<ItemUI>();
             
             for (int i = 0; i < inventory.Length; i++)
             {
@@ -103,10 +108,10 @@ namespace _Scripts.Player.Inventory
                 var itemObject = Instantiate(itemPrefab, itemContainer.transform);
                 itemObject.Init(inventory[i].ItemData.Sprite, inventory[i].Count, inventory[i].ItemData);
                 itemObject.SetButtonAction(() => action(itemObject));
-                buttons.Add(itemObject.GetButton());
+                itemObjects.Add(itemObject);
             }
             
-            return buttons;
+            return itemObjects;
         }
     }
 }
