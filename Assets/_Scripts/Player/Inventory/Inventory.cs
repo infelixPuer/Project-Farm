@@ -21,7 +21,15 @@ namespace _Scripts.Player.Inventory
 
                 if (!_inventory.ContainsItem(item))
                 {
-                    _inventory.AddItem(item);
+                    if (item.Count <= 10)
+                    {
+                        _inventory.AddItem(item);
+                        return true;
+                    }
+                    else
+                    {
+                        _inventory.AddItem(new Item(item.ItemData, 1));
+                    }
                 }
                 else
                 {

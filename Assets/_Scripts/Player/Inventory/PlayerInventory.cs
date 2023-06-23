@@ -10,6 +10,8 @@ namespace _Scripts.Player.Inventory
     {
         [SerializeField] 
         private TextMeshProUGUI _currentBalanceText;
+
+        public static PlayerInventory Instance;
         
         public Wallet Wallet;
         public Inventory Inventory;
@@ -22,6 +24,16 @@ namespace _Scripts.Player.Inventory
 
         private void Awake()
         {
+            if (Instance is null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            
             Inventory = new Inventory();
             Wallet = new Wallet();
             Wallet.BalanceChanged += UpdateBalanceText;

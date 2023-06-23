@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using _Scripts.Player.Inventory;
 using TMPro;
 using UnityEngine;
@@ -104,7 +103,7 @@ namespace _Scripts.UI
 
         private void OnConfrimationButtonClick(ItemUI item, int amount)
         {
-            var playerInventory = _itemStorage.GetComponent<PlayerInventory>();
+            var playerInventory = PlayerInventory.Instance;
             var price = item.ItemData.Price;
             var totalPrice = price * amount;
             
