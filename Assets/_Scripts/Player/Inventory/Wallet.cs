@@ -5,7 +5,25 @@ namespace _Scripts.Player.Inventory
 {
     public class Wallet
     {
-        public int Balance { get; private set; }
+        private int _balance;
+        public int Balance
+        {
+            get => _balance;
+            private set
+            {
+                if (_balance != value)
+                {
+                    _balance = value;
+                    OnBalanceChanged(value);
+                }
+            }
+        }
+        public event EventHandler<int> BalanceChanged; 
+        
+        protected virtual void OnBalanceChanged(int e)
+        {
+            BalanceChanged?.Invoke(this, e);
+        }
 
         public Wallet()
         {

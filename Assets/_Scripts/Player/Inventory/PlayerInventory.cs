@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using _Scripts.UI;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace _Scripts.Player.Inventory
 {
@@ -26,6 +24,7 @@ namespace _Scripts.Player.Inventory
         {
             Inventory = new Inventory();
             Wallet = new Wallet();
+            Wallet.BalanceChanged += UpdateBalanceText;
             
             AddToBalance(100);
             RemoveFromBalance(50);
@@ -62,6 +61,11 @@ namespace _Scripts.Player.Inventory
             AddItem(Onion, 1);
             AddItem(Onion, 1);
         }
+        
+        private void UpdateBalanceText(object sender, int value)
+        {
+            _currentBalanceText.text = "Balance: " + value.ToString();
+        }
 
         public void AddItem(ItemSO item, int count)
         {
@@ -81,13 +85,11 @@ namespace _Scripts.Player.Inventory
         public void AddToBalance(int value)
         {
             Wallet.AddMoney(value);
-            _currentBalanceText.text = "Balance: " + Wallet.Balance.ToString();
         }
         
         public void RemoveFromBalance(int value)
         {
             Wallet.RemoveMoney(value);
-            _currentBalanceText.text = "Balance: " + Wallet.Balance.ToString();
         }
 
         public Item[] GetInventoryItems() => Inventory.GetItems();
