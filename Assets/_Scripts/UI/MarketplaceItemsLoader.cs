@@ -10,6 +10,8 @@ public enum MarketplaceInteractionType
     Sell
 }
 
+// TODO: Refactor this class
+
 namespace _Scripts.UI
 {
     public class MarketplaceItemsLoader : MonoBehaviour
@@ -29,15 +31,22 @@ namespace _Scripts.UI
         [SerializeField] 
         private ChoosingItemAmount _chooseAmountOfItemsPrefab;
 
+        [SerializeField]
+        private Color _selectedColor = Color.red;
+        
+        [SerializeField]
+        private Color _defaultColor = Color.white;
+
         public MarketplaceInteractionType InteractionType;
 
+        private MarketplaceUI _parentMarketplaceUI;
+        
+        public MarketplaceUI ParentMarketplaceUI { private get; set; }
+        
         private Canvas _canvas;
         private List<Button> _buttons;
         private ChoosingItemAmount _chooseItemGameObject;
         private Button _selectedButton;
-        private Color _selectedColor = Color.red;
-        private Color _defaultColor = Color.white;
-        private ItemUI _selectedItem;
 
         private void Awake()
         {
@@ -94,7 +103,6 @@ namespace _Scripts.UI
             }
             
             _selectedButton = item.GetButton();
-            _selectedItem = item;
             _selectedButton.image.color = _selectedColor;
             
             var value = _chooseItemGameObject.GetSliderValue();
@@ -128,26 +136,30 @@ namespace _Scripts.UI
                 
                 playerInventory.Wallet.AddMoney(totalPrice);
                 playerInventory.RemoveItem(item.ItemData, amount);
-                
-                // TODO: Make it so that the item is removed from the marketplace
             }
             
-            Refresh();
+            if (ParentMarketplaceUI is not null)
+                ParentMarketplaceUI.RefreshUI();
         }
 
-        private void Refresh()
+        public void Refresh()
         {
-            // TODO: Find a way to refresh the items without destroying the buttons
-            
             foreach (Transform child in transform)
                 Destroy(child.gameObject);
+
+            if (_chooseItemGameObject is not null)
+            {
+                Destroy(_chooseItemGameObject.gameObject);
+                _chooseItemGameObject = null;
+                _selectedButton = null;
+            }
             
             var itemObjects = _itemStorage.LoadItems(_itemPrefab, _itemContainer.gameObject, OnItemPressed);
             itemObjects.ForEach(x => x.SetButtonAction(() => OnItemSelected(x)));
 
             if (_currentBalanceText is not null)
             {
-                _currentBalanceText.text = "Money: " + _itemStorage.GetComponent<PlayerInventory>()?.Wallet.Balance.ToString();
+                _currentBalanceText.text = "Money: " + PlayerInventory.Instance.Wallet.Balance.ToString();
             }
         }
     }

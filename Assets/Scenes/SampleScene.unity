@@ -2786,6 +2786,8 @@ MonoBehaviour:
   _itemStorage: {fileID: 1940214798}
   _currentBalanceText: {fileID: 0}
   _chooseAmountOfItemsPrefab: {fileID: 6720689745716021468, guid: cf8c7ec8b0263914a95ca6c46a263af7, type: 3}
+  _selectedColor: {r: 1, g: 0, b: 0, a: 1}
+  _defaultColor: {r: 1, g: 1, b: 1, a: 1}
   InteractionType: 0
 --- !u!114 &1653688259
 MonoBehaviour:
@@ -3603,6 +3605,8 @@ MonoBehaviour:
   _itemStorage: {fileID: 1425301247}
   _currentBalanceText: {fileID: 499183768}
   _chooseAmountOfItemsPrefab: {fileID: 6720689745716021468, guid: cf8c7ec8b0263914a95ca6c46a263af7, type: 3}
+  _selectedColor: {r: 1, g: 0, b: 0, a: 1}
+  _defaultColor: {r: 1, g: 1, b: 1, a: 1}
   InteractionType: 1
 --- !u!1 &1905986602
 GameObject:
@@ -3772,7 +3776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shopUI: {fileID: 34666200}
-  ShopType: 1
+  ShopType: 0
 --- !u!4 &1940214799
 Transform:
   m_ObjectHideFlags: 0

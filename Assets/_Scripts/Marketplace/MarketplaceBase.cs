@@ -5,6 +5,7 @@ using _Scripts.Player.Interaction;
 using _Scripts.Player.Inventory;
 using _Scripts.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Scripts.World
 {
@@ -16,13 +17,15 @@ namespace _Scripts.World
     
     public abstract class MarketplaceBase : LoadableItems, IInteractable
     {
-        [SerializeField] 
-        private Canvas _shopUI;
+        [FormerlySerializedAs("_shopUI")] [SerializeField] 
+        private Canvas _marketplaceUI;
         
         public ShopType ShopType;
 
         public List<ItemSO> Items { get; private set; }
 
+        // TODO: Change name of one of the LoadItems methods
+        
         public virtual void LoadItems()
         {
             Items = Resources.LoadAll<ItemSO>($"Scriptables/InventoryItems/{Enum.GetName(typeof(ShopType), ShopType)}/").ToList();
@@ -30,7 +33,7 @@ namespace _Scripts.World
         
         public void Interact()
         {
-            UIManager.Instance.ShowCanvas(_shopUI);
+            UIManager.Instance.ShowCanvas(_marketplaceUI);
         }
 
         public void Interact(RaycastHit hitInfo) { }

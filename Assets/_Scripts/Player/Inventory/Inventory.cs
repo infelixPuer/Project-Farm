@@ -56,8 +56,6 @@ namespace _Scripts.Player.Inventory
 
         public void RemoveItem(Item item)
         {
-            // TODO: Implement RemoveItem method
-
             if (!_inventory.ContainsItem(item))
             {
                 Debug.LogError("Item not found in inventory");
