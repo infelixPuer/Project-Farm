@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using _Scripts.Player.Inventory;
-using TMPro;
+﻿using _Scripts.Player.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +7,6 @@ public enum MarketplaceInteractionType
     Buy,
     Sell
 }
-
-// TODO: Refactor this class
 
 namespace _Scripts.UI
 {
@@ -24,9 +20,6 @@ namespace _Scripts.UI
 
         [SerializeField] 
         private LoadableItems _itemStorage;
-        
-        [SerializeField]
-        private TextMeshProUGUI _currentBalanceText;
 
         [SerializeField] 
         private ChoosingItemAmount _chooseAmountOfItemsPrefab;
@@ -38,44 +31,22 @@ namespace _Scripts.UI
         private Color _defaultColor = Color.white;
 
         public MarketplaceInteractionType InteractionType;
-
-        private MarketplaceUI _parentMarketplaceUI;
         
         public MarketplaceUI ParentMarketplaceUI { private get; set; }
         
-        private Canvas _canvas;
-        private List<Button> _buttons;
         private ChoosingItemAmount _chooseItemGameObject;
         private Button _selectedButton;
-
-        private void Awake()
-        {
-            _canvas = GetComponentInParent<Canvas>();
-            var buttonExit = _canvas.GetComponentInChildren<Button>();
-            buttonExit.onClick.AddListener(() => UIManager.Instance.HideCanvas(_canvas));
-        }
 
         private void OnEnable()
         {
             var itemObjects = _itemStorage.LoadItems(_itemPrefab, _itemContainer.gameObject, OnItemPressed);
             itemObjects.ForEach(x => x.SetButtonAction(() => OnItemSelected(x)));
-
-            if (_currentBalanceText is not null)
-            {
-                _currentBalanceText.text = "Money: " + _itemStorage.GetComponent<PlayerInventory>()?.Wallet.Balance.ToString();
-            }
         }
 
         private void OnDisable()
         {
             foreach (Transform child in transform)
                 Destroy(child.gameObject);
-        }
-
-        public void Close()
-        {
-            _canvas.gameObject.SetActive(false);
-            InteractionManager.Instance.IsSelectingSeed = false;
         }
         
         private void OnItemPressed(ItemUI item)
@@ -85,7 +56,7 @@ namespace _Scripts.UI
                 Destroy(_chooseItemGameObject.gameObject);
             }
             
-            _chooseItemGameObject = Instantiate(_chooseAmountOfItemsPrefab, _canvas.transform);
+            _chooseItemGameObject = Instantiate(_chooseAmountOfItemsPrefab, ParentMarketplaceUI.MarketplaceCanvas.transform);
             _chooseItemGameObject.SetButtonText(InteractionType == MarketplaceInteractionType.Buy ? "Buy" : "Sell");
             _chooseItemGameObject.SetSliderMaxValue(item.Count ?? 10);
             _chooseItemGameObject.AddListenerToSlider((value) => _chooseItemGameObject.SetButtonAction(() => OnConfrimationButtonClick(item, (int)value)));
@@ -156,11 +127,6 @@ namespace _Scripts.UI
             
             var itemObjects = _itemStorage.LoadItems(_itemPrefab, _itemContainer.gameObject, OnItemPressed);
             itemObjects.ForEach(x => x.SetButtonAction(() => OnItemSelected(x)));
-
-            if (_currentBalanceText is not null)
-            {
-                _currentBalanceText.text = "Money: " + PlayerInventory.Instance.Wallet.Balance.ToString();
-            }
         }
     }
 }
