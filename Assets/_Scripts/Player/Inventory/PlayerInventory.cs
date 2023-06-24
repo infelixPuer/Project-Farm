@@ -39,8 +39,9 @@ namespace _Scripts.Player.Inventory
             Wallet.BalanceChanged += UpdateBalanceText;
             
             AddToBalance(100);
-            RemoveFromBalance(50);
-            RemoveFromBalance(150);
+
+            #region Populating inventory with items
+
             AddItem(Tomato, 1);
             AddItem(Tomato, 1);
             AddItem(Tomato, 1);
@@ -72,6 +73,8 @@ namespace _Scripts.Player.Inventory
             AddItem(Onion, 1);
             AddItem(Onion, 1);
             AddItem(Onion, 1);
+
+            #endregion
         }
         
         private void UpdateBalanceText(object sender, int value)
@@ -115,12 +118,12 @@ namespace _Scripts.Player.Inventory
             {
                 if (inventory[i].IsEmpty)
                 {
-                    Instantiate(itemPrefab.Init(null, null, null), itemContainer.transform);
+                    Instantiate(itemPrefab.Init(null, null, null,null), itemContainer.transform);
                     continue;
                 }
             
                 var itemObject = Instantiate(itemPrefab, itemContainer.transform);
-                itemObject.Init(inventory[i].ItemData.Sprite, inventory[i].Count, inventory[i].ItemData);
+                itemObject.Init(inventory[i].ItemData.Sprite, inventory[i].Count, inventory[i].ItemData.Price, inventory[i].ItemData);
                 itemObject.SetButtonAction(() => action(itemObject));
                 itemObjects.Add(itemObject);
             }

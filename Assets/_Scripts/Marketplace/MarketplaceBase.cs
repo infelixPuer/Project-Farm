@@ -45,7 +45,7 @@ namespace _Scripts.World
             foreach (var item in Items)
             {
                 var itemObject = Instantiate(itemPrefab, itemContainer.transform);
-                itemObject.Init(item.Sprite, item.Price, item);
+                itemObject.Init(item.Sprite, 10, item.Price, item);
                 itemObject.SetButtonAction(() => action(itemObject));
                 itemObjects.Add(itemObject);
             }

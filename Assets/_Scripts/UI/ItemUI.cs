@@ -17,6 +17,9 @@ namespace _Scripts.UI
         [SerializeField] 
         private TextMeshProUGUI _itemCount;
         
+        [SerializeField] 
+        private TextMeshProUGUI _itemPrice;
+        
         [Header("Functionality")]
         [SerializeField]
         private Button _button;
@@ -27,10 +30,21 @@ namespace _Scripts.UI
         public Image GetItemSprite() => _image;
         public TextMeshProUGUI GetTextMeshPro() => _itemCount;
 
+        public ItemUI Init(Sprite sprite, int? count, int? price, ItemSO item)
+        {
+            _image.sprite = sprite;
+            _itemCount.text = count?.ToString() ?? "";
+            _itemPrice.text = price?.ToString() ?? "";
+            Count = count;
+            ItemData = item;
+            
+            return this;
+        }
+
         public ItemUI Init(Sprite sprite, int? count, ItemSO item)
         {
             _image.sprite = sprite;
-            _itemCount.text = count.ToString();
+            _itemCount.text = count?.ToString() ?? "";
             Count = count;
             ItemData = item;
             
