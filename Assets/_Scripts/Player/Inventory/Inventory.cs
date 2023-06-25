@@ -5,10 +5,23 @@ namespace _Scripts.Player.Inventory
     public class Inventory
     {
         private int _inventorySize = 7;
+
+        public int InventorySize
+        {
+            get => _inventorySize; 
+            set => _inventorySize = value;
+        }
+        
         private Item[] _inventory;
 
         public Inventory()
         {
+            _inventory = new Item[_inventorySize];
+        }
+
+        public Inventory(int size)
+        {
+            _inventorySize = size;
             _inventory = new Item[_inventorySize];
         }
 

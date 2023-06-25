@@ -17,22 +17,30 @@ namespace _Scripts.World
     
     public abstract class MarketplaceBase : LoadableItems, IInteractable
     {
-        [FormerlySerializedAs("_shopUI")] [SerializeField] 
+        [SerializeField] 
         private Canvas _marketplaceUI;
         
+        [SerializeField]
+        private MarketplaceItemsLoader _marketplaceUIContainer;
+        
+        public List<ItemSO> Items { get; private set; }
         public ShopType ShopType;
 
-        public List<ItemSO> Items { get; private set; }
+        private Inventory _marketplaceInventory = new(15);
 
         // TODO: Change name of one of the LoadItems methods
         
-        public virtual void LoadItems()
+        public virtual void LoadInventory()
         {
             Items = Resources.LoadAll<ItemSO>($"Scriptables/InventoryItems/{Enum.GetName(typeof(ShopType), ShopType)}/").ToList();
+
+            foreach (var item in Items)
+                _marketplaceInventory.AddItem(new Item(item, 10));
         }
         
         public void Interact()
         {
+            _marketplaceUIContainer.ItemStorage = this;
             UIManager.Instance.ShowCanvas(_marketplaceUI);
         }
 
@@ -41,11 +49,18 @@ namespace _Scripts.World
         public override List<ItemUI> LoadItems(ItemUI itemPrefab, GameObject itemContainer, Action<ItemUI> action)
         {
             var itemObjects = new List<ItemUI>();
-            
-            foreach (var item in Items)
+            var inventory = _marketplaceInventory.GetItems();
+
+            for (int i = 0; i < inventory.Length; i++)
             {
+                if (inventory[i].IsEmpty)
+                {
+                    Instantiate(itemPrefab.Init(null, null, null,null), itemContainer.transform);
+                    continue;
+                }
+            
                 var itemObject = Instantiate(itemPrefab, itemContainer.transform);
-                itemObject.Init(item.Sprite, 10, item.Price, item);
+                itemObject.Init(inventory[i].ItemData.Sprite, inventory[i].Count, inventory[i].ItemData.Price, inventory[i].ItemData);
                 itemObject.SetButtonAction(() => action(itemObject));
                 itemObjects.Add(itemObject);
             }

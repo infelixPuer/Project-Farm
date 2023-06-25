@@ -1,4 +1,5 @@
-﻿using _Scripts.Player.Inventory;
+﻿using System;
+using _Scripts.Player.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +32,12 @@ namespace _Scripts.UI
         private Color _defaultColor = Color.white;
 
         public MarketplaceInteractionType InteractionType;
-        
+
+        public LoadableItems ItemStorage
+        {
+            get => _itemStorage; 
+            set => _itemStorage = value;
+        }
         public MarketplaceUI ParentMarketplaceUI { private get; set; }
         
         private ChoosingItemAmount _chooseItemGameObject;

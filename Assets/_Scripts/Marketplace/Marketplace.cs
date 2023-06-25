@@ -4,7 +4,7 @@
     {
         private void Awake()
         {
-            LoadItems();
+            LoadInventory();
         }
     }
 }
