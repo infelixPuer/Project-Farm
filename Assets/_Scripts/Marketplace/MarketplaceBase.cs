@@ -15,7 +15,7 @@ namespace _Scripts.World
         Seeds
     }
     
-    public abstract class MarketplaceBase : LoadableItems, IInteractable
+    public abstract class MarketplaceBase : LoadableItems, IInteractable, IInventorable
     {
         [SerializeField] 
         private Canvas _marketplaceUI;
@@ -66,6 +66,11 @@ namespace _Scripts.World
             }
 
             return itemObjects;
+        }
+
+        public int GetItemCount(Item item)
+        {
+            return _marketplaceInventory.GetItemCount(item);
         }
     }
 }

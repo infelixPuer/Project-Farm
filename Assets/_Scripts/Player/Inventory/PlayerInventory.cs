@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace _Scripts.Player.Inventory
 {
-    public class PlayerInventory : LoadableItems
+    public class PlayerInventory : LoadableItems, IInventorable
     {
         [SerializeField] 
         private TextMeshProUGUI _currentBalanceText;
@@ -129,6 +129,11 @@ namespace _Scripts.Player.Inventory
             }
             
             return itemObjects;
+        }
+
+        public int GetItemCount(Item item)
+        {
+            return Inventory.GetItemCount(item);
         }
     }
 }

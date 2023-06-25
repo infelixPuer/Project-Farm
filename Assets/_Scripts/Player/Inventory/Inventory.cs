@@ -103,7 +103,7 @@ namespace _Scripts.Player.Inventory
             }
         }
 
-        public int? GetItemCount(Item item)
+        public int GetItemCount(Item item)
         {
             var indecies = _inventory.GetAllStackIndecies(item);
             var count = 0;

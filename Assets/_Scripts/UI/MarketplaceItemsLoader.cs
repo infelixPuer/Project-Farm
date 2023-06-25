@@ -42,11 +42,13 @@ namespace _Scripts.UI
         
         private ChoosingItemAmount _chooseItemGameObject;
         private Button _selectedButton;
+        private IInventorable _inventory;
 
         private void OnEnable()
         {
             var itemObjects = _itemStorage.LoadItems(_itemPrefab, _itemContainer.gameObject, OnItemPressed);
             itemObjects.ForEach(x => x.SetButtonAction(() => OnItemSelected(x)));
+            _inventory = _itemStorage as IInventorable;
         }
 
         private void OnDisable()
@@ -64,7 +66,11 @@ namespace _Scripts.UI
             
             _chooseItemGameObject = Instantiate(_chooseAmountOfItemsPrefab, ParentMarketplaceUI.MarketplaceCanvas.transform);
             _chooseItemGameObject.SetButtonText(InteractionType == MarketplaceInteractionType.Buy ? "Buy" : "Sell");
-            _chooseItemGameObject.SetSliderMaxValue(PlayerInventory.Instance.Inventory.GetItemCount(new Item(item.ItemData, item.Count ?? 0)) ?? 10);
+            if (item.Count != null)
+            {
+                var count = _inventory.GetItemCount(new Item(item.ItemData, (int)item.Count));
+                _chooseItemGameObject.SetSliderMaxValue(count);
+            }
             _chooseItemGameObject.AddListenerToSlider((value) => _chooseItemGameObject.SetButtonAction(() => OnConfrimationButtonClick(item, (int)value)));
             
             var rectTransform = _chooseItemGameObject.GetComponent<RectTransform>();
