@@ -58,7 +58,7 @@ namespace _Scripts.UI
             
             _chooseItemGameObject = Instantiate(_chooseAmountOfItemsPrefab, ParentMarketplaceUI.MarketplaceCanvas.transform);
             _chooseItemGameObject.SetButtonText(InteractionType == MarketplaceInteractionType.Buy ? "Buy" : "Sell");
-            _chooseItemGameObject.SetSliderMaxValue(item.Count ?? 10);
+            _chooseItemGameObject.SetSliderMaxValue(PlayerInventory.Instance.Inventory.GetItemCount(new Item(item.ItemData, item.Count ?? 0)) ?? 10);
             _chooseItemGameObject.AddListenerToSlider((value) => _chooseItemGameObject.SetButtonAction(() => OnConfrimationButtonClick(item, (int)value)));
             
             var rectTransform = _chooseItemGameObject.GetComponent<RectTransform>();

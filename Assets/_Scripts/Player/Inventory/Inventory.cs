@@ -63,15 +63,42 @@ namespace _Scripts.Player.Inventory
             }
             
             var itemIndex = _inventory.ItemIndex(item);
-            _inventory[itemIndex].Count -= item.Count;
             
-            if (_inventory[itemIndex].Count <= 0)
-                _inventory[itemIndex] = new Item();
+            if (item.Count <= _inventory[itemIndex].Count)
+            {
+                _inventory[itemIndex].Count -= item.Count;
+                _inventory[itemIndex] = _inventory[itemIndex].Count <= 0 ? new Item() : _inventory[itemIndex];
+            }
+            else
+            {
+                var indecies = _inventory.GetAllStackIndecies(item);
+                
+                for (int i = 0; i < indecies.Length; i++)
+                {
+                    if (item.Count <= _inventory[indecies[i]].Count)
+                    {
+                        _inventory[indecies[i]].Count -= item.Count;
+                        _inventory[indecies[i]] = _inventory[indecies[i]].Count <= 0 ? new Item() : _inventory[indecies[i]];
+                        return;
+                    }
+                    else
+                    {
+                        item.Count -= _inventory[indecies[i]].Count;
+                        _inventory[indecies[i]] = new Item();
+                    }
+                }   
+            }
         }
 
-        public int GetItemCount(Item item)
+        public int? GetItemCount(Item item)
         {
-            return -1;
+            var indecies = _inventory.GetAllStackIndecies(item);
+            var count = 0;
+            
+            for (int i = 0; i < indecies.Length; i++)
+                count += _inventory[indecies[i]].Count;
+            
+            return count;
         }
         
         public Item[] GetItems() => _inventory;

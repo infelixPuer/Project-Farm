@@ -1,4 +1,6 @@
-﻿namespace _Scripts.Player.Inventory
+﻿using System.Collections.Generic;
+
+namespace _Scripts.Player.Inventory
 {
     public static class InventoryHelpers
     {
@@ -60,6 +62,19 @@
                     return i;
 
             return -1;
+        }
+        
+        public static int[] GetAllStackIndecies(this Item[] inventory, Item item)
+        {
+            var indecies = new List<int>();
+            
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i] == item)
+                    indecies.Add(i);
+            }
+
+            return indecies.ToArray();
         }
     }
 }
