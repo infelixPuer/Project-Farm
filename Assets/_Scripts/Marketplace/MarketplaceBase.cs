@@ -72,5 +72,15 @@ namespace _Scripts.World
         {
             return _marketplaceInventory.GetItemCount(item);
         }
+
+        public void AddItem(ItemSO item, int amount)
+        {
+            _marketplaceInventory.AddItem(new Item(item, amount));
+        }
+
+        public void RemoveItem(ItemSO item, int amount)
+        {
+            _marketplaceInventory.RemoveItem(new Item(item, amount));
+        }
     }
 }

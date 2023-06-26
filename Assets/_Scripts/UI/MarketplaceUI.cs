@@ -31,6 +31,10 @@ namespace _Scripts.UI
             ConfigureExitButton();
             SetBalanceText();
         }
+        
+        public MarketplaceItemsLoader GetInventoryUIContainer() => _inventoryUIContainer;
+        
+        public MarketplaceItemsLoader GetMarketplaceUIContainer() => _marketplaceUIContainer;
 
         private void SetParentForContainers()
         {

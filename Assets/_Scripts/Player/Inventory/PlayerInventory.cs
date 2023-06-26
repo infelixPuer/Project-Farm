@@ -84,12 +84,7 @@ namespace _Scripts.Player.Inventory
 
         public void AddItem(ItemSO item, int count)
         {
-            _itemAddedSuccsessfuly = Inventory.AddItem(new Item(item, count));
-            
-            // if (_itemAddedSuccsessfuly)
-            //     Debug.Log("Item added!");
-            // else 
-            //     Debug.LogWarning("Inventory is full!");
+            Inventory.AddItem(new Item(item, count));
         }
 
         public void RemoveItem(ItemSO item, int count)

@@ -1,5 +1,4 @@
-﻿using System;
-using _Scripts.Player.Inventory;
+﻿using _Scripts.Player.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +20,9 @@ namespace _Scripts.UI
 
         [SerializeField] 
         private LoadableItems _itemStorage;
+        
+        [SerializeField]
+        private LoadableItems _oppisiteItemStorage;
 
         [SerializeField] 
         private ChoosingItemAmount _chooseAmountOfItemsPrefab;
@@ -43,12 +45,14 @@ namespace _Scripts.UI
         private ChoosingItemAmount _chooseItemGameObject;
         private Button _selectedButton;
         private IInventorable _inventory;
+        private IInventorable _oppositeInventory;
 
         private void OnEnable()
         {
             var itemObjects = _itemStorage.LoadItems(_itemPrefab, _itemContainer.gameObject, OnItemPressed);
             itemObjects.ForEach(x => x.SetButtonAction(() => OnItemSelected(x)));
             _inventory = _itemStorage as IInventorable;
+            _oppositeInventory = _oppisiteItemStorage as IInventorable;
         }
 
         private void OnDisable()
@@ -57,8 +61,12 @@ namespace _Scripts.UI
                 Destroy(child.gameObject);
 
             _selectedButton = null;
-            Destroy(_chooseItemGameObject.gameObject);
-            _chooseItemGameObject = null;
+            
+            if (_chooseItemGameObject is not null)
+            {
+                Destroy(_chooseItemGameObject.gameObject);
+                _chooseItemGameObject = null;
+            }
         }
         
         private void OnItemPressed(ItemUI item)
@@ -105,7 +113,7 @@ namespace _Scripts.UI
             var playerInventory = PlayerInventory.Instance;
             var price = item.ItemData.Price;
             var totalPrice = price * amount;
-            
+
             if (InteractionType == MarketplaceInteractionType.Buy)
             {
                 if (playerInventory.Wallet.Balance < totalPrice)
@@ -115,13 +123,15 @@ namespace _Scripts.UI
                 }
                 
                 playerInventory.Wallet.RemoveMoney(totalPrice);
-                playerInventory.AddItem(item.ItemData, amount);
             }
             else
             {
                 playerInventory.Wallet.AddMoney(totalPrice);
-                playerInventory.RemoveItem(item.ItemData, amount);
             }
+            
+            _oppositeInventory = _inventory == playerInventory ? ParentMarketplaceUI.GetMarketplaceUIContainer()._inventory : playerInventory;
+            _inventory.RemoveItem(item.ItemData, amount);
+            _oppositeInventory.AddItem(item.ItemData, amount);
             
             if (ParentMarketplaceUI is not null)
                 ParentMarketplaceUI.RefreshUI();
