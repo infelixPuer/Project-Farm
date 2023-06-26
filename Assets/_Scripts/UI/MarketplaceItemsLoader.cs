@@ -55,6 +55,10 @@ namespace _Scripts.UI
         {
             foreach (Transform child in transform)
                 Destroy(child.gameObject);
+
+            _selectedButton = null;
+            Destroy(_chooseItemGameObject.gameObject);
+            _chooseItemGameObject = null;
         }
         
         private void OnItemPressed(ItemUI item)
@@ -66,12 +70,16 @@ namespace _Scripts.UI
             
             _chooseItemGameObject = Instantiate(_chooseAmountOfItemsPrefab, ParentMarketplaceUI.MarketplaceCanvas.transform);
             _chooseItemGameObject.SetButtonText(InteractionType == MarketplaceInteractionType.Buy ? "Buy" : "Sell");
+            
             if (item.Count != null)
             {
                 var count = _inventory.GetItemCount(new Item(item.ItemData, (int)item.Count));
                 _chooseItemGameObject.SetSliderMaxValue(count);
             }
+            
             _chooseItemGameObject.AddListenerToSlider((value) => _chooseItemGameObject.SetButtonAction(() => OnConfrimationButtonClick(item, (int)value)));
+            _chooseItemGameObject.AddListenerToSlider((value) => _chooseItemGameObject.GetTotalMoneyTMP().text = $"Total: {item.ItemData.Price * value}");
+            _chooseItemGameObject.SetTotalMoneyText($"Total: {item.ItemData.Price}");
             
             var rectTransform = _chooseItemGameObject.GetComponent<RectTransform>();
             rectTransform.anchorMin = _itemContainer.anchorMin;
@@ -111,12 +119,6 @@ namespace _Scripts.UI
             }
             else
             {
-                if (item.Count < amount)
-                {
-                    Debug.Log("Not enough items");
-                    return;
-                }
-                
                 playerInventory.Wallet.AddMoney(totalPrice);
                 playerInventory.RemoveItem(item.ItemData, amount);
             }

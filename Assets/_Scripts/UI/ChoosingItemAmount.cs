@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -9,7 +8,10 @@ namespace _Scripts.UI
     public class ChoosingItemAmount : MonoBehaviour
     {
         [SerializeField] 
-        private TextMeshProUGUI _tmp;
+        private TextMeshProUGUI _itemAmount;
+
+        [SerializeField] 
+        private TextMeshProUGUI _totalMoney;
 
         [SerializeField] 
         private Slider _slider;
@@ -22,7 +24,7 @@ namespace _Scripts.UI
 
         private void Awake()
         {
-            _slider.onValueChanged.AddListener((value) => _tmp.text = value.ToString());
+            _slider.onValueChanged.AddListener((value) => _itemAmount.text = value.ToString());
         }
         
         public void SetButtonText(string text) => _buttonText.text = text;
@@ -33,6 +35,10 @@ namespace _Scripts.UI
         {
             _slider.onValueChanged.AddListener(action);
         }
+        
+        public TextMeshProUGUI GetTotalMoneyTMP() => _totalMoney;
+        
+        public void SetTotalMoneyText(string text) => _totalMoney.text = text;
 
         public int GetSliderValue() => (int)_slider.value;
 

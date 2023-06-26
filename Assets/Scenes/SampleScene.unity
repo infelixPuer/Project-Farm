@@ -1902,6 +1902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _marketplaceUI: {fileID: 34666200}
+  _marketplaceUIContainer: {fileID: 1653688258}
   ShopType: 1
 --- !u!65 &1276913537
 BoxCollider:
@@ -3900,6 +3901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _marketplaceUI: {fileID: 34666200}
+  _marketplaceUIContainer: {fileID: 1653688258}
   ShopType: 0
 --- !u!4 &1940214799
 Transform:
