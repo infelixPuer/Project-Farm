@@ -29,6 +29,12 @@ namespace _Scripts.Player.Interaction.InteractionTypes
             
             var initialItemCount = Mathf.RoundToInt(_cropBase.GetCropQuality() * _cropBase.Output);
             var itemCount = GaussianRandomNumberGenerator.GenerateRandomNumber(initialItemCount, 1f);
+
+            if (!_inventory.Inventory.CanAddItem(new Item(Item, (int)Math.Round(itemCount))))
+            {
+                Debug.Log("Inventory is full");
+                return;
+            }
             
             _inventory.AddItem(Item, (int)Math.Round(itemCount));
             _cropBase.GetParentSeedbed().UpdateTileState(TileState.Empty);

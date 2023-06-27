@@ -63,32 +63,47 @@ namespace _Scripts.Player.Inventory
         public bool CanAddItem(Item item)
         {
             var availableRoom = 0;
+            var stackIndecies = _inventory.GetAllStackIndecies(item);
+            var slotIndecies = _inventory.GetAllAvailableSlotsIndecies();
+
+            foreach (var index in stackIndecies)
+            {
+                availableRoom += 10 - _inventory[index].Count;
+            }
+
+            foreach (var index in slotIndecies)
+            {
+                availableRoom += 10;
+            }
             
-            if (_inventory.AvaliableSlot() == -1)
-            {
-                var stackIndecies = _inventory.GetAllStackIndecies(item);
-
-                if (stackIndecies.Length == 0)
-                    return false;
-
-                for (int i = 0; i < stackIndecies.Length; i++)
-                {
-                    availableRoom += 10 - _inventory[stackIndecies[i]].Count;
-                }
-                
-                return availableRoom >= item.Count;
-            }
-            else if (_inventory.AvaliableSlot() != -1)
-            {
-                var slotIndecies = _inventory.GetAllAvailableSlotsIndecies();
-                
-                for (int i = 0; i < slotIndecies.Length; i++)
-                {
-                    availableRoom += 10;
-                }
-                
-                return availableRoom >= item.Count;
-            }
+            
+            // if (_inventory.AvaliableSlot() == -1)
+            // {
+            //     var stackIndecies = _inventory.GetAllStackIndecies(item);
+            //
+            //     if (stackIndecies.Length == 0)
+            //         return false;
+            //
+            //     for (int i = 0; i < stackIndecies.Length; i++)
+            //     {
+            //         availableRoom += 10 - _inventory[stackIndecies[i]].Count;
+            //     }
+            //     
+            //     return availableRoom >= item.Count;
+            // }
+            // else if (_inventory.AvaliableSlot() != -1)
+            // {
+            //     var slotIndecies = _inventory.GetAllAvailableSlotsIndecies();
+            //     
+            //     for (int i = 0; i < slotIndecies.Length; i++)
+            //     {
+            //         availableRoom += 10;
+            //     }
+            //     
+            //     return availableRoom >= item.Count;
+            // }
+            
+            return availableRoom >= item.Count;
 
             return false;
 

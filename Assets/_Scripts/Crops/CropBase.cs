@@ -31,9 +31,9 @@ namespace _Scripts.Crops
         protected virtual void Plant()
         {
             Item.Object.TryGetComponent<Seed>(out var seed);
-            _filter.sharedMesh = seed.CropPrefab.GetComponent<MeshFilter>().sharedMesh;
-            _renderer.sharedMaterial = seed.CropPrefab.GetComponent<MeshRenderer>().sharedMaterial;
-            transform.localScale = seed.CropPrefab.transform.localScale;
+            _filter.sharedMesh = seed.CropBase.GetComponent<MeshFilter>().sharedMesh;
+            _renderer.sharedMaterial = seed.CropBase.GetComponent<MeshRenderer>().sharedMaterial;
+            transform.localScale = seed.CropBase.transform.localScale;
         }
 
         public virtual void SetParentSeedbed(Seedbed seedbed) => _parentSeedbed = seedbed;

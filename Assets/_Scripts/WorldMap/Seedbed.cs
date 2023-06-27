@@ -71,9 +71,9 @@ public class Seedbed : Tile
 
         var seedbedTransform = _seedbedModel.transform;
 
-        var y = seedbedTransform!.position.y + seedbedTransform.localScale.y * 0.5f + seed.CropPrefab.transform.localScale.y * 0.5f;
+        var y = seedbedTransform!.position.y + seedbedTransform.localScale.y * 0.5f + seed.CropBase.transform.localScale.y * 0.5f;
         var plantPos = _plantPlace.transform.position;
-        var cropObject = Instantiate(seed.CropPrefab, new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, transform);
+        var cropObject = Instantiate(seed.CropBase, new Vector3(plantPos.x, y, plantPos.z), Quaternion.identity, transform);
         _cropBase = cropObject.GetComponent<CropBase>();
         _cropBase.SetParentSeedbed(this);
     }

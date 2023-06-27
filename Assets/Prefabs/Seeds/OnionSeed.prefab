@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b4cebea8bc40ed878d5383bc15c586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cropPrefab: {fileID: 640033828804554226, guid: 235f6210a4740d14394f16c52b665521, type: 3}
+  CropBase: {fileID: -4851667951280552576, guid: 235f6210a4740d14394f16c52b665521, type: 3}
 --- !u!1 &2626701901022785581
 GameObject:
   m_ObjectHideFlags: 0

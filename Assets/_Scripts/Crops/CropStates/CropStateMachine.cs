@@ -33,7 +33,7 @@ public class CropStateMachine : MonoBehaviour
         _seedSO = InteractionManager.Instance.SelectedSeed;
         
         // TODO: Find a way to refactor extraction of the item from the seed
-        _harvestCrop.Item = _seedSO.Object.GetComponent<Seed>().CropPrefab.GetComponent<CropBase>().Item;
+        _harvestCrop.Item = _seedSO.Object.GetComponent<Seed>().CropBase.Item;
         PlantedDate = TimeManager.Instance.GetCurrentTime();
     }
 
