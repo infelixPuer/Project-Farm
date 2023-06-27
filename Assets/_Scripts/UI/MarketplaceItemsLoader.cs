@@ -113,6 +113,14 @@ namespace _Scripts.UI
             var playerInventory = PlayerInventory.Instance;
             var price = item.ItemData.Price;
             var totalPrice = price * amount;
+            
+            _oppositeInventory = _inventory == playerInventory ? ParentMarketplaceUI.GetMarketplaceUIContainer()._inventory : playerInventory;
+            
+            if (_oppositeInventory.CheckIfItemCanBeAdded(new Item(item.ItemData, amount)) == false)
+            {
+                Debug.Log("Not enough space");
+                return;
+            }
 
             if (InteractionType == MarketplaceInteractionType.Buy)
             {
@@ -128,8 +136,7 @@ namespace _Scripts.UI
             {
                 playerInventory.Wallet.AddMoney(totalPrice);
             }
-            
-            _oppositeInventory = _inventory == playerInventory ? ParentMarketplaceUI.GetMarketplaceUIContainer()._inventory : playerInventory;
+
             _inventory.RemoveItem(item.ItemData, amount);
             _oppositeInventory.AddItem(item.ItemData, amount);
             

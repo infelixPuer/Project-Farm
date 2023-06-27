@@ -42,37 +42,37 @@ namespace _Scripts.Player.Inventory
 
             #region Populating inventory with items
 
-            AddItem(Tomato, 1);
-            AddItem(Tomato, 1);
-            AddItem(Tomato, 1);
-            AddItem(Tomato, 1);
-            AddItem(Tomato, 1);
-            AddItem(Tomato, 1);
-            AddItem(Tomato, 1);
-            AddItem(Tomato, 1);
-            AddItem(Tomato, 1);    
-            AddItem(Corn, 1);
-            AddItem(Corn, 1);
-            AddItem(Corn, 1);
-            AddItem(Corn, 1);
-            AddItem(Corn, 1);
-            AddItem(Corn, 1);
-            AddItem(Corn, 1);
-            AddItem(Carrot, 1);
-            AddItem(Carrot, 1);
-            AddItem(Carrot, 1);
-            AddItem(Carrot, 1);
-            AddItem(Carrot, 1);
-            AddItem(Carrot, 1);
-            AddItem(Carrot, 1);
-            AddItem(Carrot, 1);
-            AddItem(Carrot, 1);
-            AddItem(Carrot, 1);
-            AddItem(Carrot, 1);
-            AddItem(Carrot, 1);
-            AddItem(Onion, 1);
-            AddItem(Onion, 1);
-            AddItem(Onion, 1);
+            AddItem(Tomato, 9);
+            // AddItem(Tomato, 1);
+            // AddItem(Tomato, 1);
+            // AddItem(Tomato, 1);
+            // AddItem(Tomato, 1);
+            // AddItem(Tomato, 1);
+            // AddItem(Tomato, 1);
+            // AddItem(Tomato, 1);
+            // AddItem(Tomato, 1);    
+            AddItem(Corn, 7);
+            // AddItem(Corn, 1);
+            // AddItem(Corn, 1);
+            // AddItem(Corn, 1);
+            // AddItem(Corn, 1);
+            // AddItem(Corn, 1);
+            // AddItem(Corn, 1);
+            AddItem(Carrot, 12);
+            // AddItem(Carrot, 1);
+            // AddItem(Carrot, 1);
+            // AddItem(Carrot, 1);
+            // AddItem(Carrot, 1);
+            // AddItem(Carrot, 1);
+            // AddItem(Carrot, 1);
+            // AddItem(Carrot, 1);
+            // AddItem(Carrot, 1);
+            // AddItem(Carrot, 1);
+            // AddItem(Carrot, 1);
+            // AddItem(Carrot, 1);
+            AddItem(Onion, 3);
+            // AddItem(Onion, 1);
+            // AddItem(Onion, 1);
 
             #endregion
         }
@@ -91,6 +91,8 @@ namespace _Scripts.Player.Inventory
         {
             Inventory.RemoveItem(new Item(item, count));
         }
+
+        public bool CheckIfItemCanBeAdded(Item item) => Inventory.CanAddItem(item);
 
         public void AddToBalance(int value)
         {

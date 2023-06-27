@@ -82,5 +82,10 @@ namespace _Scripts.World
         {
             _marketplaceInventory.RemoveItem(new Item(item, amount));
         }
+
+        public bool CheckIfItemCanBeAdded(Item item)
+        {
+            return _marketplaceInventory.CanAddItem(item);
+        }
     }
 }

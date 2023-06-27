@@ -15,7 +15,7 @@ namespace _Scripts.Player.Inventory
             Count = count;
         }
         
-        public bool IsFullStack() => Count >= StackSize;
+        public bool CanAddToStack() => Count < StackSize;
 
         public static bool operator ==(Item item1, Item item2)
         {

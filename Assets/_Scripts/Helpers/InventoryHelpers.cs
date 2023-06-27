@@ -48,7 +48,7 @@ namespace _Scripts.Player.Inventory
         {
             for (int i = 0; i < inventory.Length; i++)
             {
-                if (inventory[i] == item && !inventory[i].IsFullStack())
+                if (inventory[i] == item && inventory[i].CanAddToStack())
                     return i;
             }
             
@@ -74,6 +74,32 @@ namespace _Scripts.Player.Inventory
                     indecies.Add(i);
             }
 
+            return indecies.ToArray();
+        }
+        
+        public static int[] GetAllAvailableStackIndecies(this Item[] inventory, Item item)
+        {
+            var indecies = new List<int>();
+            
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i] == item && inventory[i].CanAddToStack())
+                    indecies.Add(i);
+            }
+
+            return indecies.ToArray();
+        }
+
+        public static int[] GetAllAvailableSlotsIndecies(this Item[] inventory)
+        {
+            var indecies = new List<int>();
+            
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                if (inventory[i].IsEmpty)
+                    indecies.Add(i);
+            }
+            
             return indecies.ToArray();
         }
     }

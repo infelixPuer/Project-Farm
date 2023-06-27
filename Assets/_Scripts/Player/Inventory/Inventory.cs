@@ -25,46 +25,78 @@ namespace _Scripts.Player.Inventory
             _inventory = new Item[_inventorySize];
         }
 
-        public bool AddItem(Item item)
+        public void AddItem(Item item)
         {
-            for (int i = 0; i < item.Count; i++)
+            while (CanAddItem(item))
             {
-                if (_inventory.ItemCount() == _inventorySize && (_inventory.AvaliableSlot() != -1))
-                    return false;
-
-                if (!_inventory.ContainsItem(item))
+                var availableStackIndecies = _inventory.GetAllAvailableStackIndecies(item);
+                var availableSlotsIndecies = _inventory.GetAllAvailableSlotsIndecies();
+                
+                if (availableStackIndecies.Length != 0)
                 {
-                    if (item.Count <= 10)
+                    foreach (var index in availableStackIndecies)
                     {
-                        _inventory.AddItem(item);
-                        return true;
-                    }
-                    else
-                    {
-                        _inventory.AddItem(new Item(item.ItemData, 1));
+                        var availableStackSpace = 10 - _inventory[index].Count;
+                        
+                        _inventory[index].Count += availableStackSpace < item.Count ? availableStackSpace : item.Count;
+                        item.Count -= availableStackSpace;
+                        
+                        if (item.Count <= 0)
+                            return;
                     }
                 }
                 else
                 {
-                    var availableStackIndex = _inventory.AvaliableStack(item);
-
-                    if (availableStackIndex == -1)
+                    foreach (var index in availableSlotsIndecies)
                     {
-                        var availableSlotIndex = _inventory.AvaliableSlot();
-                    
-                        if (availableSlotIndex == -1)
-                            return false;
-                    
-                        _inventory[availableSlotIndex] = new Item(item.ItemData, 1);
+                        _inventory[index].Count += 10 < item.Count ? 10 : item.Count;
+                        _inventory[index].ItemData = item.ItemData;
+                        item.Count -= 10;
                         
-                        continue;
+                        if (item.Count <= 0)
+                            return;
                     }
-                
-                    _inventory[availableStackIndex].Count++;
                 }
             }
+        }
 
-            return true;
+        public bool CanAddItem(Item item)
+        {
+            var availableRoom = 0;
+            
+            if (_inventory.AvaliableSlot() == -1)
+            {
+                var stackIndecies = _inventory.GetAllStackIndecies(item);
+
+                if (stackIndecies.Length == 0)
+                    return false;
+
+                for (int i = 0; i < stackIndecies.Length; i++)
+                {
+                    availableRoom += 10 - _inventory[stackIndecies[i]].Count;
+                }
+                
+                return availableRoom >= item.Count;
+            }
+            else if (_inventory.AvaliableSlot() != -1)
+            {
+                var slotIndecies = _inventory.GetAllAvailableSlotsIndecies();
+                
+                for (int i = 0; i < slotIndecies.Length; i++)
+                {
+                    availableRoom += 10;
+                }
+                
+                return availableRoom >= item.Count;
+            }
+
+            return false;
+
+        }
+
+        public bool CheckIfItemCanBeAdded(Item item)
+        {
+            return (_inventory.ItemCount() == InventorySize) && (_inventory.AvaliableSlot() == -1) && (_inventory.AvaliableStack(item) == -1) ? false : true;
         }
 
         public void RemoveItem(Item item)
