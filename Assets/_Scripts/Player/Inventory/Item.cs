@@ -17,28 +17,14 @@ namespace _Scripts.Player.Inventory
         
         public bool CanAddToStack() => Count < StackSize;
 
-        public static bool operator ==(Item item1, Item item2)
-        {
-            return item1.ItemData == item2.ItemData;
-        }
+        public static bool operator ==(Item item1, Item item2) => item1.ItemData == item2.ItemData;
 
-        public static bool operator !=(Item item1, Item item2)
-        {
-            return !(item1 == item2);
-        }
-        public bool Equals(Item other)
-        {
-            return Equals(ItemData, other.ItemData) && Count == other.Count;
-        }
+        public static bool operator !=(Item item1, Item item2) => !(item1 == item2);
 
-        public override bool Equals(object obj)
-        {
-            return obj is Item other && Equals(other);
-        }
+        public bool Equals(Item other) => Equals(ItemData, other.ItemData) && Count == other.Count;
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(ItemData, Count);
-        }
+        public override bool Equals(object obj) => obj is Item other && Equals(other);
+
+        public override int GetHashCode() => HashCode.Combine(ItemData, Count);
     }
 }

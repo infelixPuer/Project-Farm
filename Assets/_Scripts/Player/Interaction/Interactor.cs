@@ -11,7 +11,6 @@ public class Interactor : MonoBehaviour
     [SerializeField] 
     private Canvas _inventoryCanvas;
     
-    private PlayerMovement _playerMovement;
     private Action _interactionAction;
 
     private Camera _cam;
@@ -19,7 +18,6 @@ public class Interactor : MonoBehaviour
 
     private void Awake()
     {
-        _playerMovement = FindObjectOfType<PlayerMovement>();
         _cam = Camera.main;
     }
 

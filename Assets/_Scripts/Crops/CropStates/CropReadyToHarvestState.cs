@@ -10,9 +10,6 @@ namespace _Scripts.Crops.CropStates
             stateMachine.IsReadyToHarvest = true;
         }
 
-        public override void UpdateCropState(CropStateMachine stateMachine)
-        {
-            
-        }
+        public override void UpdateCropState(CropStateMachine stateMachine) { }
     }
 }

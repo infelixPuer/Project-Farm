@@ -32,9 +32,7 @@ public class GridObject
         _gridObjectState = GridObjectState.Empty;
     }
 
-    public override string ToString()
-    {
-        return $"{_gridPosition}" +
-               $"\nCell state: {State}";
-    }
+    public override string ToString() =>
+        $"{_gridPosition}" +
+        $"\nCell state: {State}";
 }

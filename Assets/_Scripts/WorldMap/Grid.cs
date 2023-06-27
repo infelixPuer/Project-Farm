@@ -39,7 +39,6 @@ public class Grid
         }
         catch (IndexOutOfRangeException)
         {
-            // Debug.LogWarning("Position is outside of the grid!");
             return null;
         }
     }

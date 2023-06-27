@@ -25,16 +25,6 @@ namespace _Scripts.Player.Inventory
             return false;
         }
 
-        public static void AddItem(this Item[] inventory, Item item)
-        {
-            for (int i = 0; i < inventory.GetLength(0); i++)
-                if (inventory[i].IsEmpty)
-                {
-                    inventory[i] = item;
-                    return;
-                }
-        }
-
         public static int ItemIndex(this Item[] inventory, Item item)
         {
             for (int i = 0; i < inventory.Length; i++)

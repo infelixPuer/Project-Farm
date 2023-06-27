@@ -5,7 +5,6 @@ using _Scripts.Player.Interaction;
 using _Scripts.Player.Inventory;
 using _Scripts.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Scripts.World
 {
@@ -27,8 +26,6 @@ namespace _Scripts.World
         public ShopType ShopType;
 
         private Inventory _marketplaceInventory = new(15);
-
-        // TODO: Change name of one of the LoadItems methods
         
         public virtual void LoadInventory()
         {
@@ -68,24 +65,12 @@ namespace _Scripts.World
             return itemObjects;
         }
 
-        public int GetItemCount(Item item)
-        {
-            return _marketplaceInventory.GetItemCount(item);
-        }
+        public int GetItemCount(Item item) => _marketplaceInventory.GetItemCount(item);
 
-        public void AddItem(ItemSO item, int amount)
-        {
-            _marketplaceInventory.AddItem(new Item(item, amount));
-        }
+        public void AddItem(ItemSO item, int amount) => _marketplaceInventory.AddItem(new Item(item, amount));
 
-        public void RemoveItem(ItemSO item, int amount)
-        {
-            _marketplaceInventory.RemoveItem(new Item(item, amount));
-        }
+        public void RemoveItem(ItemSO item, int amount) => _marketplaceInventory.RemoveItem(new Item(item, amount));
 
-        public bool CheckIfItemCanBeAdded(Item item)
-        {
-            return _marketplaceInventory.CanAddItem(item);
-        }
+        public bool CheckIfItemCanBeAdded(Item item) => _marketplaceInventory.CanAddItem(item);
     }
 }

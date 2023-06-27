@@ -19,7 +19,6 @@ public class WorldMap : MonoBehaviour
     private GameObject _debugObjectPrefab;
 
     private Grid _grid;
-    private GameObject[,] _cells;
     
     public static WorldMap Instance;
     
@@ -36,8 +35,6 @@ public class WorldMap : MonoBehaviour
         }
         
         _grid = new Grid(_worldWidth, _worldHeight, _cellSizeInUnityUnit);
-        _cells = new GameObject[_worldWidth, _worldHeight];
-        
         _grid.CreateGridObjects(_debugObjectPrefab.transform);
     }
 

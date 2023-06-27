@@ -4,10 +4,7 @@ namespace _Scripts.Player.Interaction.InteractionTypes
 {
     public class WaterSeedbed : MonoBehaviour, IInteractable
     {
-        public void Interact()
-        {
-            
-        }
+        public void Interact() { }
 
         public void Interact(RaycastHit hitInfo)
         {

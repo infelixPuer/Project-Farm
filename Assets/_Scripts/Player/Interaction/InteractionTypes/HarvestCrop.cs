@@ -41,9 +41,6 @@ namespace _Scripts.Player.Interaction.InteractionTypes
             Destroy(_cropBase.gameObject);
         }
 
-        public void Interact(RaycastHit hitInfo)
-        {
-            
-        }
+        public void Interact(RaycastHit hitInfo) { }
     }
 }

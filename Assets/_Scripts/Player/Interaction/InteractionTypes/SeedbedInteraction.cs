@@ -5,10 +5,7 @@ namespace _Scripts.Player.Interaction.InteractionTypes
 {
     public class SeedbedInteraction : MonoBehaviour, IInteractable
     {
-        public void Interact()
-        {
-            
-        }
+        public void Interact() { }
 
         public void Interact(RaycastHit hitInfo)
         {

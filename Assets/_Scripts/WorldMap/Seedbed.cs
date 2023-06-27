@@ -29,7 +29,6 @@ public class Seedbed : Tile
     public GridObject Parent;
     
     private MeshRenderer _renderer;
-    private ItemSO _cropSO;
     private CropBase _cropBase;
 
     private float _waterLevelAfterWatering;
@@ -54,20 +53,13 @@ public class Seedbed : Tile
         UpdateWaterLevel();
     }
 
-    private void UpdateCellMaterial()
-    {
-        _renderer.material = State == TileState.Empty ? _emptyMaterial : _plantedMaterial;
-    }
+    private void UpdateCellMaterial() => _renderer.material = State == TileState.Empty ? _emptyMaterial : _plantedMaterial;
 
-    public override void UpdateTileState(TileState state)
-    {
-        State = state;
-    }           
+    public override void UpdateTileState(TileState state) => State = state;
 
     public void PlantCrop(ItemSO crop)
     {
         crop.Object.TryGetComponent<Seed>(out var seed);
-        _cropSO = crop;
 
         var seedbedTransform = _seedbedModel.transform;
 
@@ -99,19 +91,11 @@ public class Seedbed : Tile
         if (_currentWaterLevel <= 0f) DrySeedbed();
     }
     
-    public float GetCurrentWaterLevel()
-    {
-        return _currentWaterLevel;
-    }
+    public float GetCurrentWaterLevel() => _currentWaterLevel;
 
     public void DrySeedbed()
     {
         _isWatered = false;
         _renderer.material = _emptyMaterial;
     }
-
-    // public bool GetWateredStatus()
-    // {
-    //     return _isWatered;
-    // }
 }

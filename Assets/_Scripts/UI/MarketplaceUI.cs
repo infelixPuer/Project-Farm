@@ -42,10 +42,7 @@ namespace _Scripts.UI
             _marketplaceUIContainer.ParentMarketplaceUI = this;
         }
         
-        private void ConfigureExitButton()
-        {
-            _exitButton.onClick.AddListener(() => UIManager.Instance.HideCanvas(_canvas));
-        }
+        private void ConfigureExitButton() => _exitButton.onClick.AddListener(() => UIManager.Instance.HideCanvas(_canvas));
 
         private void SetBalanceText()
         {

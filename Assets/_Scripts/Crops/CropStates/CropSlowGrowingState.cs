@@ -50,7 +50,6 @@ namespace _Scripts.Crops.CropStates
             
             _elapsedTimeSinceEnteringState = TimeManager.Instance.GetCurrentTime() - _dateOfEnteringState;
             _t = (float)(_elapsedTimeSinceEnteringState / _timeOfGrowingThatLeftSinceEnteringState);
-            // var k = Mathf.Lerp(0.5f, 1f, _currentWaterLevel / _crop.MinimalWaterLevel);
             var k = _currentWaterLevel / _crop.MinimalWaterLevel * 0.5f + 0.5f;
             
             _crop.SetCropQuality(k * k - k + 1f);

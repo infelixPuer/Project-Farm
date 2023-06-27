@@ -1,9 +1,7 @@
-﻿using System;
-using _Scripts.Player.Inventory;
+﻿using _Scripts.Player.Inventory;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace _Scripts.UI
@@ -51,10 +49,7 @@ namespace _Scripts.UI
             return this;
         }
         
-        public void SetButtonAction(UnityAction action)
-        {
-            _button.onClick.AddListener(action);
-        }
+        public void SetButtonAction(UnityAction action) => _button.onClick.AddListener(action);
 
         public void SubtractFromCount(int amount)
         {

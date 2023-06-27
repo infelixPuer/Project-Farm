@@ -20,8 +20,6 @@ namespace _Scripts.Player.Inventory
         public ItemSO Onion;
         public ItemSO Carrot;
 
-        private bool _itemAddedSuccsessfuly;
-
         private void Awake()
         {
             if (Instance is null)
@@ -42,67 +40,25 @@ namespace _Scripts.Player.Inventory
 
             #region Populating inventory with items
 
-            AddItem(Tomato, 9);
-            // AddItem(Tomato, 1);
-            // AddItem(Tomato, 1);
-            // AddItem(Tomato, 1);
-            // AddItem(Tomato, 1);
-            // AddItem(Tomato, 1);
-            // AddItem(Tomato, 1);
-            // AddItem(Tomato, 1);
-            // AddItem(Tomato, 1);    
+            AddItem(Tomato, 9); 
             AddItem(Corn, 7);
-            // AddItem(Corn, 1);
-            // AddItem(Corn, 1);
-            // AddItem(Corn, 1);
-            // AddItem(Corn, 1);
-            // AddItem(Corn, 1);
-            // AddItem(Corn, 1);
             AddItem(Carrot, 12);
-            // AddItem(Carrot, 1);
-            // AddItem(Carrot, 1);
-            // AddItem(Carrot, 1);
-            // AddItem(Carrot, 1);
-            // AddItem(Carrot, 1);
-            // AddItem(Carrot, 1);
-            // AddItem(Carrot, 1);
-            // AddItem(Carrot, 1);
-            // AddItem(Carrot, 1);
-            // AddItem(Carrot, 1);
-            // AddItem(Carrot, 1);
             AddItem(Onion, 3);
-            // AddItem(Onion, 1);
-            // AddItem(Onion, 1);
 
             #endregion
         }
         
-        private void UpdateBalanceText(object sender, int value)
-        {
-            _currentBalanceText.text = "Balance: " + value.ToString();
-        }
+        private void UpdateBalanceText(object sender, int value) => _currentBalanceText.text = "Balance: " + value.ToString();
 
-        public void AddItem(ItemSO item, int count)
-        {
-            Inventory.AddItem(new Item(item, count));
-        }
+        public void AddItem(ItemSO item, int count) => Inventory.AddItem(new Item(item, count));
 
-        public void RemoveItem(ItemSO item, int count)
-        {
-            Inventory.RemoveItem(new Item(item, count));
-        }
+        public void RemoveItem(ItemSO item, int count) => Inventory.RemoveItem(new Item(item, count));
 
         public bool CheckIfItemCanBeAdded(Item item) => Inventory.CanAddItem(item);
 
-        public void AddToBalance(int value)
-        {
-            Wallet.AddMoney(value);
-        }
-        
-        public void RemoveFromBalance(int value)
-        {
-            Wallet.RemoveMoney(value);
-        }
+        public void AddToBalance(int value) => Wallet.AddMoney(value);
+
+        public void RemoveFromBalance(int value) => Wallet.RemoveMoney(value);
 
         public Item[] GetInventoryItems() => Inventory.GetItems();
 
@@ -128,9 +84,6 @@ namespace _Scripts.Player.Inventory
             return itemObjects;
         }
 
-        public int GetItemCount(Item item)
-        {
-            return Inventory.GetItemCount(item);
-        }
+        public int GetItemCount(Item item) => Inventory.GetItemCount(item);
     }
 }

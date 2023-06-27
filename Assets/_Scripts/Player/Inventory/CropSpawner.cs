@@ -10,13 +10,7 @@ public class CropSpawner : MonoBehaviour, IInteractable
     [SerializeField] 
     private PlayerInventory _inventory;
     
-    public void Interact()
-    {
-        _inventory.AddItem(_item, 1);
-    }
+    public void Interact() => _inventory.AddItem(_item, 1);
 
-    public void Interact(RaycastHit hitInfo)
-    {
-        
-    }
+    public void Interact(RaycastHit hitInfo) { }
 }

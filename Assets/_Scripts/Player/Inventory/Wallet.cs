@@ -25,11 +25,8 @@ namespace _Scripts.Player.Inventory
             BalanceChanged?.Invoke(this, e);
         }
 
-        public Wallet()
-        {
-            Balance = 0;
-        }
-        
+        public Wallet() => Balance = 0;
+
         public void AddMoney(int amount)
         {
             Balance += amount;

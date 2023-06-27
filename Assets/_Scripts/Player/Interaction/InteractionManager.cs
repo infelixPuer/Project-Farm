@@ -2,7 +2,6 @@ using System;
 using _Scripts.Player.Inventory;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public enum InteractionState
 {
@@ -23,7 +22,7 @@ public class InteractionManager : MonoBehaviour
 
     public ItemSO SelectedSeed;
     public bool IsSeedSelected => SelectedSeed != null;
-    [FormerlySerializedAs("IsViewingUI")] public bool IsSelectingSeed;
+    public bool IsSelectingSeed;
 
     private void Awake()
     {

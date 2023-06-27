@@ -8,9 +8,6 @@ using UnityEngine.UI;
 public class CropsLoaderUI : MonoBehaviour
 {
     [SerializeField] 
-    private Canvas _canvas;
-    
-    [SerializeField] 
     private GameObject _panel;
 
     [SerializeField] 
@@ -41,8 +38,5 @@ public class CropsLoaderUI : MonoBehaviour
         }
     }
 
-    private void OnSeedSelected(ItemSO seed)
-    {
-        InteractionManager.Instance.SelectedSeed = seed;
-    }
+    private void OnSeedSelected(ItemSO seed) => InteractionManager.Instance.SelectedSeed = seed;
 }
