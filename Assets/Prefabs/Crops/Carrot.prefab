@@ -120,8 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3965ca283e45bc866a15223e67bd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cropQuality: 0
   Item: {fileID: 11400000, guid: 49edd61597bb70e4a924d1bd1b7197a6, type: 2}
-  GrowthTime: 2
+  GrowthTime: 6
   Output: 10
   MinimalWaterLevel: 0.4
 --- !u!114 &2117982441633479683

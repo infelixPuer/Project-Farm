@@ -114,7 +114,7 @@ namespace _Scripts.UI
             var price = item.ItemData.Price;
             var totalPrice = price * amount;
             
-            _oppositeInventory = _inventory == playerInventory ? ParentMarketplaceUI.GetMarketplaceUIContainer()._inventory : playerInventory;
+            _oppositeInventory = ReferenceEquals(_inventory, playerInventory) ? ParentMarketplaceUI.GetMarketplaceUIContainer()._inventory : playerInventory;
             
             if (_oppositeInventory.CheckIfItemCanBeAdded(new Item(item.ItemData, amount)) == false)
             {
