@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using _Scripts.UI;
 using UnityEngine;
 using Ink.Runtime;
@@ -20,6 +21,11 @@ namespace _Scripts.DialogSystem
         
         [SerializeField]
         private Button _buttonPrefab;
+        
+        [SerializeField]
+        private ScrollRect _dialogScrollRect;
+
+        public float ScrollbarValue;
         
         private Story _story;
         private bool _isStoryNeeded;
@@ -48,6 +54,7 @@ namespace _Scripts.DialogSystem
                 while (_story.canContinue)
                 {
                     _storyText.text += _story.Continue();
+                    StartCoroutine(ApplyScrollPosition(_dialogScrollRect, 0f));
                 }
             
                 if (_story.currentChoices.Count > 0)
@@ -90,7 +97,6 @@ namespace _Scripts.DialogSystem
             UIManager.Instance.ShowCanvas(_dialogCanvas);
         }
         
-        // TODO: Make method for choosing options in dialog. This method will be assigned to buttons and it will be toogling _isStoryNeeded field
         public void SelectChoice(int index) 
         {
             _story.ChooseChoiceIndex(index);
@@ -103,6 +109,13 @@ namespace _Scripts.DialogSystem
             {
                 Destroy(child.gameObject);
             }
+        }
+
+        private IEnumerator ApplyScrollPosition(ScrollRect sr, float value)
+        {
+            yield return new WaitForEndOfFrame();
+            
+            sr.verticalNormalizedPosition = value;
         }
         
         public void SetStory(TextAsset inkJson) => _story = new Story(inkJson.text);
