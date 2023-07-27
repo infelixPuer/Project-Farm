@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using _Scripts.UI;
 using UnityEngine;
 using Ink.Runtime;
@@ -25,7 +24,7 @@ namespace _Scripts.DialogSystem
         [SerializeField]
         private ScrollRect _dialogScrollRect;
 
-        public float ScrollbarValue;
+        public NPC NPCToTalk;
         
         private Story _story;
         private bool _isStoryNeeded;
@@ -81,6 +80,7 @@ namespace _Scripts.DialogSystem
                         _storyText.text = "";
                         _story = null;
                         _isStoryNeeded = false;
+                        NPCToTalk.StartNPCMovement();
 
                         ClearChoicePanel();
                     });
