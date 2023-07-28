@@ -47,7 +47,7 @@ public class NPC : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        _agent.isStopped = true;
+        StopNPCMovement();
         _targetDirection = _playerTransform.position - transform.position;
         StartCoroutine(StartDialog());
     }
@@ -69,5 +69,10 @@ public class NPC : MonoBehaviour, IInteractable
     public void StartNPCMovement()
     {
         _agent.isStopped = false;
+    }
+
+    public void StopNPCMovement()
+    {
+        _agent.isStopped = true;
     }
 }

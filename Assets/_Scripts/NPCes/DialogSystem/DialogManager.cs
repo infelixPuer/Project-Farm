@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using _Scripts.NPCes;
 using _Scripts.UI;
 using UnityEngine;
 using Ink.Runtime;
@@ -84,7 +85,7 @@ namespace _Scripts.DialogSystem
                         _storyText.text = "";
                         _story = null;
                         _isStoryNeeded = false;
-                        NPCToTalk.StartNPCMovement();
+                        NPCManager.Instance.StartAllNPC();
 
                         ClearChoicePanel();
                     });
@@ -133,6 +134,8 @@ namespace _Scripts.DialogSystem
                 _playerMovement.transform.rotation = Quaternion.RotateTowards(_playerMovement.transform.rotation, Quaternion.LookRotation(targetDirection), 20 * Time.deltaTime);
                 yield return null;
             }
+            
+            NPCManager.Instance.StopAllNPC();
         }
         
         public void SetStory(TextAsset inkJson) => _story = new Story(inkJson.text);
