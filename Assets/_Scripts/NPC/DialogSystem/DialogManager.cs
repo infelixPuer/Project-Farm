@@ -24,6 +24,10 @@ namespace _Scripts.DialogSystem
         [SerializeField]
         private ScrollRect _dialogScrollRect;
 
+        [SerializeField] 
+        private PlayerMovement _playerMovement;
+
+        [HideInInspector] 
         public NPC NPCToTalk;
         
         private Story _story;
@@ -94,6 +98,8 @@ namespace _Scripts.DialogSystem
         {
             _story = new Story(inkJson.text);
             _isStoryNeeded = true;
+            _playerMovement.enabled = false;
+            StartCoroutine(RotateTowardsInterloctor());
             UIManager.Instance.ShowCanvas(_dialogCanvas);
         }
         
@@ -116,6 +122,17 @@ namespace _Scripts.DialogSystem
             yield return new WaitForEndOfFrame();
             
             sr.verticalNormalizedPosition = value;
+        }
+
+        private IEnumerator RotateTowardsInterloctor()
+        {
+            var targetDirection = NPCToTalk.transform.position - _playerMovement.transform.position;
+
+            while (Quaternion.Angle(_playerMovement.transform.rotation, Quaternion.LookRotation(targetDirection)) > 0.1f)
+            {
+                _playerMovement.transform.rotation = Quaternion.RotateTowards(_playerMovement.transform.rotation, Quaternion.LookRotation(targetDirection), 20 * Time.deltaTime);
+                yield return null;
+            }
         }
         
         public void SetStory(TextAsset inkJson) => _story = new Story(inkJson.text);

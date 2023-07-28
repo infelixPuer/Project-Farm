@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using _Scripts.DialogSystem;
 using _Scripts.Player.Interaction;
@@ -63,8 +62,8 @@ public class NPC : MonoBehaviour, IInteractable
             yield return null;
         }
 
-        DialogManager.Instance.StartDialog(_inkJsonAsset);
         DialogManager.Instance.NPCToTalk = this;
+        DialogManager.Instance.StartDialog(_inkJsonAsset);
     }
 
     public void StartNPCMovement()

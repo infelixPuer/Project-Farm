@@ -5139,6 +5139,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 157502403}
     - target: {fileID: 8351405969323019090, guid: 0c725b773c53c97449f0f06766e4667c, type: 3}
+      propertyPath: _playerMovement
+      value: 
+      objectReference: {fileID: 1425301242}
+    - target: {fileID: 8351405969323019090, guid: 0c725b773c53c97449f0f06766e4667c, type: 3}
       propertyPath: _dialogScrollbar
       value: 
       objectReference: {fileID: 1369915764}
