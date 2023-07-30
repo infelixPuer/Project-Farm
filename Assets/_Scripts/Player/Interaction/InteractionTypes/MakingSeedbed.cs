@@ -4,13 +4,11 @@ namespace _Scripts.Player.Interaction.InteractionTypes
 {
     public class MakingSeedbed : MonoBehaviour, IInteractable
     {
-        public void Interact() { }
-
-        public void Interact(RaycastHit hitInfo)
+        public void Interact(Interactor interactor)
         {
             if (InteractionManager.Instance.interactionState != InteractionState.MakingSeedbed) return;
             
-            WorldMap.Instance.InstantiateSeedbed(hitInfo.point);
+            WorldMap.Instance.InstantiateSeedbed(interactor.HitInfo.point);
         }
     }
 }

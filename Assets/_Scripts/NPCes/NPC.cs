@@ -15,9 +15,6 @@ public class NPC : MonoBehaviour, IInteractable
     [SerializeField] 
     private NavMeshAgent _agent;
 
-    [SerializeField] 
-    private Transform _playerTransform;
-
     [SerializeField] private float _rotationSpeed;
 
     private Vector3 _targetDirection;
@@ -45,14 +42,12 @@ public class NPC : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact()
+    public void Interact(Interactor interactor)
     {
         StopNPCMovement();
-        _targetDirection = _playerTransform.position - transform.position;
+        _targetDirection = interactor.transform.position - transform.position;
         StartCoroutine(StartDialog());
     }
-
-    public void Interact(RaycastHit hitInfo) { }
 
     private IEnumerator StartDialog()
     {

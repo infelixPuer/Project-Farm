@@ -5,19 +5,17 @@ namespace _Scripts.Player.Interaction.InteractionTypes
 {
     public class SeedbedInteraction : MonoBehaviour, IInteractable
     {
-        public void Interact() { }
-
-        public void Interact(RaycastHit hitInfo)
+        public void Interact(Interactor interactor)
         {
             switch (InteractionManager.Instance.interactionState)
             {   
                 case InteractionState.MakingSeedbed:
                     return;
                 case InteractionState.Planting:
-                    PlantCrop(hitInfo);
+                    PlantCrop(interactor.HitInfo);
                     break;
                 case InteractionState.Watering:
-                    WaterSeedbed(hitInfo);
+                    WaterSeedbed(interactor.HitInfo);
                     break;
             }
         }

@@ -35,13 +35,11 @@ namespace _Scripts.World
                 _marketplaceInventory.AddItem(new Item(item, 10));
         }
         
-        public void Interact()
+        public void Interact(Interactor interactor)
         {
             _marketplaceUIContainer.ItemStorage = this;
             UIManager.Instance.ShowCanvas(_marketplaceUI);
         }
-
-        public void Interact(RaycastHit hitInfo) { }
 
         public override List<ItemUI> LoadItems(ItemUI itemPrefab, GameObject itemContainer, Action<ItemUI> action)
         {

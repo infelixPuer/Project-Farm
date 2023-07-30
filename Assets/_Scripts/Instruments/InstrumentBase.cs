@@ -24,16 +24,10 @@ namespace _Scripts.Instruments
         protected float _range;
 
         public abstract void Use();
-        
-        #region Interaction
 
-        public void Interact()
+        public void Interact(Interactor interactor)
         {
             Use();
         }
-
-        public void Interact(RaycastHit hitInfo) { }
-
-        #endregion
     }
 }

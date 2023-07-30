@@ -5,13 +5,11 @@ namespace _Scripts.Player.Interaction.InteractionTypes
 {
     public class PlantingCrop : MonoBehaviour, IInteractable
     {
-        public void Interact() { }
-
-        public void Interact(RaycastHit hitInfo)
+        public void Interact(Interactor interactor)
         {
             if (InteractionManager.Instance.interactionState != InteractionState.Planting) return;
             
-            if (!hitInfo.collider.transform.parent.TryGetComponent<Seedbed>(out var seedbed)) return;
+            if (!interactor.HitInfo.collider.transform.parent.TryGetComponent<Seedbed>(out var seedbed)) return;
             
             if (seedbed.State != TileState.Empty) return;
 

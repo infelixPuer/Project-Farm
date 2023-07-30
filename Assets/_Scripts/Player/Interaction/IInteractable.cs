@@ -1,10 +1,7 @@
-﻿using UnityEngine;
-
-namespace _Scripts.Player.Interaction
+﻿namespace _Scripts.Player.Interaction
 {
     public interface IInteractable
     {
-        public void Interact();
-        public void Interact(RaycastHit hitInfo);
+        public void Interact(Interactor interactor);
     }
 }

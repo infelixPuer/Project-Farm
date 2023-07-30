@@ -23,7 +23,7 @@ namespace _Scripts.Player.Interaction.InteractionTypes
             _inventory = FindObjectOfType<PlayerInventory>();
         }
 
-        public void Interact()
+        public void Interact(Interactor interactor)
         {
             if (!_cropStateMachine.IsReadyToHarvest) return;
             
@@ -40,7 +40,5 @@ namespace _Scripts.Player.Interaction.InteractionTypes
             _cropBase.GetParentSeedbed().UpdateTileState(TileState.Empty);
             Destroy(_cropBase.gameObject);
         }
-
-        public void Interact(RaycastHit hitInfo) { }
     }
 }

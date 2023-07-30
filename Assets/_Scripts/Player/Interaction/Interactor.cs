@@ -11,6 +11,8 @@ public class Interactor : MonoBehaviour
     [SerializeField] 
     private Canvas _inventoryCanvas;
     
+    public RaycastHit HitInfo { get; private set; }
+    
     private Action _interactionAction;
 
     private Camera _cam;
@@ -32,7 +34,10 @@ public class Interactor : MonoBehaviour
         if (!InteractionManager.Instance.IsSelectingSeed)
         {
             ChooseInteractionOption();
-            SpecialInteraction();
+            if (Input.GetMouseButtonDown(0))
+            {
+                SpecialInteraction();
+            }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -58,15 +63,14 @@ public class Interactor : MonoBehaviour
 
     private void SpecialInteraction()
     {
-        if (!Input.GetMouseButtonDown(0)) return;
-        
         var ray = new Ray(_cam.transform.position, _cam.transform.forward);
         
         if (Physics.Raycast(ray, out var hitInfo, 3f))
         {
             if (hitInfo.collider.gameObject.TryGetComponent<IInteractable>(out var obj))
             {
-                obj.Interact(hitInfo);
+                HitInfo = hitInfo;
+                obj.Interact(this);
             }
         }
     }
@@ -79,7 +83,8 @@ public class Interactor : MonoBehaviour
         {
             if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable obj))
             {
-                obj.Interact();
+                HitInfo = hitInfo;
+                obj.Interact(this);
             }
         }
     }
