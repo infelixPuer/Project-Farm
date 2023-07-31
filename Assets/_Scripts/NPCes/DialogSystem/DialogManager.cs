@@ -85,6 +85,7 @@ namespace _Scripts.DialogSystem
                         _storyText.text = "";
                         _story = null;
                         _isStoryNeeded = false;
+                        NPCToTalk.IsTalking = false;
                         NPCManager.Instance.StartAllNPC();
 
                         ClearChoicePanel();

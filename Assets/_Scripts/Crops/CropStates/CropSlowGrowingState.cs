@@ -32,7 +32,6 @@ namespace _Scripts.Crops.CropStates
             if (TimeManager.Instance.GetCurrentTime() - stateMachine.PlantedDate >= _initialTimeOfGrowing)
             {
                 stateMachine.TransitionToState(stateMachine.CropReadyToHarvestState);
-                Debug.Log(TimeManager.Instance.GetCurrentTime());
                 return;
             }
 

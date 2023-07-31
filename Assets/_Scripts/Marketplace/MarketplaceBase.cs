@@ -24,6 +24,7 @@ namespace _Scripts.World
         
         public List<ItemSO> Items { get; private set; }
         public ShopType ShopType;
+        public bool IsOpened { get; set; }
 
         private Inventory _marketplaceInventory = new(15);
         
@@ -37,6 +38,9 @@ namespace _Scripts.World
         
         public void Interact(Interactor interactor)
         {
+            if (IsOpened) return;
+            
+            IsOpened = true;
             _marketplaceUIContainer.ItemStorage = this;
             UIManager.Instance.ShowCanvas(_marketplaceUI);
         }
@@ -70,5 +74,7 @@ namespace _Scripts.World
         public void RemoveItem(ItemSO item, int amount) => _marketplaceInventory.RemoveItem(new Item(item, amount));
 
         public bool CheckIfItemCanBeAdded(Item item) => _marketplaceInventory.CanAddItem(item);
+        
+        public void CloseMarketplace() => IsOpened = false;
     }
 }

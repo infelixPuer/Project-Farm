@@ -31,7 +31,7 @@ public class Interactor : MonoBehaviour
 
     private void Update()
     {
-        if (!InteractionManager.Instance.IsSelectingSeed)
+        if (!InteractionManager.Instance.IsShowingUI)
         {
             ChooseInteractionOption();
             if (Input.GetMouseButtonDown(0))

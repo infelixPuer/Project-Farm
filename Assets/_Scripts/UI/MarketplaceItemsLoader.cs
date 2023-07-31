@@ -1,4 +1,5 @@
 ﻿using _Scripts.Player.Inventory;
+using _Scripts.World;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -57,6 +58,9 @@ namespace _Scripts.UI
 
         private void OnDisable()
         {
+            _itemStorage.gameObject.TryGetComponent(out Marketplace marketplace);
+            marketplace?.CloseMarketplace();
+            
             foreach (Transform child in transform)
                 Destroy(child.gameObject);
 

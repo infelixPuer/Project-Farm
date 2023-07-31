@@ -49,6 +49,7 @@ namespace _Scripts.UI
             canvas.gameObject.SetActive(true);
             _playerMovement.enabled = false;
             TimeManager.Instance.TimeBlocked = true;
+            InteractionManager.Instance.IsShowingUI = true;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
         }
@@ -65,6 +66,7 @@ namespace _Scripts.UI
             
             _playerMovement.enabled = true;
             TimeManager.Instance.TimeBlocked = false;
+            InteractionManager.Instance.IsShowingUI = false;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }

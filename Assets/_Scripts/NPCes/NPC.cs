@@ -16,6 +16,8 @@ public class NPC : MonoBehaviour, IInteractable
     private NavMeshAgent _agent;
 
     [SerializeField] private float _rotationSpeed;
+    
+    public bool IsTalking { get; set; }
 
     private Vector3 _targetDirection;
     
@@ -44,6 +46,9 @@ public class NPC : MonoBehaviour, IInteractable
 
     public void Interact(Interactor interactor)
     {
+        if (IsTalking) return;
+
+        IsTalking = true;
         StopNPCMovement();
         _targetDirection = interactor.transform.position - transform.position;
         StartCoroutine(StartDialog());
