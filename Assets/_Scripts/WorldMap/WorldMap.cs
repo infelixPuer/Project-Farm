@@ -64,6 +64,12 @@ public class WorldMap : MonoBehaviour
         gridObject.State = GridObjectState.Occupied;
     }
 
+    public void RemoveSeedbed(Seedbed seedbed)
+    {
+        seedbed.Parent.State = GridObjectState.Empty;
+        Destroy(seedbed.gameObject);
+    }
+
     public GridPosition GetGridPosition(Vector3 pos) => _grid.GetGridPosition(pos);
 
     public Vector3 GetWorldPosition(GridPosition gridPosition) => 

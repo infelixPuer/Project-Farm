@@ -26,16 +26,18 @@ namespace _Scripts.Instruments
         [SerializeField]
         protected Rigidbody _rigidbody;
 
-        public abstract void Use();
+        public abstract void MainAction();
+        public abstract void SecondaryAction();
 
         public void Interact(Interactor interactor)
         {
             interactor.GetItemInHand(this);
         }
 
-        public void SetGravity(bool value)
+        public void ResetObjectPhysics(bool gravityValue)
         {
-            _rigidbody.useGravity = value;
+            _rigidbody.useGravity = gravityValue;
+            _rigidbody.isKinematic = !gravityValue;
         }
     }
 }

@@ -42,7 +42,12 @@ public class Interactor : MonoBehaviour
             
             if (Input.GetMouseButtonDown(0))
             {
-                UseItemInHand();
+                PerformMainActionOfItemInHand();
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                PerformSecondaryActionOfItemInHand();
             }
 
             if (Input.GetKeyDown(KeyCode.E))
@@ -72,12 +77,20 @@ public class Interactor : MonoBehaviour
             InteractionManager.Instance.UpdatePlayerInteractionState(InteractionState.Watering);
     }
 
-    private void UseItemInHand()
+    private void PerformMainActionOfItemInHand()
     {
         if (ItemInHand is null)
             return;
         
-        ItemInHand.Use();
+        ItemInHand.MainAction();
+    }
+
+    private void PerformSecondaryActionOfItemInHand()
+    {
+        if (ItemInHand is null)
+            return;
+        
+        ItemInHand.SecondaryAction();
     }
 
     private void Interaction()
@@ -128,7 +141,7 @@ public class Interactor : MonoBehaviour
         obj.transform.localRotation = _itemPoint.rotation;
         obj.transform.localScale = _itemPoint.localScale;
         obj.transform.SetParent(this.transform);
-        obj.SetGravity(false);
+        obj.ResetObjectPhysics(false);
         ItemInHand = obj;
     }
 
@@ -138,7 +151,7 @@ public class Interactor : MonoBehaviour
             return;
 
         var obj = ItemInHand.gameObject;
-        ItemInHand.SetGravity(true);
+        ItemInHand.ResetObjectPhysics(true);
         ItemInHand = null;
         obj.transform.SetParent(null);
         obj.transform.position = _cam.transform.position + _cam.transform.forward * 2f;

@@ -4,7 +4,7 @@ namespace _Scripts.Instruments
 {
     public class Watercan : InstrumentBase
     {
-        public override void Use()
+        public override void MainAction()
         {
             var camTransform = InteractionManager.Instance.Cam.transform;
             var ray = new Ray(camTransform.position, camTransform.forward);
@@ -21,6 +21,11 @@ namespace _Scripts.Instruments
                 seedbed.WaterSeedbed();
                 Debug.Log("Watering"); 
             }
+        }
+        
+        public override void SecondaryAction()
+        {
+            Debug.Log("Watercan's secondary action");
         }
     }
 }
