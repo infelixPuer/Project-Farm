@@ -6,7 +6,22 @@ namespace _Scripts.Instruments
     {
         public override void Use()
         {
-            Debug.Log("Using Watercan!");
+            var camTransform = InteractionManager.Instance.Cam.transform;
+            var ray = new Ray(camTransform.position, camTransform.forward);
+            
+            Physics.Raycast(ray, out var hitInfo, _range);
+
+            if (hitInfo.collider is null)
+                return;
+
+            var seedbed = hitInfo.collider.GetComponentInParent<Seedbed>();
+            
+            if (seedbed is not null)
+            {
+                seedbed.WaterSeedbed();
+                Debug.Log("Watering"); 
+            }
+            
         }
     }
 }

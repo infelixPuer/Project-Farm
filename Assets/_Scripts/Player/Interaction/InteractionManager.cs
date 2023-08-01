@@ -14,6 +14,8 @@ public class InteractionManager : MonoBehaviour
 {
     [SerializeField] 
     private TextMeshProUGUI _interactionText;
+
+    public Camera Cam { get; private set; }
     
     public static InteractionManager Instance;
 
@@ -35,6 +37,8 @@ public class InteractionManager : MonoBehaviour
         {
             Destroy(this);
         }
+        
+        Cam = Camera.main;
     }
 
     private void Start()

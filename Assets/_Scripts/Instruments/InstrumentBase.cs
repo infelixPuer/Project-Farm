@@ -22,12 +22,20 @@ namespace _Scripts.Instruments
         
         [SerializeField] 
         protected float _range;
+        
+        [SerializeField]
+        protected Rigidbody _rigidbody;
 
         public abstract void Use();
 
         public void Interact(Interactor interactor)
         {
-            interactor.GetItemInHand(gameObject);
+            interactor.GetItemInHand(this);
+        }
+
+        public void SetGravity(bool value)
+        {
+            _rigidbody.useGravity = value;
         }
     }
 }

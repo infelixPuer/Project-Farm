@@ -1,4 +1,5 @@
 using System;
+using _Scripts.Instruments;
 using UnityEngine;
 using _Scripts.Player.Interaction;
 using _Scripts.UI;
@@ -15,6 +16,7 @@ public class Interactor : MonoBehaviour
     private Transform _itemPoint;
     
     public RaycastHit HitInfo { get; private set; }
+    public InstrumentBase ItemInHand { get; private set; }
     
     private Action _interactionAction;
 
@@ -37,14 +39,20 @@ public class Interactor : MonoBehaviour
         if (!InteractionManager.Instance.IsShowingUI)
         {
             ChooseInteractionOption();
+            
             if (Input.GetMouseButtonDown(0))
             {
-                SpecialInteraction();
+                UseItemInHand();
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                SimpleInteraction();
+                Interaction();
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                DropItemFromHand();
             }
         }
         
@@ -64,22 +72,16 @@ public class Interactor : MonoBehaviour
             InteractionManager.Instance.UpdatePlayerInteractionState(InteractionState.Watering);
     }
 
-    private void SpecialInteraction()
+    private void UseItemInHand()
     {
-        var ray = new Ray(_cam.transform.position, _cam.transform.forward);
+        if (ItemInHand is null)
+            return;
         
-        if (Physics.Raycast(ray, out var hitInfo, 3f))
-        {
-            if (hitInfo.collider.gameObject.TryGetComponent<IInteractable>(out var obj))
-            {
-                HitInfo = hitInfo;
-                obj.Interact(this);
-            }
-        }
+        ItemInHand.Use();
     }
 
-    private void SimpleInteraction()
-    {
+    private void Interaction()
+    { 
         var ray = new Ray(_cam.transform.position, _cam.transform.forward);
 
         if (Physics.Raycast(ray, out var hitInfo, 3f))
@@ -117,11 +119,30 @@ public class Interactor : MonoBehaviour
         UIManager.Instance.ShowCanvas(_inventoryCanvas);
     }
 
-    public void GetItemInHand(GameObject obj)
+    public void GetItemInHand(InstrumentBase obj)
     {
+        if (ItemInHand is not null)
+            return;
+        
         obj.transform.localPosition = _itemPoint.position;
         obj.transform.localRotation = _itemPoint.rotation;
         obj.transform.localScale = _itemPoint.localScale;
         obj.transform.SetParent(this.transform);
+        obj.SetGravity(false);
+        ItemInHand = obj;
+    }
+
+    public void DropItemFromHand()
+    {
+        if (ItemInHand is null)
+            return;
+
+        var obj = ItemInHand.gameObject;
+        ItemInHand.SetGravity(true);
+        ItemInHand = null;
+        obj.transform.SetParent(null);
+        obj.transform.position = _cam.transform.position + _cam.transform.forward * 2f;
+        obj.transform.localScale = Vector3.one;
+        obj.transform.rotation = Quaternion.identity;
     }
 }
