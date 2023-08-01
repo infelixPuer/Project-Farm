@@ -10,6 +10,9 @@ public class Interactor : MonoBehaviour
 
     [SerializeField] 
     private Canvas _inventoryCanvas;
+
+    [SerializeField] 
+    private Transform _itemPoint;
     
     public RaycastHit HitInfo { get; private set; }
     
@@ -112,5 +115,13 @@ public class Interactor : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Tab)) return;
         
         UIManager.Instance.ShowCanvas(_inventoryCanvas);
+    }
+
+    public void GetItemInHand(GameObject obj)
+    {
+        obj.transform.localPosition = _itemPoint.position;
+        obj.transform.localRotation = _itemPoint.rotation;
+        obj.transform.localScale = _itemPoint.localScale;
+        obj.transform.SetParent(this.transform);
     }
 }

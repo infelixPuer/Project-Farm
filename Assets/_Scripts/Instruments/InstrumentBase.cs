@@ -27,7 +27,7 @@ namespace _Scripts.Instruments
 
         public void Interact(Interactor interactor)
         {
-            Use();
+            interactor.GetItemInHand(gameObject);
         }
     }
 }
