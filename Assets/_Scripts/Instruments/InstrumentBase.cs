@@ -35,7 +35,7 @@ namespace _Scripts.Instruments
             interactor.GetItemInHand(this);
         }
 
-        public void ResetObjectPhysics(bool gravityValue)
+        public virtual void ResetObject(bool gravityValue)
         {
             _rigidbody.useGravity = gravityValue;
             _rigidbody.isKinematic = !gravityValue;

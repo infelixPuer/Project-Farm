@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using _Scripts.UI;
 using UnityEngine;
 
@@ -9,12 +10,20 @@ namespace _Scripts.Instruments
         [Header("Bag specific")]
         [SerializeField]
         private Canvas _selectingSeedsCanvas;
+        
+        [SerializeField]
+        private SeedsLoaderUI _seedsLoaderUI;
 
         [SerializeField] 
         private Material _material;
         
         private bool _isSelectingSeeds;
-        
+
+        private void Awake()
+        {
+            _seedsLoaderUI.SeedSelected += UpdateBagMaterial;
+        }
+
         public override void MainAction()
         {
             var camTransform = InteractionManager.Instance.Cam.transform;
@@ -43,10 +52,22 @@ namespace _Scripts.Instruments
             StartCoroutine(CloseCanvas());
         }
 
+        public override void ResetObject(bool gravityValue)
+        {
+            base.ResetObject(gravityValue);
+            _material.mainTexture = null;
+            InteractionManager.Instance.SelectedSeed = null;
+        }
+
         private IEnumerator CloseCanvas()
         {
             yield return new WaitUntil(() => Input.GetMouseButtonUp(1));
             UIManager.Instance.HideCanvas(_selectingSeedsCanvas);
+        }
+
+        public void UpdateBagMaterial(object sender, Sprite sprite)
+        {
+            _material.mainTexture = sprite.texture;
         }
     }
 }

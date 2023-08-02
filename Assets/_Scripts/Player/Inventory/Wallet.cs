@@ -18,6 +18,7 @@ namespace _Scripts.Player.Inventory
                 }
             }
         }
+        
         public event EventHandler<int> BalanceChanged; 
         
         protected virtual void OnBalanceChanged(int e)

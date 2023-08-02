@@ -141,7 +141,7 @@ public class Interactor : MonoBehaviour
         obj.transform.localRotation = _itemPoint.rotation;
         obj.transform.localScale = _itemPoint.localScale;
         obj.transform.SetParent(this.transform);
-        obj.ResetObjectPhysics(false);
+        obj.ResetObject(false);
         ItemInHand = obj;
     }
 
@@ -151,7 +151,7 @@ public class Interactor : MonoBehaviour
             return;
 
         var obj = ItemInHand.gameObject;
-        ItemInHand.ResetObjectPhysics(true);
+        ItemInHand.ResetObject(true);
         ItemInHand = null;
         obj.transform.SetParent(null);
         obj.transform.position = _cam.transform.position + _cam.transform.forward * 2f;
