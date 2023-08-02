@@ -4,6 +4,7 @@ namespace _Scripts.Instruments
 {
     public class Hoe : InstrumentBase
     {
+        [Header("Hoe specifics")]
         [SerializeField]
         private LayerMask _terrainMask;
         

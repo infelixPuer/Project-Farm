@@ -5,6 +5,7 @@ namespace _Scripts.Instruments
 {
     public abstract class InstrumentBase : MonoBehaviour, IInteractable
     {
+        [Header("Instument basics")]
         [SerializeField]
         protected string _name;
 
