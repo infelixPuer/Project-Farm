@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6389750307664716896}
   - component: {fileID: 750856750644168779}
   - component: {fileID: 7704231269163456951}
-  - component: {fileID: 1225711071145231399}
   m_Layer: 0
   m_Name: Tomato
   m_TagString: Untagged
@@ -137,20 +136,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5369075157374dd46b5d57600a9456e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _harvestCrop: {fileID: 1225711071145231399}
   _crop: {fileID: 750856750644168779}
   IsReadyToHarvest: 0
---- !u!114 &1225711071145231399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640033828804554226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf4ba3a6750409db693cfc36c544d1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cropBase: {fileID: 750856750644168779}
-  _cropStateMachine: {fileID: 7704231269163456951}

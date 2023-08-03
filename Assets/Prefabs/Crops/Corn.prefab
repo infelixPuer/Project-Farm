@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6389750307664716896}
   - component: {fileID: -8669328967027355339}
   - component: {fileID: 275696113280395497}
-  - component: {fileID: -7353506306224171536}
   m_Layer: 0
   m_Name: Corn
   m_TagString: Untagged
@@ -137,20 +136,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5369075157374dd46b5d57600a9456e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _harvestCrop: {fileID: -7353506306224171536}
   _crop: {fileID: -8669328967027355339}
   IsReadyToHarvest: 0
---- !u!114 &-7353506306224171536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640033828804554226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf4ba3a6750409db693cfc36c544d1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cropBase: {fileID: -8669328967027355339}
-  _cropStateMachine: {fileID: 275696113280395497}

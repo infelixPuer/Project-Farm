@@ -38,8 +38,6 @@ public class Interactor : MonoBehaviour
     {
         if (!InteractionManager.Instance.IsShowingUI)
         {
-            ChooseInteractionOption();
-            
             if (Input.GetMouseButtonDown(0))
             {
                 PerformMainActionOfItemInHand();
@@ -61,20 +59,7 @@ public class Interactor : MonoBehaviour
             }
         }
         
-        ShowSelectingCropUI();
         ShowInventory();
-    }
-
-    private void ChooseInteractionOption()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            InteractionManager.Instance.UpdatePlayerInteractionState(InteractionState.MakingSeedbed);
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            InteractionManager.Instance.UpdatePlayerInteractionState(InteractionState.Planting);
-        
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            InteractionManager.Instance.UpdatePlayerInteractionState(InteractionState.Watering);
     }
 
     private void PerformMainActionOfItemInHand()
@@ -105,19 +90,6 @@ public class Interactor : MonoBehaviour
                 obj.Interact(this);
             }
         }
-    }
-    
-    // ReSharper disable once InconsistentNaming
-    private void ShowSelectingCropUI()
-    {
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            UIManager.Instance.HideCanvas(_selectingCropCanvas);
-        }
-        
-        if (!Input.GetKeyDown(KeyCode.Q)) return;
-        
-        UIManager.Instance.ShowCanvas(_selectingCropCanvas);
     }
     
     private void ShowInventory()

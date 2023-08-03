@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6389750307664716896}
   - component: {fileID: -4000073975563878150}
   - component: {fileID: 2117982441633479683}
-  - component: {fileID: -4105795839379199665}
   m_Layer: 0
   m_Name: Carrot
   m_TagString: Untagged
@@ -122,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cropQuality: 0
   Item: {fileID: 11400000, guid: 49edd61597bb70e4a924d1bd1b7197a6, type: 2}
-  GrowthTime: 6
+  GrowthTime: 1
   Output: 10
   MinimalWaterLevel: 0.4
 --- !u!114 &2117982441633479683
@@ -137,20 +136,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5369075157374dd46b5d57600a9456e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _harvestCrop: {fileID: -4105795839379199665}
   _crop: {fileID: -4000073975563878150}
   IsReadyToHarvest: 0
---- !u!114 &-4105795839379199665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640033828804554226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf4ba3a6750409db693cfc36c544d1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cropBase: {fileID: -4000073975563878150}
-  _cropStateMachine: {fileID: 2117982441633479683}
