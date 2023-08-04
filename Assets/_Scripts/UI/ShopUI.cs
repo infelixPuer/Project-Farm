@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
-using _Scripts.Player.Inventory;
+﻿using _Scripts.Player.Inventory;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace _Scripts.UI
 {
-    public class MarketplaceUI : MonoBehaviour
+    public class ShopUI : MonoBehaviour
     {
         [SerializeField]
-        private MarketplaceItemsLoader _inventoryUIContainer;
+        private ShopItemsLoader _inventoryUIContainer;
         
         [SerializeField]
-        private MarketplaceItemsLoader _marketplaceUIContainer;
+        private ShopItemsLoader shopUIContainer;
 
         [SerializeField] 
         private Button _exitButton;
@@ -23,7 +22,7 @@ namespace _Scripts.UI
         [SerializeField]
         private TextMeshProUGUI _currentBalanceText;
 
-        public Canvas MarketplaceCanvas => _canvas;
+        public Canvas ShopCanvas => _canvas;
 
         private void Awake()
         {
@@ -32,14 +31,14 @@ namespace _Scripts.UI
             SetBalanceText();
         }
         
-        public MarketplaceItemsLoader GetInventoryUIContainer() => _inventoryUIContainer;
+        public ShopItemsLoader GetInventoryUIContainer() => _inventoryUIContainer;
         
-        public MarketplaceItemsLoader GetMarketplaceUIContainer() => _marketplaceUIContainer;
+        public ShopItemsLoader GetShopUIContainer() => shopUIContainer;
 
         private void SetParentForContainers()
         {
-            _inventoryUIContainer.ParentMarketplaceUI = this;
-            _marketplaceUIContainer.ParentMarketplaceUI = this;
+            _inventoryUIContainer.parentShopUI = this;
+            shopUIContainer.parentShopUI = this;
         }
         
         private void ConfigureExitButton() => _exitButton.onClick.AddListener(() => UIManager.Instance.HideCanvas(_canvas));
@@ -53,7 +52,7 @@ namespace _Scripts.UI
         public void RefreshUI()
         {
             _inventoryUIContainer.Refresh();
-            _marketplaceUIContainer.Refresh();
+            shopUIContainer.Refresh();
             SetBalanceText();
         }
     }

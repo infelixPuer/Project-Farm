@@ -3,7 +3,7 @@ using _Scripts.World;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum MarketplaceInteractionType
+public enum ShopInteractionType
 {
     Buy,
     Sell
@@ -11,7 +11,7 @@ public enum MarketplaceInteractionType
 
 namespace _Scripts.UI
 {
-    public class MarketplaceItemsLoader : MonoBehaviour
+    public class ShopItemsLoader : MonoBehaviour
     {
         [SerializeField]
         private RectTransform _itemContainer;
@@ -34,14 +34,14 @@ namespace _Scripts.UI
         [SerializeField]
         private Color _defaultColor = Color.white;
 
-        public MarketplaceInteractionType InteractionType;
+        public ShopInteractionType InteractionType;
 
         public LoadableItems ItemStorage
         {
             get => _itemStorage; 
             set => _itemStorage = value;
         }
-        public MarketplaceUI ParentMarketplaceUI { private get; set; }
+        public ShopUI parentShopUI { private get; set; }
         
         private ChoosingItemAmount _chooseItemGameObject;
         private Button _selectedButton;
@@ -58,8 +58,8 @@ namespace _Scripts.UI
 
         private void OnDisable()
         {
-            _itemStorage.gameObject.TryGetComponent(out Marketplace marketplace);
-            marketplace?.CloseMarketplace();
+            _itemStorage.gameObject.TryGetComponent(out Shop shop);
+            shop?.CloseShop();
             
             foreach (Transform child in transform)
                 Destroy(child.gameObject);
@@ -80,8 +80,8 @@ namespace _Scripts.UI
                 Destroy(_chooseItemGameObject.gameObject);
             }
             
-            _chooseItemGameObject = Instantiate(_chooseAmountOfItemsPrefab, ParentMarketplaceUI.MarketplaceCanvas.transform);
-            _chooseItemGameObject.SetButtonText(InteractionType == MarketplaceInteractionType.Buy ? "Buy" : "Sell");
+            _chooseItemGameObject = Instantiate(_chooseAmountOfItemsPrefab, parentShopUI.ShopCanvas.transform);
+            _chooseItemGameObject.SetButtonText(InteractionType == ShopInteractionType.Buy ? "Buy" : "Sell");
             
             if (item.Count != null)
             {
@@ -118,7 +118,7 @@ namespace _Scripts.UI
             var price = item.ItemData.Price;
             var totalPrice = price * amount;
             
-            _oppositeInventory = ReferenceEquals(_inventory, playerInventory) ? ParentMarketplaceUI.GetMarketplaceUIContainer()._inventory : playerInventory;
+            _oppositeInventory = ReferenceEquals(_inventory, playerInventory) ? parentShopUI.GetShopUIContainer()._inventory : playerInventory;
             
             if (_oppositeInventory.CheckIfItemCanBeAdded(new Item(item.ItemData, amount)) == false)
             {
@@ -126,7 +126,7 @@ namespace _Scripts.UI
                 return;
             }
 
-            if (InteractionType == MarketplaceInteractionType.Buy)
+            if (InteractionType == ShopInteractionType.Buy)
             {
                 if (playerInventory.Wallet.Balance < totalPrice)
                 {
@@ -144,8 +144,8 @@ namespace _Scripts.UI
             _inventory.RemoveItem(item.ItemData, amount);
             _oppositeInventory.AddItem(item.ItemData, amount);
             
-            if (ParentMarketplaceUI is not null)
-                ParentMarketplaceUI.RefreshUI();
+            if (parentShopUI is not null)
+                parentShopUI.RefreshUI();
         }
 
         public void Refresh()

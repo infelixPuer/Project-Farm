@@ -1,6 +1,6 @@
 ﻿namespace _Scripts.World
 {
-    public class Marketplace : MarketplaceBase
+    public class Shop : ShopBase
     {
         private void Awake()
         {

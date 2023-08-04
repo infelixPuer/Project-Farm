@@ -7,9 +7,6 @@ using _Scripts.UI;
 public class Interactor : MonoBehaviour
 {
     [SerializeField] 
-    private Canvas _selectingCropCanvas;
-
-    [SerializeField] 
     private Canvas _inventoryCanvas;
 
     [SerializeField] 
