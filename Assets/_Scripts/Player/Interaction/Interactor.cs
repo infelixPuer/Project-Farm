@@ -11,8 +11,6 @@ public class Interactor : MonoBehaviour
 
     [SerializeField] 
     private Transform _itemPoint;
-    
-    public RaycastHit HitInfo { get; private set; }
     public InstrumentBase ItemInHand { get; private set; }
     
     private Action _interactionAction;
@@ -83,7 +81,6 @@ public class Interactor : MonoBehaviour
         {
             if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable obj))
             {
-                HitInfo = hitInfo;
                 obj.Interact(this);
             }
         }
