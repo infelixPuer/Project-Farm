@@ -28,13 +28,8 @@ namespace _Scripts.Player.Inventory
 
         public Wallet() => Balance = 0;
 
-        public void AddMoney(int amount)
-        {
-            Balance += amount;
-            Debug.Log("Money added!" +
-                      $"\nCurrent balance: {Balance}");
-        }
-        
+        public void AddMoney(int amount) => Balance += amount;
+
         public void RemoveMoney(int amount)
         {
             try

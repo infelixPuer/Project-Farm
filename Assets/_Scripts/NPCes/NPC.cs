@@ -19,6 +19,15 @@ public class NPC : MonoBehaviour, IInteractable
     
     public bool IsTalking { get; set; }
 
+    public bool IsMoving
+    {
+        get => !_agent.isStopped;
+        set
+        {
+            _agent.isStopped = !value;
+        }
+    }
+
     private Vector3 _targetDirection;
     
     private int _pathIndex;
@@ -29,7 +38,6 @@ public class NPC : MonoBehaviour, IInteractable
             return;
         
         _agent.SetDestination(_path[_pathIndex].position);
-        Debug.Log($"Destination: {_agent.destination}");
     }
 
     private void Update()
@@ -49,7 +57,7 @@ public class NPC : MonoBehaviour, IInteractable
         if (IsTalking) return;
 
         IsTalking = true;
-        StopNPCMovement();
+        _agent.isStopped = true;
         _targetDirection = interactor.transform.position - transform.position;
         StartCoroutine(StartDialog());
     }
@@ -65,14 +73,6 @@ public class NPC : MonoBehaviour, IInteractable
         DialogManager.Instance.NPCToTalk = this;
         DialogManager.Instance.StartDialog(_inkJsonAsset);
     }
-
-    public void StartNPCMovement()
-    {
-        _agent.isStopped = false;
-    }
-
-    public void StopNPCMovement()
-    {
-        _agent.isStopped = true;
-    }
+    
+    public void ToogleMovement(bool isStopped) => _agent.isStopped = isStopped;
 }

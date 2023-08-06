@@ -86,7 +86,7 @@ namespace _Scripts.DialogSystem
                         _story = null;
                         _isStoryNeeded = false;
                         NPCToTalk.IsTalking = false;
-                        NPCManager.Instance.StartAllNPC();
+                        NPCManager.Instance.ToogleNPCMovement(true);
 
                         ClearChoicePanel();
                     });
@@ -136,7 +136,7 @@ namespace _Scripts.DialogSystem
                 yield return null;
             }
             
-            NPCManager.Instance.StopAllNPC();
+            NPCManager.Instance.ToogleNPCMovement(false);
         }
         
         public void SetStory(TextAsset inkJson) => _story = new Story(inkJson.text);

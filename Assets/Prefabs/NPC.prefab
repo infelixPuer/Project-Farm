@@ -147,7 +147,6 @@ MonoBehaviour:
   _inkJsonAsset: {fileID: 4900000, guid: ce89441f21ccd7b448e2ef4895ded7fa, type: 3}
   _path: []
   _agent: {fileID: 9179149902037684178}
-  _playerTransform: {fileID: 3482206143693229475, guid: 2c04469b948d5f64fa914e9914f42bc4, type: 3}
   _rotationSpeed: 0
 --- !u!1 &8916163357894740922
 GameObject:
@@ -161,7 +160,7 @@ GameObject:
   - component: {fileID: 5722634060057691479}
   - component: {fileID: 6086108900318991859}
   - component: {fileID: 262088294408950324}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}

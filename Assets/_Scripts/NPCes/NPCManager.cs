@@ -25,14 +25,9 @@ namespace _Scripts.NPCes
             NPCList = GetComponentsInChildren<NPC>().ToList();
         }
 
-        public void StopAllNPC()
+        public void ToogleNPCMovement(bool isMoving)
         {
-            NPCList.ForEach(x => x.StopNPCMovement());
-        }
-        
-        public void StartAllNPC()
-        {
-            NPCList.ForEach(x => x.StartNPCMovement());
+            NPCList.ForEach(x => x.IsMoving = isMoving);
         }
     }
 }
