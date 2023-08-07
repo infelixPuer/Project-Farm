@@ -13,7 +13,7 @@ public class SeedsLoaderUI : MonoBehaviour
     [SerializeField] 
     private ItemUI _UIItemPrefab;
 
-    public event EventHandler<Sprite> SeedSelected; 
+    public event EventHandler<Sprite> SeedSelected;
 
     private List<Item> _seeds = new();
 
