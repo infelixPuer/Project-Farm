@@ -17,10 +17,10 @@ namespace _Scripts.ConstructionBuildings
         public ConstructionBuilding BuildingPrefab;
         public Sprite Sprite;
 
-        private void Awake()
-        {
-            BuildingPrefab.Width = Width;
-            BuildingPrefab.Depth = Depth;
-        }
+        // private void Awake()
+        // {
+        //     BuildingPrefab.Width = Width;
+        //     BuildingPrefab.Depth = Depth;
+        // }
     }
 }

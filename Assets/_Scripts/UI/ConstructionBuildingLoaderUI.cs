@@ -26,7 +26,7 @@ namespace _Scripts.UI
             {
                 var buildingItem = Instantiate(_constructionBuildingItemUIPrefab, _contentPanel.transform);
                 buildingItem.Init(building);
-                buildingItem.SetButtonAction(() => woodenHammer.Building = building.BuildingPrefab);
+                buildingItem.SetButtonAction(() => woodenHammer.Building = building);
             }
         }
 

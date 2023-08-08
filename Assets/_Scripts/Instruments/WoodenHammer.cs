@@ -12,7 +12,7 @@ namespace _Scripts.Instruments
         [SerializeField]
         private Canvas _constructionBuildingLoaderCanvas;
         
-        public ConstructionBuilding Building 
+        public ConstructionBuildingSO Building 
         { 
             private get => _building;
             set
@@ -30,14 +30,15 @@ namespace _Scripts.Instruments
                     if (_building is null)
                         return;
                     
-                    _buildingInstance = Instantiate(_building, _cam.transform.position, Quaternion.identity);
+                    _buildingInstance = Instantiate(_building.BuildingPrefab, _cam.transform.position, Quaternion.identity);
+                    _buildingInstance.SetObjectScale(_building);
                     _buildingInstance.SetObjectTransparent();
                     _buildingInstance.ToogleColliderState(true);
                 }
             }
         }
         
-        private ConstructionBuilding _building;
+        private ConstructionBuildingSO _building;
         private ConstructionBuilding _buildingInstance;
         private Grid _grid;
         private Camera _cam;

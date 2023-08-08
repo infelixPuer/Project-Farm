@@ -118,8 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53679df3dac8f34d8509107e9a93964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CellSize>k__BackingField: 2
-  <Width>k__BackingField: 0
-  <Depth>k__BackingField: 0
+  CellSize: 2
+  Width: 0
+  Depth: 0
   _coll: {fileID: 4623334331587550825}
   _material: {fileID: 2100000, guid: 90c1b67751888e9478a83520c58e9c2f, type: 2}
