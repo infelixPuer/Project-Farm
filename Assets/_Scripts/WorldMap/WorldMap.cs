@@ -18,7 +18,7 @@ public class WorldMap : MonoBehaviour
     [SerializeField] 
     private GameObject _debugObjectPrefab;
 
-    private Grid _grid;
+    public Grid Grid { get; private set; }
     
     public static WorldMap Instance;
     
@@ -34,19 +34,19 @@ public class WorldMap : MonoBehaviour
             Destroy(this);
         }
         
-        _grid = new Grid(_worldWidth, _worldHeight, _cellSizeInUnityUnit);
-        _grid.CreateGridObjects(_debugObjectPrefab.transform);
+        Grid = new Grid(_worldWidth, _worldHeight, _cellSizeInUnityUnit);
+        Grid.CreateGridObjects(_debugObjectPrefab.transform);
     }
 
     public void SetTileAtGridPosition(GridPosition gridPosition, Tile tile)
     {
-        var gridObject = _grid.GetGridObject(gridPosition);
+        var gridObject = Grid.GetGridObject(gridPosition);
         gridObject.Tile = tile;
     }
 
     public void InstantiateSeedbed(Vector3 interactionPoint)
     {
-        var gridObject = _grid.GetGridObject(GetGridPosition(interactionPoint));
+        var gridObject = Grid.GetGridObject(GetGridPosition(interactionPoint));
 
         if (gridObject == null) return;
         
@@ -70,7 +70,7 @@ public class WorldMap : MonoBehaviour
         Destroy(seedbed.gameObject);
     }
 
-    public GridPosition GetGridPosition(Vector3 pos) => _grid.GetGridPosition(pos);
+    public GridPosition GetGridPosition(Vector3 pos) => Grid.GetGridPosition(pos);
 
     public Vector3 GetWorldPosition(GridPosition gridPosition) => 
         new(gridPosition.X * _cellSizeInUnityUnit + 0.5f * _cellSizeInUnityUnit, 0f, gridPosition.Z * _cellSizeInUnityUnit + 0.5f * _cellSizeInUnityUnit);

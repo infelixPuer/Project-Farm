@@ -121,4 +121,5 @@ MonoBehaviour:
   <CellSize>k__BackingField: 2
   <Width>k__BackingField: 0
   <Depth>k__BackingField: 0
+  _coll: {fileID: 4623334331587550825}
   _material: {fileID: 2100000, guid: 90c1b67751888e9478a83520c58e9c2f, type: 2}

@@ -12,6 +12,9 @@ namespace _Scripts.ConstructionBuildings
 
         [field: SerializeField] 
         public int Depth { get; set; }
+
+        [SerializeField]
+        private Collider _coll;
         
         [SerializeField]
         private Material _material;
@@ -20,6 +23,8 @@ namespace _Scripts.ConstructionBuildings
         {
             transform.localScale = new Vector3(Width * CellSize, 1, Depth * CellSize);
         }
+        
+        public void ToogleColliderState(bool isTrigger) => _coll.isTrigger = isTrigger;
 
         public void SetObjectTransparent()
         {
