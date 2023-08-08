@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 90c1b67751888e9478a83520c58e9c2f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -121,3 +121,4 @@ MonoBehaviour:
   <CellSize>k__BackingField: 2
   <Width>k__BackingField: 0
   <Depth>k__BackingField: 0
+  _material: {fileID: 2100000, guid: 90c1b67751888e9478a83520c58e9c2f, type: 2}

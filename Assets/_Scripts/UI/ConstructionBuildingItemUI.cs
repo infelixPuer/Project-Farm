@@ -1,6 +1,7 @@
 ﻿using _Scripts.ConstructionBuildings;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace _Scripts.UI
@@ -18,9 +19,9 @@ namespace _Scripts.UI
         private TextMeshProUGUI _stonePrice;
         
         [Header("Functionallity")]
-        [SerializeField]
+        [SerializeField]       
         private Button _button;
-        
+                               
         public ConstructionBuildingSO BuildingData { get; private set; }
         
         
@@ -33,5 +34,7 @@ namespace _Scripts.UI
             
             return this;
         }
+        
+        public void SetButtonAction(UnityAction action) => _button.onClick.AddListener(action);
     }
 }
