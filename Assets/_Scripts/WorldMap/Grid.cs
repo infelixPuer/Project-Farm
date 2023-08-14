@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Grid
@@ -30,6 +31,25 @@ public class Grid
     public GridPosition GetGridPosition(Vector3 position) => 
         new((int)Mathf.Floor(position.x / _cellSizeInUnityUnits),
             (int)Mathf.Floor(position.z / _cellSizeInUnityUnits));
+
+    public List<GridPosition> GetGridPositions(Transform transform)
+    {
+        var position = transform.position;
+        var scale = transform.localScale;
+        var width = (int)Mathf.Floor(scale.x / _cellSizeInUnityUnits);
+        var depth = (int)Mathf.Floor(scale.z / _cellSizeInUnityUnits);
+        var gridPositions = new List<GridPosition>();
+        
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < depth; z++)
+            {
+                gridPositions.Add(GetGridPosition(position + new Vector3(x, 0, z) * _cellSizeInUnityUnits));
+            }
+        }
+
+        return gridPositions;
+    }
 
     public GridObject GetGridObject(GridPosition gridPosition)
     {

@@ -54,18 +54,24 @@ namespace _Scripts.Instruments
             if (Building is not null)
             {
                 var camTransform = _cam.transform;
-                var buildingPos = _buildingInstance.transform.position;
-                buildingPos = camTransform.position + camTransform.forward * 4;
-                buildingPos.y = Mathf.Clamp(buildingPos.y, _buildingInstance.transform.localScale.y * 0.5f, buildingPos.y);
-                _buildingInstance.transform.position = buildingPos;
+                var buildingPos = camTransform.position + camTransform.forward * 4;
+                var scale = _buildingInstance.transform.localScale;
+                buildingPos.y = Mathf.Clamp(buildingPos.y, scale.y * 0.5f, buildingPos.y);
 
                 var gridPos = _grid.GetGridPosition(buildingPos);
                 var gridObj = _grid.GetGridObject(gridPos);
 
+                var gridPositions = _grid.GetGridPositions(_buildingInstance.transform);
+
                 if (gridObj is not null)
                 {
-                    _buildingInstance.transform.position = _grid.GetWorldPosition(gridPos);
+                    Vector3 position;
+                    position = _grid.GetWorldPosition(gridPos);
+                    position += Vector3.up * (scale.y * 0.5f);
+                    buildingPos = position;
                 }
+                
+                _buildingInstance.transform.position = buildingPos;
             }
         }
 
