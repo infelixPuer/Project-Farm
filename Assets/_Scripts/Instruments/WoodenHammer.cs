@@ -55,7 +55,12 @@ namespace _Scripts.Instruments
             {
                 var camTransform = _cam.transform;
                 var buildingPos = camTransform.position + camTransform.forward * 4;
-                var scale = _buildingInstance.transform.localScale;
+                var buildingTransform = _buildingInstance.transform;
+                var scale = buildingTransform.localScale;
+                var dir = (buildingPos - camTransform.position).normalized;
+                var oldRotation = buildingTransform.rotation;
+                var newRotation = new Quaternion(oldRotation.x, Quaternion.LookRotation(dir).y, oldRotation.z, oldRotation.w);
+                
                 buildingPos.y = Mathf.Clamp(buildingPos.y, scale.y * 0.5f, buildingPos.y);
 
                 var gridPos = _grid.GetGridPosition(buildingPos);
@@ -69,9 +74,13 @@ namespace _Scripts.Instruments
                     position = _grid.GetWorldPosition(gridPos);
                     position += Vector3.up * (scale.y * 0.5f);
                     buildingPos = position;
+                    
+                    // TODO: Make building rotating while snapping to the grid, rotation must be only by 90 degrees
+                    newRotation = Quaternion.identity;
                 }
                 
-                _buildingInstance.transform.position = buildingPos;
+                buildingTransform.position = buildingPos;
+                buildingTransform.rotation = newRotation;
             }
         }
 
