@@ -26,14 +26,12 @@ namespace _Scripts.ConstructionBuildings
         public void SetObjectTransparent()
         {
             var color = _material.color;
-            _material.SetFloat("_Mode", 3);
             _material.color = new Color(color.r, color.g, color.b, 0.8f);
         }
         
         public void SetObjectOpaque()
         {
             var color = _material.color;
-            _material.SetFloat("_Mode", 0);
             _material.color = new Color(color.r, color.g, color.b, 1f);
         }
 

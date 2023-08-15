@@ -32,10 +32,8 @@ public class Grid
         new((int)Mathf.Floor(position.x / _cellSizeInUnityUnits),
             (int)Mathf.Floor(position.z / _cellSizeInUnityUnits));
 
-    public List<GridPosition> GetGridPositions(Transform transform)
+    public List<GridPosition> GetGridPositions(Vector3 position, Vector3 scale)
     {
-        var position = transform.position;
-        var scale = transform.localScale;
         var width = (int)Mathf.Floor(scale.x / _cellSizeInUnityUnits);
         var depth = (int)Mathf.Floor(scale.z / _cellSizeInUnityUnits);
         var gridPositions = new List<GridPosition>();

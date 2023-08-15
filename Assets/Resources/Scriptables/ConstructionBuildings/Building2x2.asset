@@ -16,5 +16,5 @@ MonoBehaviour:
   Depth: 2
   WoodCost: 15
   StoneCost: 15
-  BuildingPrefab: {fileID: 7068681750585729665, guid: 0514367dd5e4e7743bb16ec886573b3f, type: 3}
+  BuildingPrefab: {fileID: 8474733515957393013, guid: 21226668ace726b43b402ac3461e11c9, type: 3}
   Sprite: {fileID: 0}
