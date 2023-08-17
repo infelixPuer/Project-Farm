@@ -85,5 +85,7 @@ namespace _Scripts.Player.Inventory
         }
 
         public int GetItemCount(Item item) => Inventory.GetItemCount(item);
+
+        public bool CheckRequiredItems(Item[] requiredItems) => Inventory.CheckRequiredItems(requiredItems);
     }
 }

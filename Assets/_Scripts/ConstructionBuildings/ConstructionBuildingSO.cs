@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _Scripts.Player.Inventory;
+using UnityEngine;
 
 namespace _Scripts.ConstructionBuildings
 {
@@ -9,6 +10,10 @@ namespace _Scripts.ConstructionBuildings
         public int Width;
         public int Depth;
         
+        [Header("Item reference")]
+        public ItemSO _woodItem;
+        public ItemSO _stoneItem;
+        
         [Header("Cost")]
         public int WoodCost;
         public int StoneCost;
@@ -16,11 +21,5 @@ namespace _Scripts.ConstructionBuildings
         [Header("Visuals")]
         public ConstructionBuilding BuildingPrefab;
         public Sprite Sprite;
-
-        // private void Awake()
-        // {
-        //     BuildingPrefab.Width = Width;
-        //     BuildingPrefab.Depth = Depth;
-        // }
     }
 }

@@ -127,5 +127,21 @@ namespace _Scripts.Player.Inventory
         }
         
         public Item[] GetItems() => _inventory;
+        
+        public bool CheckRequiredItems(Item[] requiredItems)
+        {
+            foreach (var requiredItem in requiredItems) 
+            {
+                if (!_inventory.ContainsItem(requiredItem))
+                    return false;
+                
+                var itemIndex = _inventory.ItemIndex(requiredItem);
+                
+                if (GetItemCount(_inventory[itemIndex]) < requiredItem.Count)
+                    return false;
+            }
+
+            return true;
+        }
     }
 }

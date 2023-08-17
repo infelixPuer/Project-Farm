@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using _Scripts.ConstructionBuildings;
+using _Scripts.Player.Inventory;
 using _Scripts.UI;
 
 namespace _Scripts.Instruments
@@ -39,6 +40,9 @@ namespace _Scripts.Instruments
                     _buildingInstance.SetObjectScale(_building);
                     _buildingInstance.SetObjectTransparent();
                     _buildingInstance.ToogleColliderState(true);
+
+                    _requiredItems[0] = new Item(_building._woodItem, _building.WoodCost);
+                    _requiredItems[1] = new Item(_building._stoneItem, _building.StoneCost);
                 }
             }
         }
@@ -46,6 +50,7 @@ namespace _Scripts.Instruments
         private List<GridObject> _gridObjects;
         private ConstructionBuildingSO _building;
         private ConstructionBuilding _buildingInstance;
+        private Item[] _requiredItems = new Item[2];
         private Grid _grid;
         private Camera _cam;
         private bool _canBuild;
@@ -66,9 +71,6 @@ namespace _Scripts.Instruments
                 
                 buildingPos.y = Mathf.Clamp(buildingPos.y, scale.y * 0.5f, buildingPos.y);
 
-                var gridPos = _grid.GetGridPosition(buildingPos);
-                var gridObj = _grid.GetGridObject(gridPos);
-
                 var gridPositions = _grid.GetGridPositions(buildingPos, scale);
                 var gridObjects = gridPositions.Select(x => _grid.GetGridObject(x)).ToList();
 
@@ -82,7 +84,7 @@ namespace _Scripts.Instruments
                         buildingPos = position;
                         _gridObjects = gridObjects;
 
-                        if (!_canBuild)
+                        if (!_canBuild && PlayerInventory.Instance.CheckRequiredItems(_requiredItems))
                         {
                             _canBuild = true;
                         }
