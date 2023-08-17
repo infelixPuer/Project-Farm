@@ -107,6 +107,8 @@ namespace _Scripts.Instruments
             var building = Instantiate(_buildingInstance, _buildingInstance.transform.position, Quaternion.identity);
             building.SetObjectOpaque();
             building.ToogleColliderState(false);
+            
+            RemoveRequiredItemsFromInventory();
 
             foreach (var gridObject in _gridObjects)
             {
@@ -144,6 +146,14 @@ namespace _Scripts.Instruments
             center /= positions.Count;
 
             return center;
+        }
+        
+        private void RemoveRequiredItemsFromInventory()
+        {
+            foreach (var item in _requiredItems)
+            {
+                PlayerInventory.Instance.RemoveItem(item.ItemData, item.Count);
+            }
         }
     }
 }

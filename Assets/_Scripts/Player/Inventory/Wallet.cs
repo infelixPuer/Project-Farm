@@ -38,8 +38,6 @@ namespace _Scripts.Player.Inventory
                     throw new Exception("Not enough money!");
             
                 Balance -= amount;
-                Debug.Log("Money removed!" +
-                          $"\nCurrent balance: {Balance}");
             }
             catch (Exception e)
             {
