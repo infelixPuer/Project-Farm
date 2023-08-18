@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using _Scripts.Player.Inventory;
 using _Scripts.UI;
 using UnityEngine;
 
@@ -44,6 +45,13 @@ namespace _Scripts.Instruments
             
             seedbed.PlantCrop(InteractionManager.Instance.SelectedSeed);
             seedbed.UpdateTileState(TileState.Occupied);
+            PlayerInventory.Instance.RemoveItem(InteractionManager.Instance.SelectedSeed, 1);
+
+            if (!PlayerInventory.Instance.CheckRequiredItems(new[] { new Item(InteractionManager.Instance.SelectedSeed, 1) }))
+            {
+                _material.mainTexture = null;
+                InteractionManager.Instance.SelectedSeed = null;
+            }
         }
 
         public override void SecondaryAction()

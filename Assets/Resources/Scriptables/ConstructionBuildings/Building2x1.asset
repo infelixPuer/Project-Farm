@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Width: 2
   Depth: 1
-  WoodCost: 15
-  StoneCost: 10
-  BuildingPrefab: {fileID: 8474733515957393013, guid: 21226668ace726b43b402ac3461e11c9, type: 3}
+  _woodItem: {fileID: 11400000, guid: 5c4b131354b9b014b832ed41d2288e10, type: 2}
+  _stoneItem: {fileID: 11400000, guid: bef79cad830400c4880ee3de2867dc4b, type: 2}
+  WoodCost: 10
+  StoneCost: 15
+  BuildingPrefab: {fileID: 7068681750585729665, guid: 0514367dd5e4e7743bb16ec886573b3f, type: 3}
   Sprite: {fileID: 0}

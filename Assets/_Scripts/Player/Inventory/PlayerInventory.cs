@@ -36,14 +36,14 @@ namespace _Scripts.Player.Inventory
             Wallet = new Wallet();
             Wallet.BalanceChanged += UpdateBalanceText;
             
-            AddToBalance(100);
+            AddToBalance(300);
 
             #region Populating inventory with items
 
-            AddItem(Tomato, 9); 
-            AddItem(Corn, 7);
-            AddItem(Carrot, 12);
-            AddItem(Onion, 3);
+            // AddItem(Tomato, 9); 
+            // AddItem(Corn, 7);
+            // AddItem(Carrot, 12);
+            // AddItem(Onion, 3);
 
             #endregion
         }
