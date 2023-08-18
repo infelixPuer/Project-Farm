@@ -19,7 +19,6 @@ namespace _Scripts.Instruments
             if (seedbed is not null)
             {
                 seedbed.WaterSeedbed();
-                Debug.Log("Watering"); 
             }
         }
         

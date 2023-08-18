@@ -1430,7 +1430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c11910cc9206794ea3d0596044d8797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeMultipier: 10000
+  _timeMultipier: 1000
   _startHour: 0
   _textMeshPro: {fileID: 1700978480}
   TimeBlocked: 0

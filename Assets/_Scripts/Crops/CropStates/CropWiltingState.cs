@@ -27,8 +27,6 @@ namespace _Scripts.Crops.CropStates
             _timeOfGrowingThatLeftSinceEnteringState = _initialTimeOfGrowing - (_dateOfEnteringState - stateMachine.PlantedDate);
             _cropScaleOnEnteringState = stateMachine.transform.localScale;
             _initialCropQuality = _crop.GetCropQuality();
-            
-            Debug.Log($"Crop scale: {_cropScaleOnEnteringState.x}");
         }
 
         public override void UpdateCropState(CropStateMachine stateMachine)

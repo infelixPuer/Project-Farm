@@ -57,7 +57,7 @@ public class CropStateMachine : MonoBehaviour, IInteractable
 
         if (!_inventory.Inventory.CanAddItem(new Item(_cropSO, (int)Math.Round(itemCount))))
         {
-            Debug.Log("Inventory is full");
+            Debug.LogError("Inventory is full");
             return;
         }
             

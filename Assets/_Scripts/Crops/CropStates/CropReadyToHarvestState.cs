@@ -6,7 +6,7 @@ namespace _Scripts.Crops.CropStates
     {
         public override void EnterCropState(CropStateMachine stateMachine)
         {
-            Debug.LogWarning($"Crop scale on harvest: {stateMachine.transform.localScale.x}");
+            Debug.LogWarning($"Crop quality on harvest: {stateMachine.GetCrop().GetCropQuality()}");
             stateMachine.IsReadyToHarvest = true;
         }
 

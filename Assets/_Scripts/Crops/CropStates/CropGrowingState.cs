@@ -9,6 +9,7 @@ public class CropGrowingState : CropBaseState
     private TimeSpan _timeOfGrowingThatLeftSinceEnteringState;
     private DateTime _dateOfEnteringState;
     private TimeSpan _elapsedTimeSinceEnteringState;
+    private TimeSpan _oneHourOffset;
     private float _t;
     private float _maxScale;
     
@@ -16,6 +17,7 @@ public class CropGrowingState : CropBaseState
     {
         _cropStartingScale = stateMachine.transform.localScale;
         _dateOfEnteringState = TimeManager.Instance.GetCurrentTime();
+        _oneHourOffset = TimeSpan.FromHours(1) + stateMachine.PlantedDate.TimeOfDay;
         
         _intialTimeOfGrowing = TimeSpan.FromDays(stateMachine.GetCrop().GrowthTime);
         _timeOfGrowingThatLeftSinceEnteringState = _intialTimeOfGrowing - (_dateOfEnteringState - stateMachine.PlantedDate);
@@ -26,7 +28,6 @@ public class CropGrowingState : CropBaseState
         _maxScale = 1f - (initialGrowth - currentGrowth);
         
         stateMachine.transform.localScale = _cropStartingScale;
-        Debug.Log(TimeManager.Instance.GetCurrentTime());
     }
 
     public override void UpdateCropState(CropStateMachine stateMachine)
@@ -36,11 +37,10 @@ public class CropGrowingState : CropBaseState
         if (_elapsedTimeSinceEnteringState >= _intialTimeOfGrowing)
         {
             stateMachine.TransitionToState(stateMachine.CropReadyToHarvestState);
-            Debug.Log(TimeManager.Instance.GetCurrentTime());
             return;
         }
 
-        if (crop.GetParentSeedbed().GetCurrentWaterLevel() <= crop.MinimalWaterLevel)
+        if (crop.GetParentSeedbed().GetCurrentWaterLevel() <= crop.MinimalWaterLevel && TimeManager.Instance.GetCurrentTime().TimeOfDay > _oneHourOffset)
         {
             stateMachine.TransitionToState(stateMachine.CropSlowGrowingState);
             return;
