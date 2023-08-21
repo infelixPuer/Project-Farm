@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using _Scripts.ConstructionBuildings;
 using _Scripts.Player.Inventory;
 using _Scripts.UI;
+using _Scripts.World;
+using Grid = _Scripts.World.Grid;
 
 namespace _Scripts.Instruments
 {
@@ -58,6 +59,7 @@ namespace _Scripts.Instruments
         private void Awake()
         {
             _cam = InteractionManager.Instance.Cam;
+            
             _grid = WorldMap.Instance.Grid;
         }
 

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using _Scripts.Player.Inventory;
 using _Scripts.UI;
+using _Scripts.World;
 using UnityEngine;
 
 namespace _Scripts.Instruments

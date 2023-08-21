@@ -4,6 +4,7 @@ using _Scripts.Player.Inventory;
 using System;
 using _Scripts.Helpers;
 using _Scripts.Player.Interaction;
+using _Scripts.World;
 using UnityEngine;
 
 public class CropStateMachine : MonoBehaviour, IInteractable

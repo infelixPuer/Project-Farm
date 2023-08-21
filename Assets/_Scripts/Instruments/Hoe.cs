@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using _Scripts.World;
 
 namespace _Scripts.Instruments
 {
@@ -17,7 +18,7 @@ namespace _Scripts.Instruments
 
             if (hitInfo.collider is null)
                 return;
-
+            
             WorldMap.Instance.InstantiateSeedbed(hitInfo.point);
         }
 

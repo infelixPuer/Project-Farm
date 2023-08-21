@@ -3,6 +3,7 @@ using _Scripts.Instruments;
 using UnityEngine;
 using _Scripts.Player.Interaction;
 using _Scripts.UI;
+using _Scripts.World;
 
 public class Interactor : MonoBehaviour
 {
@@ -51,6 +52,16 @@ public class Interactor : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X))
             {
                 DropItemFromHand();
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                ShowSeedbedWaterLevel();
+            }
+
+            if (Input.GetKeyUp(KeyCode.C))
+            {
+                HideSeedbedWaterLevel();
             }
         }
         
@@ -123,5 +134,41 @@ public class Interactor : MonoBehaviour
         obj.transform.position = _cam.transform.position + _cam.transform.forward * 2f;
         obj.transform.localScale = Vector3.one;
         obj.transform.rotation = Quaternion.identity;
+    }
+
+    private void ShowSeedbedWaterLevel()
+    {
+        if (SeedbedManager.Instance.IsTooltipVisible)
+            return;
+        
+        var seedbeds = SeedbedManager.Instance.Seedbeds;
+        
+        if (seedbeds.Count == 0)
+            return;
+
+        foreach (var seedbed in seedbeds)
+        {
+            seedbed.ShowTooltip();
+        }
+
+        SeedbedManager.Instance.IsTooltipVisible = true;
+    }
+
+    private void HideSeedbedWaterLevel()
+    {
+        if (!SeedbedManager.Instance.IsTooltipVisible)
+            return;
+        
+        var seedbeds = SeedbedManager.Instance.Seedbeds;
+        
+        if (seedbeds.Count == 0)
+            return;
+
+        foreach (var seedbed in seedbeds)
+        {
+            seedbed.HideTooltip();
+        }
+        
+        SeedbedManager.Instance.IsTooltipVisible = false;
     }
 }
