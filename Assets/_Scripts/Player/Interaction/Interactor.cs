@@ -9,6 +9,9 @@ public class Interactor : MonoBehaviour
 {
     [SerializeField] 
     private Canvas _inventoryCanvas;
+    
+    [SerializeField]
+    private InstrumentSlots _instrumentSlots;
 
     [SerializeField] 
     private Transform _itemPoint;
@@ -63,6 +66,8 @@ public class Interactor : MonoBehaviour
             {
                 HideSeedbedWaterLevel();
             }
+            
+            GetNumsInput();
         }
         
         ShowInventory();
@@ -109,17 +114,18 @@ public class Interactor : MonoBehaviour
         UIManager.Instance.ShowCanvas(_inventoryCanvas);
     }
 
-    public void GetItemInHand(InstrumentBase obj)
+    public void GetItemInHand(InstrumentBase instrument)
     {
         if (ItemInHand is not null)
             return;
-        
-        obj.transform.localPosition = _itemPoint.position;
-        obj.transform.localRotation = _itemPoint.rotation;
-        obj.transform.localScale = _itemPoint.localScale;
-        obj.transform.SetParent(this.transform);
-        obj.ResetObject(false);
-        ItemInHand = obj;
+
+        var instrumentTransform = instrument.transform;
+        instrumentTransform.localPosition = _itemPoint.position;
+        instrumentTransform.localRotation = _itemPoint.rotation;
+        instrumentTransform.localScale = _itemPoint.localScale;
+        instrument.transform.SetParent(this.transform);
+        instrument.ResetObject(false);
+        ItemInHand = instrument;
     }
 
     public void DropItemFromHand()
@@ -170,5 +176,28 @@ public class Interactor : MonoBehaviour
         }
         
         SeedbedManager.Instance.IsTooltipVisible = false;
+    }
+
+    private void GetNumsInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _instrumentSlots.SelectSlot(0);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            _instrumentSlots.SelectSlot(1);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            _instrumentSlots.SelectSlot(2);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            _instrumentSlots.SelectSlot(3);
+        }
     }
 }
