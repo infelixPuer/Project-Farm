@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using _Scripts.Instruments;
-using _Scripts.Player.Inventory;
 using UnityEngine;
 
 namespace _Scripts.UI
 {
     public class InstrumentSlots : MonoBehaviour
     {
+        [SerializeField, Range(1, 10)]
+        private int _slotsCount = 7;
+        
         [SerializeField]
         private SlotUI _slotPrefab;
         
@@ -17,11 +18,21 @@ namespace _Scripts.UI
 
         private void OnEnable()
         {
-            foreach (var instrument in _instruments)
+            for (var i = 0; i < _slotsCount; i++)
             {
-                var slot = Instantiate(_slotPrefab, transform);
-                slot.Init(instrument.GetIconSprite(), () => {}, instrument);
-                Slots.Add(slot);
+                try
+                {
+                    var instrument = _instruments[i];
+                    var slot = Instantiate(_slotPrefab, transform);
+                    slot.Init(instrument.GetIconSprite(), instrument);
+                    Slots.Add(slot);
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    var slot = Instantiate(_slotPrefab, transform);
+                    slot.Init(null, null);
+                    Slots.Add(slot);
+                }
             }
         }
 

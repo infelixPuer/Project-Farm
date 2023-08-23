@@ -199,5 +199,20 @@ public class Interactor : MonoBehaviour
         {
             _instrumentSlots.SelectSlot(3);
         }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            _instrumentSlots.SelectSlot(4);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            _instrumentSlots.SelectSlot(5);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            _instrumentSlots.SelectSlot(6);
+        }
     }
 }

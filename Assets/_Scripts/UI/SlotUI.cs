@@ -10,9 +10,6 @@ namespace _Scripts.UI
     {
         [SerializeField]
         private Image _image;
-
-        [SerializeField]
-        private Button _button;
         
         [SerializeField]
         private Image _background;
@@ -32,10 +29,9 @@ namespace _Scripts.UI
             _interactor = FindObjectOfType<Interactor>();
         }
 
-        public void Init(Sprite sprite, UnityAction buttonAction, InstrumentBase instrument)
+        public void Init(Sprite sprite, InstrumentBase instrument)
         {
             _image.sprite = sprite;
-            _button.onClick.AddListener(buttonAction);
             Instrument = instrument;
         }
 
@@ -48,12 +44,14 @@ namespace _Scripts.UI
             }
             
             _background.color = _selectedColor;
-            _interactor.GetItemInHand(Instrument);
+            
+            if (Instrument is not null)
+                _interactor.GetItemInHand(Instrument);
         }
 
         public void DeselectSlot()
         {
-            if (_background.color == _selectedColor)
+            if (_background.color == _selectedColor && Instrument is not null)
                 _interactor.DropItemFromHand();
             
             _background.color = _unselectedColor;
