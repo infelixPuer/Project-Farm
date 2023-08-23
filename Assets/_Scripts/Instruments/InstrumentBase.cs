@@ -1,5 +1,6 @@
 ﻿using _Scripts.Player.Interaction;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Scripts.Instruments
 {
@@ -27,6 +28,9 @@ namespace _Scripts.Instruments
         [SerializeField]
         protected Rigidbody _rigidbody;
 
+        [SerializeField]
+        protected Sprite _iconUI;
+
         public abstract void MainAction();
         public abstract void SecondaryAction();
 
@@ -40,5 +44,7 @@ namespace _Scripts.Instruments
             _rigidbody.useGravity = gravityValue;
             _rigidbody.isKinematic = !gravityValue;
         }
+
+        public virtual Sprite GetIconSprite() => _iconUI;
     }
 }
