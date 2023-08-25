@@ -129,19 +129,23 @@ public class Interactor : MonoBehaviour
         ItemInHand = instrument;
     }
 
-    public void DropItemFromHand()
+    public InstrumentBase DropItemFromHand()
     {
         if (ItemInHand is null)
-            return;
+            return null;
 
-        var obj = ItemInHand.gameObject;
+        var obj = ItemInHand;
         ItemInHand.ResetObject(true);
         ItemInHand = null;
         obj.transform.SetParent(null);
         obj.transform.position = _cam.transform.position + _cam.transform.forward * 2f;
         obj.transform.localScale = Vector3.one;
         obj.transform.rotation = Quaternion.identity;
+
+        return obj;
     }
+
+    public void ResetItemInHand() => ItemInHand = null;
 
     private void ShowSeedbedWaterLevel()
     {
