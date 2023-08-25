@@ -4,6 +4,7 @@ using UnityEngine;
 using _Scripts.Player.Interaction;
 using _Scripts.UI;
 using _Scripts.World;
+using UnityEngine.Serialization;
 
 public class Interactor : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class Interactor : MonoBehaviour
     private Canvas _inventoryCanvas;
     
     [SerializeField]
-    private InstrumentSlots _instrumentSlots;
+    private InstrumentSlotsContainer instrumentSlotsContainer;
 
     [SerializeField] 
     private Transform _itemPoint;
@@ -182,37 +183,37 @@ public class Interactor : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _instrumentSlots.SelectSlot(0);
+            instrumentSlotsContainer.SelectSlot(0);
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            _instrumentSlots.SelectSlot(1);
+            instrumentSlotsContainer.SelectSlot(1);
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            _instrumentSlots.SelectSlot(2);
+            instrumentSlotsContainer.SelectSlot(2);
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            _instrumentSlots.SelectSlot(3);
+            instrumentSlotsContainer.SelectSlot(3);
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            _instrumentSlots.SelectSlot(4);
+            instrumentSlotsContainer.SelectSlot(4);
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            _instrumentSlots.SelectSlot(5);
+            instrumentSlotsContainer.SelectSlot(5);
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            _instrumentSlots.SelectSlot(6);
+            instrumentSlotsContainer.SelectSlot(6);
         }
     }
 }
