@@ -6,15 +6,17 @@ using _Scripts.ConstructionBuildings;
 using _Scripts.Player.Inventory;
 using _Scripts.UI;
 using _Scripts.World;
+using UnityEngine.Serialization;
 using Grid = _Scripts.World.Grid;
 
 namespace _Scripts.Instruments
 {
-    public class WoodenHammer : InstrumentBase
+    public class WoodenHammer : InstrumentBase, ICanvasDependent
     {
+        [FormerlySerializedAs("_constructionBuildingLoaderCanvas")]
         [Header("Wooden hammer specifics")]
         [SerializeField]
-        private Canvas _constructionBuildingLoaderCanvas;
+        private Canvas _selectingBuildingCanvas;
         
         [SerializeField]
         private float _distanceToBuilding = 6f;
@@ -120,7 +122,7 @@ namespace _Scripts.Instruments
 
         public override void SecondaryAction()
         {
-            UIManager.Instance.ShowCanvas(_constructionBuildingLoaderCanvas);
+            UIManager.Instance.ShowCanvas(_selectingBuildingCanvas);
             StartCoroutine(CloseCanvas());
         }
 
@@ -133,7 +135,7 @@ namespace _Scripts.Instruments
         private IEnumerator CloseCanvas()
         {
             yield return new WaitUntil(() => Input.GetMouseButtonUp(1));
-            UIManager.Instance.HideCanvas(_constructionBuildingLoaderCanvas);
+            UIManager.Instance.HideCanvas(_selectingBuildingCanvas);
         }
 
         private Vector3 GetBuildingCenter(List<GridPosition> positions)
@@ -157,5 +159,8 @@ namespace _Scripts.Instruments
                 PlayerInventory.Instance.RemoveItem(item.ItemData, item.Count);
             }
         }
+
+        public void SetCanvas(Canvas canvas) => _selectingBuildingCanvas = canvas;
+        public Canvas GetCanvas() => _selectingBuildingCanvas;
     }
 }

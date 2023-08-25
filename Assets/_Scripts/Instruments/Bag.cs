@@ -6,22 +6,24 @@ using UnityEngine;
 
 namespace _Scripts.Instruments
 {
-    public class Bag : InstrumentBase
+    public class Bag : InstrumentBase, ICanvasDependent
     {
         [Header("Bag specific")]
         [SerializeField]
         private Canvas _selectingSeedsCanvas;
         
-        [SerializeField]
-        private SeedsLoaderUI _seedsLoaderUI;
-
         [SerializeField] 
         private Material _material;
         
+        private SeedsLoaderUI _seedsLoaderUI;
         private bool _isSelectingSeeds;
 
         private void Awake()
         {
+            if (_selectingSeedsCanvas is null)
+                return;
+            
+            _seedsLoaderUI = _selectingSeedsCanvas.GetComponentInChildren<SeedsLoaderUI>();
             _seedsLoaderUI.SeedSelected += UpdateBagMaterial;
         }
 
@@ -77,5 +79,14 @@ namespace _Scripts.Instruments
         {
             _material.mainTexture = sprite.texture;
         }
+
+        public void SetCanvas(Canvas canvas)
+        {
+            _selectingSeedsCanvas = canvas;
+            _seedsLoaderUI = _selectingSeedsCanvas.GetComponentInChildren<SeedsLoaderUI>();
+            _seedsLoaderUI.SeedSelected += UpdateBagMaterial;
+        }
+
+        public Canvas GetCanvas() => _selectingSeedsCanvas;
     }
 }

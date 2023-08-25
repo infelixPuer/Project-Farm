@@ -7,6 +7,7 @@ namespace _Scripts.Instruments
 {
     public class InstrumentSlotsManager : MonoBehaviour
     {
+        [Header("Slots")]
         [SerializeField]
         private RectTransform _instrumentSlotsContainer;
 
@@ -15,6 +16,9 @@ namespace _Scripts.Instruments
         
         [SerializeField, Range(1, 10)]
         private int _numberOfSlots = 7;
+
+        [Header("UI dependencies")]
+        public List<Canvas> Canvases = new List<Canvas>();
         
         public List<InstrumentBase> Instruments = new List<InstrumentBase>();
         public List<SlotUI> Slots { get; private set; } = new List<SlotUI>();
