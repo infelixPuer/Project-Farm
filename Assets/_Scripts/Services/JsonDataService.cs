@@ -18,7 +18,7 @@ namespace _Scripts.Services
 
                 using FileStream stream = File.Create(path);
                 stream.Close();
-                File.WriteAllText(path, JsonConvert.SerializeObject(data));
+                File.WriteAllText(path, JsonConvert.SerializeObject(data, Formatting.Indented));
                 return true;
             }
             catch (Exception e)

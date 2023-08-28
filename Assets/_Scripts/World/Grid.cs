@@ -6,6 +6,8 @@ namespace _Scripts.World
 {
     public class Grid
     {
+        public GridObject[,] GridObjects => _gridObjectArray;
+        
         private int _width;
         private int _height;
         private float _cellSizeInUnityUnits;

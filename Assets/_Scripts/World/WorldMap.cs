@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+using _Scripts.SaveAndLoad;
+using _Scripts.Services;
 using UnityEngine;
 
 namespace _Scripts.World
 {
-    public class WorldMap : MonoBehaviour
+    public class WorldMap : MonoBehaviour, IDataHandler
     {
         [SerializeField]
         private int _worldWidth;
@@ -24,6 +27,8 @@ namespace _Scripts.World
 
         public static WorldMap Instance;
 
+        public IDataService DataService = new JsonDataService();
+
         private void Awake()
         {
             if (Instance == null)
@@ -38,6 +43,8 @@ namespace _Scripts.World
 
             Grid = new Grid(_worldWidth, _worldHeight, _cellSizeInUnityUnit);
             Grid.CreateGridObjects(_debugObjectPrefab.transform);
+            
+            SaveData();
         }
 
         public void SetTileAtGridPosition(GridPosition gridPosition, Tile tile)
@@ -83,5 +90,46 @@ namespace _Scripts.World
 
         public Vector3 GetLocalScale(Transform gameObjectTransform) =>
             new(gameObjectTransform.localScale.x * _cellSizeInUnityUnit, gameObjectTransform.localScale.y, gameObjectTransform.localScale.z * _cellSizeInUnityUnit);
+
+        public void SaveData()
+        {
+            var worldMapDTO = new WorldMapDTO()
+            {
+                Grid = new GridDTO()
+                {
+                    Width = Grid.GridObjects.GetLength(0),
+                    Height = Grid.GridObjects.GetLength(1),
+                    GridObjects = ConvertToList(Grid.GridObjects)
+                }
+            };
+
+            if (DataService.SaveData(worldMapDTO, "/world-map.json"))
+            {
+                Debug.Log("Data saved!");
+            }
+        }
+
+        public void LoadData()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private List<GridObjectDTO> ConvertToList(GridObject[,] array)
+        {
+            var list = new List<GridObjectDTO>();
+
+            for (int i = 0; i < array.GetLength(0); i++)
+                for (int j = 0; j < array.GetLength(1); j++)
+                    list.Add(new GridObjectDTO()
+                    {
+                        GridPosition = new GridPositionDTO()
+                        {
+                            X = array[i, j].GridPosition.X,
+                            Y = array[i, j].GridPosition.Z,
+                        }
+                    });
+
+            return list;
+        }
     }
 }

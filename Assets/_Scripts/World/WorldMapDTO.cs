@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace _Scripts.World
 {
     [Serializable]
     public class WorldMapDTO
     {
-        public GridDTO Grid;
+        public GridDTO Grid { get; set; }
     }
     
     [Serializable]
@@ -13,12 +15,7 @@ namespace _Scripts.World
     {
         public int Width { get; set; }
         public int Height { get; set; }
-        public GridObjectDTO[,] GridObject;
-
-        public GridDTO()
-        {
-            GridObject = new GridObjectDTO[Width, Height];
-        }
+        public List<GridObjectDTO> GridObjects { get; set; }
     }
 
     [Serializable]
@@ -28,7 +25,7 @@ namespace _Scripts.World
     }
 
     [Serializable]
-    public struct GridPositionDTO
+    public class GridPositionDTO
     {
         public int X { get; set; }
         public int Y { get; set; }
