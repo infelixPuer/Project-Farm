@@ -63,6 +63,7 @@ namespace _Scripts.World
 
             model!.transform.localScale = GetLocalScale(model.transform);
             seedbed.Parent = gridObject;
+            gridObject.Tile = seedbed;
             gridObject.State = GridObjectState.Occupied;
             SeedbedManager.Instance.AddSeedbed(seedbed);
         }
@@ -70,6 +71,7 @@ namespace _Scripts.World
         public void RemoveSeedbed(Seedbed seedbed)
         {
             seedbed.Parent.State = GridObjectState.Empty;
+            seedbed.Parent.Tile = null;
             Destroy(seedbed.gameObject);
             SeedbedManager.Instance.RemoveSeedbed(seedbed);
         }
