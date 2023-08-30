@@ -9,15 +9,10 @@ namespace _Scripts.Services
     {
         public bool SaveData<T>(T data, string relativePath)
         {
-            var path = Application.persistentDataPath + relativePath;
+            var path = Path.Combine(Application.persistentDataPath, relativePath);
             
             try
             {
-                if (File.Exists(path))
-                    File.Delete(path);
-
-                using FileStream stream = File.Create(path);
-                stream.Close();
                 File.WriteAllText(path, JsonConvert.SerializeObject(data, Formatting.Indented));
                 return true;
             }
@@ -30,7 +25,7 @@ namespace _Scripts.Services
 
         public T LoadData<T>(string relativePath)
         {
-            var path = Application.persistentDataPath + relativePath;
+            var path = Path.Combine(Application.persistentDataPath, relativePath);
 
             if (!File.Exists(path))
             {
@@ -40,7 +35,7 @@ namespace _Scripts.Services
 
             try
             {
-                T data = JsonConvert.DeserializeObject<T>(path);
+                T data = JsonConvert.DeserializeObject<T>(File.ReadAllText(path));
                 return data;
             }
             catch (Exception e)

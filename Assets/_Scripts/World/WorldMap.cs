@@ -45,6 +45,7 @@ namespace _Scripts.World
             Grid.CreateGridObjects(_debugObjectPrefab.transform);
             
             SaveData();
+            LoadData();
         }
 
         public void SetTileAtGridPosition(GridPosition gridPosition, Tile tile)
@@ -103,15 +104,16 @@ namespace _Scripts.World
                 }
             };
 
-            if (DataService.SaveData(worldMapDTO, "/world-map.json"))
-            {
-                Debug.Log("Data saved!");
-            }
+            if (DataService.SaveData(worldMapDTO, "world-map.json"))
+                Debug.Log("Data was saved!");
         }
 
         public void LoadData()
         {
-            throw new System.NotImplementedException();
+            var worldMapDTO = DataService.LoadData<WorldMapDTO>("/world-map.json");
+            
+            if (worldMapDTO is not null)
+                Debug.Log("Data was loaded!");
         }
 
         private List<GridObjectDTO> ConvertToList(GridObject[,] array)
