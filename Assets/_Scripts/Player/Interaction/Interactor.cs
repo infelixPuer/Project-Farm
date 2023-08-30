@@ -4,12 +4,14 @@ using UnityEngine;
 using _Scripts.Player.Interaction;
 using _Scripts.UI;
 using _Scripts.World;
-using UnityEngine.Serialization;
 
 public class Interactor : MonoBehaviour
 {
     [SerializeField] 
     private Canvas _inventoryCanvas;
+
+    [SerializeField]
+    private Canvas _saveAndLoadCanvas;
     
     [SerializeField]
     private InstrumentSlotsContainer instrumentSlotsContainer;
@@ -39,39 +41,34 @@ public class Interactor : MonoBehaviour
         if (!InteractionManager.Instance.IsShowingUI)
         {
             if (Input.GetMouseButtonDown(0))
-            {
                 PerformMainActionOfItemInHand();
-            }
 
             if (Input.GetMouseButtonDown(1))
-            {
                 PerformSecondaryActionOfItemInHand();
-            }
 
             if (Input.GetKeyDown(KeyCode.E))
-            {
                 Interaction();
-            }
 
             if (Input.GetKeyDown(KeyCode.X))
-            {
                 DropItemFromHand();
-            }
 
-            if (Input.GetKeyDown(KeyCode.C))
-            {
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
                 ShowSeedbedWaterLevel();
-            }
 
-            if (Input.GetKeyUp(KeyCode.C))
-            {
+            if (Input.GetKeyUp(KeyCode.LeftAlt))
                 HideSeedbedWaterLevel();
-            }
             
             GetNumsInput();
         }
-        
+
+        ShowSaveAndLoadCanvas();
         ShowInventory();
+    }
+
+    private void ShowSaveAndLoadCanvas()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+            UIManager.Instance.ShowCanvas(_saveAndLoadCanvas);
     }
 
     private void PerformMainActionOfItemInHand()
@@ -95,20 +92,14 @@ public class Interactor : MonoBehaviour
         var ray = new Ray(_cam.transform.position, _cam.transform.forward);
 
         if (Physics.Raycast(ray, out var hitInfo, 3f))
-        {
             if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable obj))
-            {
                 obj.Interact(this);
-            }
-        }
     }
     
     private void ShowInventory()
     {
         if (Input.GetKeyUp(KeyCode.Tab))
-        {
             UIManager.Instance.HideCanvas(_inventoryCanvas);
-        }
         
         if (!Input.GetKeyDown(KeyCode.Tab)) return;
         
@@ -158,9 +149,7 @@ public class Interactor : MonoBehaviour
             return;
 
         foreach (var seedbed in seedbeds)
-        {
             seedbed.ShowTooltip();
-        }
 
         SeedbedManager.Instance.IsTooltipVisible = true;
     }
@@ -176,9 +165,7 @@ public class Interactor : MonoBehaviour
             return;
 
         foreach (var seedbed in seedbeds)
-        {
             seedbed.HideTooltip();
-        }
         
         SeedbedManager.Instance.IsTooltipVisible = false;
     }
@@ -186,38 +173,24 @@ public class Interactor : MonoBehaviour
     private void GetNumsInput()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
             instrumentSlotsContainer.SelectSlot(0);
-        }
         
         if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
             instrumentSlotsContainer.SelectSlot(1);
-        }
         
         if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
             instrumentSlotsContainer.SelectSlot(2);
-        }
         
         if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
             instrumentSlotsContainer.SelectSlot(3);
-        }
         
         if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
             instrumentSlotsContainer.SelectSlot(4);
-        }
         
         if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
             instrumentSlotsContainer.SelectSlot(5);
-        }
         
         if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
             instrumentSlotsContainer.SelectSlot(6);
-        }
     }
 }

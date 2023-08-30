@@ -29,6 +29,20 @@ namespace _Scripts.World
             }
         }
 
+        public Grid(GridDTO gridDTO)
+        {
+            _cellSizeInUnityUnits = 2;
+            _gridObjectArray = new GridObject[gridDTO.Width, gridDTO.Height];
+            
+            for (int i = 0; i < gridDTO.Width; i++)
+            {
+                for (int j = 0; j < gridDTO.Height; j++)
+                {
+                    _gridObjectArray[i, j] = new GridObject(this, gridDTO.GridObjects[i * gridDTO.Width + j]);
+                }
+            }
+        }
+
         public Vector3 GetWorldPosition(GridPosition gridPosition) =>
             new Vector3(gridPosition.X + 0.5f, 0, gridPosition.Z + 0.5f) * _cellSizeInUnityUnits;
 
@@ -65,7 +79,7 @@ namespace _Scripts.World
             }
         }
 
-        public void CreateGridObjects(Transform prefab)
+        public void CreateGridDebugObjects(Transform prefab)
         {
             foreach (var gridObject in _gridObjectArray)
             {

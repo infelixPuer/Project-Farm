@@ -8,7 +8,11 @@ namespace _Scripts.World
 
     public class GridObject
     {
-        public GridPosition GridPosition => _gridPosition;
+        public GridPosition GridPosition
+        {
+            get => _gridPosition;
+            private set => _gridPosition = value;
+        }
 
         public GridObjectState State
         {
@@ -31,6 +35,13 @@ namespace _Scripts.World
         {
             _grid = grid;
             _gridPosition = gridPosition;
+            _gridObjectState = GridObjectState.Empty;
+        }
+
+        public GridObject(Grid grid, GridObjectDTO gridObjectDTO)
+        {
+            _grid = grid;
+            GridPosition = new GridPosition(gridObjectDTO.GridPosition.X, gridObjectDTO.GridPosition.Y);
             _gridObjectState = GridObjectState.Empty;
         }
 

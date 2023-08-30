@@ -29,6 +29,8 @@ namespace _Scripts.World
 
         public IDataService DataService = new JsonDataService();
 
+        private bool _isInitialized;
+
         private void Awake()
         {
             if (Instance == null)
@@ -40,12 +42,37 @@ namespace _Scripts.World
             {
                 Destroy(this);
             }
+        }
 
-            Grid = new Grid(_worldWidth, _worldHeight, _cellSizeInUnityUnit);
-            Grid.CreateGridObjects(_debugObjectPrefab.transform);
+        public void Init()
+        {
+            if (_isInitialized)
+            {
+                Grid = null;
+                foreach (Transform child in transform)
+                    Destroy(child.gameObject);
+            }
             
-            SaveData();
-            LoadData();
+            Grid = new Grid(_worldWidth, _worldHeight, _cellSizeInUnityUnit);
+            Grid.CreateGridDebugObjects(_debugObjectPrefab.transform);
+            _isInitialized = true;
+        }
+
+        public void Init(WorldMapDTO worldMapDTO)
+        {
+            if (_isInitialized)
+            {
+                Grid = null;
+                foreach (Transform child in transform)
+                    Destroy(child.gameObject);
+            }
+            
+            _worldWidth = worldMapDTO.Grid.Width;
+            _worldHeight = worldMapDTO.Grid.Height;
+            _cellSizeInUnityUnit = 2;
+            Grid = new Grid(worldMapDTO.Grid);
+            Grid.CreateGridDebugObjects(_debugObjectPrefab.transform);
+            _isInitialized = true;
         }
 
         public void SetTileAtGridPosition(GridPosition gridPosition, Tile tile)
@@ -94,6 +121,12 @@ namespace _Scripts.World
 
         public void SaveData()
         {
+            if (!_isInitialized)
+            {
+                Debug.LogError("Unable to save due to object not instatiated!");
+                return;
+            }
+            
             var worldMapDTO = new WorldMapDTO()
             {
                 Grid = new GridDTO()
@@ -110,10 +143,19 @@ namespace _Scripts.World
 
         public void LoadData()
         {
-            var worldMapDTO = DataService.LoadData<WorldMapDTO>("/world-map.json");
+            if (_isInitialized)
+            {
+                Grid = null;
+                foreach (Transform child in transform)
+                    Destroy(child.gameObject);
+            }
+            
+            var worldMapDTO = DataService.LoadData<WorldMapDTO>("world-map.json");
             
             if (worldMapDTO is not null)
                 Debug.Log("Data was loaded!");
+            
+            Init(worldMapDTO);
         }
 
         private List<GridObjectDTO> ConvertToList(GridObject[,] array)
