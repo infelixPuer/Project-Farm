@@ -117,6 +117,7 @@ namespace _Scripts.Instruments
             foreach (var gridObject in _gridObjects)
             {
                 gridObject.State = GridObjectState.Occupied;
+                gridObject.Tile = building;
             }
         }
 

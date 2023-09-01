@@ -1,8 +1,9 @@
+using _Scripts.World;
 using UnityEngine;
 
 namespace _Scripts.ConstructionBuildings
 {
-    public class ConstructionBuilding : MonoBehaviour
+    public class ConstructionBuilding : Tile
     {
         [Header("Size")]
         public int CellSize;
@@ -15,11 +16,6 @@ namespace _Scripts.ConstructionBuildings
         
         [SerializeField]
         private Material _material;
-
-        // private void Awake()
-        // {
-        //     transform.localScale = new Vector3(Width * CellSize, 1, Depth * CellSize);
-        // }
         
         public void ToogleColliderState(bool isTrigger) => _coll.isTrigger = isTrigger;
 
@@ -38,6 +34,11 @@ namespace _Scripts.ConstructionBuildings
         public void SetObjectScale(ConstructionBuildingSO buildingData)
         {
             transform.localScale = new Vector3(buildingData.Width * CellSize, 1, buildingData.Depth * CellSize);
+        }
+
+        public override void UpdateTileState(TileState state)
+        {
+            State = state;
         }
     }
 

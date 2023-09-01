@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Scripts.Factories;
 using UnityEngine;
 
 namespace _Scripts.World
@@ -33,12 +34,16 @@ namespace _Scripts.World
         {
             _cellSizeInUnityUnits = 2;
             _gridObjectArray = new GridObject[gridDTO.Width, gridDTO.Height];
+
+            var map = WorldMap.Instance;
             
             for (int i = 0; i < gridDTO.Width; i++)
             {
                 for (int j = 0; j < gridDTO.Height; j++)
                 {
-                    _gridObjectArray[i, j] = new GridObject(this, gridDTO.GridObjects[i * gridDTO.Width + j]);
+                    var gridObjectDTO = gridDTO.GridObjects[i * gridDTO.Width + j];
+                    _gridObjectArray[i, j] = new GridObject(this, gridObjectDTO);
+                    // _gridObjectArray[i, j].Tile = gridObjectDTO.Child.IsExisting ? SeedbedFactory.Instance.RecreateTile(map.transform, map.GetWorldPosition(_gridObjectArray[i, j].GridPosition), (SeedbedDTO)gridObjectDTO.Child) : null;
                 }
             }
         }

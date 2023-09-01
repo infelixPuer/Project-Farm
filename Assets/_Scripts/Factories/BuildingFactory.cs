@@ -1,25 +1,36 @@
-﻿using _Scripts.World;
+﻿using _Scripts.ConstructionBuildings;
+using _Scripts.World;
+using UnityEngine;
 
 namespace _Scripts.Factories
 {
     public class BuildingFactory : TileFactory
     {
-        private static BuildingFactory _instance;
+        [SerializeField]
+        private ConstructionBuilding _buildingPrefab;
+        
+        public static BuildingFactory Instance;
 
-        public static BuildingFactory Instance
+        private void Awake()
         {
-            get
+            if (Instance == null)
             {
-                if (_instance == null)
-                    _instance = new BuildingFactory();
-
-                return _instance;
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
+            else 
+                Destroy(gameObject);
         }
 
-        private BuildingFactory() { }
-        
-        public override Tile CreateTile()
+        public override Tile CreateTile(Transform parent, Vector3 position)
+        {
+            var building = Instantiate(_buildingPrefab, parent);
+            building.SetObjectOpaque();
+
+            return building;
+        }
+
+        public override Tile RecreateTile(Transform parent, Vector3 position, TileDTO tile)
         {
             throw new System.NotImplementedException();
         }

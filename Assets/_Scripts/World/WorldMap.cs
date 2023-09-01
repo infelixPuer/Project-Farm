@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Scripts.Factories;
 using _Scripts.SaveAndLoad;
 using _Scripts.Services;
 using UnityEngine;
@@ -71,7 +72,18 @@ namespace _Scripts.World
             _worldHeight = worldMapDTO.Grid.Height;
             _cellSizeInUnityUnit = 2;
             Grid = new Grid(worldMapDTO.Grid);
+
+            for (int i = 0; i < Grid.GridObjects.GetLength(0); ++i)
+            {
+                for (int j = 0; j < Grid.GridObjects.GetLength(1); ++j)
+                {
+                    var gridObjectDTO = worldMapDTO.Grid.GridObjects[i * Grid.GridObjects.GetLength(0) + j];
+                    Grid.GridObjects[i, j].Tile = gridObjectDTO.Child.IsExisting ? SeedbedFactory.Instance.RecreateTile(transform, GetWorldPosition(Grid.GridObjects[i, j].GridPosition), (SeedbedDTO)gridObjectDTO.Child) : null;
+                }
+            }
+            
             Grid.CreateGridDebugObjects(_debugObjectPrefab.transform);
+            
             _isInitialized = true;
         }
 
@@ -94,9 +106,9 @@ namespace _Scripts.World
             }
 
             var seedbed = Instantiate(_seedbedPrefab, GetWorldPosition(GetGridPosition(interactionPoint)), Quaternion.identity);
-            var model = seedbed.GetComponentInChildren<MeshRenderer>()?.gameObject;
+            var model = seedbed.gameObject;
 
-            model!.transform.localScale = GetLocalScale(model.transform);
+            model.transform.localScale = GetLocalScale(model.transform);
             seedbed.Parent = gridObject;
             gridObject.Tile = seedbed;
             gridObject.State = GridObjectState.Occupied;
@@ -137,8 +149,36 @@ namespace _Scripts.World
                 }
             };
 
+            var x = Grid.GridObjects.GetLength(0);
+            var y = Grid.GridObjects.GetLength(1);
+
+            for (int i = 0; i < x; ++i)
+            {
+                for (int j = 0; j < y; ++j)
+                {
+                    var tile = (SeedbedDTO)worldMapDTO.Grid.GridObjects[i * x + j].Child;
+                    var seedbed = (Seedbed)Grid.GridObjects[i, j].Tile;
+                    
+                    if (seedbed is null)
+                    {
+                        tile.IsExisting = false;
+                        continue;
+                    }
+
+                    tile.IsExisting = true;
+                    tile.DaysToDry = seedbed.DaysToDry;
+                    tile.CurrentWaterLevel = seedbed.CurrentWaterLevel;
+                    tile.WaterLevelAfterWatering = seedbed.WaterLevelAfterWatering;
+                    tile.ElapsedTime = seedbed.ElapsedTime;
+                    tile.DateOfWatering = seedbed.DateOfWatering;
+                    tile.IsWatered = seedbed.IsWatered;
+                }
+            }
+
             if (DataService.SaveData(worldMapDTO, "world-map.json"))
                 Debug.Log("Data was saved!");
+            else
+                Debug.Log("Data wasn't saved!");
         }
 
         public void LoadData()

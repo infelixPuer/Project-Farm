@@ -20,7 +20,7 @@ namespace _Scripts.UI
         {
             var buildings = Resources.LoadAll<ConstructionBuildingSO>("Scriptables/ConstructionBuildings");
             
-            var woodenHammer = _interactor.ItemInHand as WoodenHammer;
+            var woodenHammer = Interactor.Instance.ItemInHand as WoodenHammer;
             
             foreach (var building in buildings)
             {

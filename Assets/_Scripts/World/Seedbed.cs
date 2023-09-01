@@ -31,9 +31,13 @@ namespace _Scripts.World
         [SerializeField]
         private float _daysToDry;
 
+        public float DaysToDry => _daysToDry;
+
         [SerializeField]
         [Range(0f, 1f)]
         private float _currentWaterLevel;
+
+        public float CurrentWaterLevel => _currentWaterLevel;
 
         public GridObject Parent;
 
@@ -41,9 +45,16 @@ namespace _Scripts.World
         private CropBase _cropBase;
 
         private float _waterLevelAfterWatering;
+        public float WaterLevelAfterWatering => _waterLevelAfterWatering;
+        
         private TimeSpan _elapsedTime;
+        public TimeSpan ElapsedTime => _elapsedTime;
+        
         private DateTime _dateOfWatering;
+        public DateTime DateOfWatering => _dateOfWatering;
+        
         private bool _isWatered;
+        public bool IsWatered => _isWatered;
 
         private void Awake()
         {
@@ -61,6 +72,16 @@ namespace _Scripts.World
         {
             UpdateWaterLevel();
             _tooltip.SetText($"{Math.Round(_currentWaterLevel * 100, 0)}%");
+        }
+
+        public void Init(SeedbedDTO seedbed)
+        {
+            _daysToDry = seedbed.DaysToDry;
+            _currentWaterLevel = seedbed.CurrentWaterLevel;
+            _waterLevelAfterWatering = seedbed.WaterLevelAfterWatering;
+            _elapsedTime = seedbed.ElapsedTime;
+            _dateOfWatering = seedbed.DateOfWatering;
+            _isWatered = seedbed.IsWatered;
         }
 
         private void UpdateCellMaterial() => _renderer.material = State == TileState.Empty ? _emptyMaterial : _plantedMaterial;

@@ -18,7 +18,7 @@ namespace _Scripts.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Unable to save file due to: {e.Message} {e.StackTrace}");
+                Debug.Log($"Unable to save file due to: {e.Message} {e.StackTrace}");
                 return false;
             }
         }
@@ -40,7 +40,7 @@ namespace _Scripts.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Unable to load data due to: {e.Message}, {e.StackTrace}");
+                Debug.Log($"Unable to load data due to: {e.Message}, {e.StackTrace}");
                 throw;
             }
         }

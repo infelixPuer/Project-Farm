@@ -25,8 +25,18 @@ public class Interactor : MonoBehaviour
     private Camera _cam;
     private bool _isInventoryOpened;
 
+    public static Interactor Instance;
+
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else 
+            Destroy(gameObject);
+        
         _cam = Camera.main;
     }
 
@@ -43,7 +53,7 @@ public class Interactor : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
                 PerformMainActionOfItemInHand();
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetKeyDown(KeyCode.T))
                 PerformSecondaryActionOfItemInHand();
 
             if (Input.GetKeyDown(KeyCode.E))

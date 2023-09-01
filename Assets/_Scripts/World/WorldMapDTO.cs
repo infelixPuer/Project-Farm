@@ -6,27 +6,44 @@ namespace _Scripts.World
     [Serializable]
     public class WorldMapDTO
     {
-        public GridDTO Grid { get; set; }
+        public GridDTO Grid;
+    }
+
+    [Serializable]
+    public class SeedbedDTO : TileDTO
+    {
+        public float DaysToDry;
+        public float CurrentWaterLevel;
+        public float WaterLevelAfterWatering;
+        public TimeSpan ElapsedTime;
+        public DateTime DateOfWatering;
+        public bool IsWatered;
+    }
+
+    public abstract class TileDTO
+    {
+        public bool IsExisting;
     }
     
     [Serializable]
     public class GridDTO
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public List<GridObjectDTO> GridObjects { get; set; }
+        public int Width;
+        public int Height;
+        public List<GridObjectDTO> GridObjects;
     }
 
     [Serializable]
     public class GridObjectDTO
     {
-        public GridPositionDTO GridPosition { get; set; }
+        public GridPositionDTO GridPosition;
+        public TileDTO Child = new SeedbedDTO();
     }
 
     [Serializable]
     public class GridPositionDTO
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X;
+        public int Y;
     }
 }

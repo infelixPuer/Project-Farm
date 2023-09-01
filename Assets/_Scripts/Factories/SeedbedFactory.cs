@@ -1,35 +1,78 @@
-﻿using System;
-using _Scripts.World;
+﻿using _Scripts.World;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace _Scripts.Factories
 {
-    [Serializable]
     public class SeedbedFactory : TileFactory
     {
         [SerializeField]
         private Seedbed _seedbedPrefab;
         
-        
-        private static SeedbedFactory _instance;
-        
-        public static SeedbedFactory Instance
+        public static SeedbedFactory Instance;
+
+        private void Awake()
         {
-            get
+            if (Instance == null)
             {
-                if (_instance == null)
-                    _instance = new SeedbedFactory();
-                
-                return _instance;
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
+            else 
+                Destroy(gameObject);
         }
 
-        private SeedbedFactory() { }
-        
-        public override Tile CreateTile()
+        public override Tile CreateTile(Transform parent, Vector3 position)
         {
-            var seedbed = Object.Instantiate(_seedbedPrefab, Vector3.zero, Quaternion.identity);
+            var map = WorldMap.Instance;
+            
+            var gridObject = map.Grid.GetGridObject(map.GetGridPosition(position));
+
+            if (gridObject == null) return null;
+
+            if (gridObject.State != GridObjectState.Empty)
+            {
+                Debug.LogWarning("Spot is already occupied!");
+                return null;
+            }
+
+            var seedbed = Instantiate(_seedbedPrefab, map.GetWorldPosition(map.GetGridPosition(position)), Quaternion.identity);
+            seedbed.transform.SetParent(parent);
+            var model = seedbed.gameObject;
+
+            model.transform.localScale = map.GetLocalScale(model.transform);
+            seedbed.Parent = gridObject;
+            gridObject.Tile = seedbed;
+            gridObject.State = GridObjectState.Occupied;
+            SeedbedManager.Instance.AddSeedbed(seedbed);
+
+            return seedbed;
+        }
+
+        public override Tile RecreateTile(Transform parent, Vector3 position, TileDTO tile)
+        {
+            var map = WorldMap.Instance;
+            
+            var gridObject = map.Grid.GetGridObject(map.GetGridPosition(position));
+
+            if (gridObject == null) return null;
+
+            if (gridObject.State != GridObjectState.Empty)
+            {
+                Debug.LogWarning("Spot is already occupied!");
+                return null;
+            }
+
+            var seedbed = Instantiate(_seedbedPrefab, map.GetWorldPosition(map.GetGridPosition(position)), Quaternion.identity);
+            seedbed.transform.SetParent(parent);
+            seedbed.Init((SeedbedDTO)tile);
+            var model = seedbed.gameObject;
+
+            model.transform.localScale = map.GetLocalScale(model.transform);
+            seedbed.Parent = gridObject;
+            gridObject.Tile = seedbed;
+            gridObject.State = GridObjectState.Occupied;
+            SeedbedManager.Instance.AddSeedbed(seedbed);
+
             return seedbed;
         }
     }
