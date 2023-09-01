@@ -52,10 +52,10 @@ public class Interactor : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.X))
                 DropItemFromHand();
 
-            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            if (Input.GetKeyDown(KeyCode.V))
                 ShowSeedbedWaterLevel();
 
-            if (Input.GetKeyUp(KeyCode.LeftAlt))
+            if (Input.GetKeyUp(KeyCode.V))
                 HideSeedbedWaterLevel();
             
             GetNumsInput();
